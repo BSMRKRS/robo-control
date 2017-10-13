@@ -16,10 +16,10 @@ motorL_forward = 1000
 motorL_backward = 2000
 
 try:
-  RPL.pinMode(motorL,RPL.PWM)
-  RPL.servoWrite(motorL,1500,freq)
-  RPL.pinMode(motorR,RPL.PWM)
-  RPL.servoWrite(motorR,1500,freq)
+  RPL.pinMode(motorL,RPL.SERVO)
+  RPL.servoWrite(motorL,1500)
+  RPL.pinMode(motorR,RPL.SERVO)
+  RPL.servoWrite(motorR,1500)
 except:
   pass
 
@@ -43,12 +43,12 @@ def reverse():
   RPL.servoWrite(motorR,motorR_backward)
 
 def right():
-  RPL.servoWrite(motorL,motorL_forward)
-  RPL.servoWrite(motorR,motorR_backward)
+  RPL.servoWrite(motorL,1460)#motorL_forward)
+  RPL.servoWrite(motorR,1460)#motorR_backward)
 
 def left():
-  RPL.servoWrite(motorL,motorL_backward)
-  RPL.servoWrite(motorR,motorR_forward)
+  RPL.servoWrite(motorL,1540)#motorL_backward)
+  RPL.servoWrite(motorR,1540)#motorR_forward)
 
 def forward_right():
   RPL.servoWrite(motorL,motorL_forward)
@@ -66,6 +66,9 @@ def backward_left():
   RPL.servoWrite(motorL,motorL_backward)
   RPL.servoWrite(motorR,1500)
 
+def print_speed():
+  print 'FORWARD: Left Motor: ', motorL_forward, ' Right Motor: ', motorR_forward, '\r'
+
 def forwardSpeedChanges(change, mn = 1600, mx = 2900):
   global motorR_forward
   global motorL_forward
@@ -73,7 +76,7 @@ def forwardSpeedChanges(change, mn = 1600, mx = 2900):
   motorL_forward += change
   motorR_forward = max(min(motorR_forward, mx), mn)
   motorL_forward = max(min(motorL_forward, mx), mn)
-  print 'FORWARD: Left Motor: ', motorL_forward, ' Right Motor: ', motorR_forward, '\r'
+  print_speed()
 
 def backwardSpeedChanges(change, mn = 100, mx = 1400):
   global motorR_backward
@@ -82,33 +85,31 @@ def backwardSpeedChanges(change, mn = 100, mx = 1400):
   motorL_backward += change
   motorR_backward = max(min(motorR_backward, mx), mn)
   motorL_backward = max(min(motorL_backward, mx), mn)
-  print 'BACKWARD: Left Motor: ', motorL_backward, ' Right Motor: ', motorR_backward, '\r'
+  print_speed()
 
 def backwardRightSpeedChange(change, mn = 100, mx = 1400):
   global motorR_backward
   motorR_backward += change
   motorR_backward = max(min(motorR_backward, mx), mn)
-  print 'BACKWARD: Left Motor: ', motorL_backward, ' Right Motor: ', motorR_backward, '\r'
+  print_speed()
 
 def backwardLeftSpeedChange(change, mn = 100, mx = 1400):
   global motorL_backward
   motorL_backward += change
   motorL_backward = max(min(motorL_backward, mx), mn)
-  print 'BACKWARD: Left Motor: ', motorL_backward, ' Right Motor: ', motorR_backward, '\r'
+  print_speed()
 
 def forwardRightSpeedChange(change, mn = 1600, mx = 2900):
   global motorR_forward
   motorR_forward += change
   motorR_forward = max(min(motorR_forward, mx), mn)
-  print 'FORWARD: Left Motor: ', motorL_forward, ' Right Motor: ', motorR_forward, '\r'
+  print_speed()
 
 def forwardLeftSpeedChange(change, mn = 1600, mx = 2900):
   global motorL_forward
   motorL_forward += change
   motorL_forward = max(min(motorL_forward, mx), mn)
-  print 'FORWARD: Left Motor: ', motorL_forward, ' Right Motor: ', motorR_forward, '\r'
-
-SHORT_TIMEOUT = 0.2 # number of seconds your want for timeout
+  print_speed()
 
 fd = sys.stdin.fileno() # I don't know what this does
 old_settings = termios.tcgetattr(fd) # this records the existing console settings that are later changed with the tty.setraw... line so that they can be replaced when the loop ends
@@ -124,6 +125,9 @@ signal.signal(signal.SIGALRM, interrupted) # this calls the 'interrupted' method
 tty.setraw(sys.stdin.fileno()) # this sets the style of the input
 
 print "Ready To Drive! Press * to quit.\r"
+## the SHORT_TIMEOUT needs to be greater than the press delay on your keyboard
+## on your computer, set the delay to 250 ms with `xset r rate 250 20`
+SHORT_TIMEOUT = 0.255 # number of seconds your want for timeout
 while True:
   signal.setitimer(signal.ITIMER_REAL,SHORT_TIMEOUT) # this sets the alarm
   ch = sys.stdin.read(1) # this reads one character of input without requiring an enter keypress
