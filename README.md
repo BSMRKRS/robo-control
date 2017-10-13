@@ -10,12 +10,12 @@ Terminal control for a RoboPi based robot
 # Driving
 1. Use the WASD (and QEZC) keys to drive.
 1. Change the speed with the following keys:
-* `[` and `]` change the forward speed of both motors.
-* `{` and `}` change the backward speed of both motors.
-* `1` and `!` increate and decrease the forward speed of the left motor
-* `2` and `@` increate and decrease the forward speed of the right motor
-* `3` and `#` increate and decrease the backward speed of the left motor
-* `4` and `$` increate and decrease the backward speed of the right motor
+  * `[` and `]` change the forward speed of both motors.
+  * `{` and `}` change the backward speed of both motors.
+  * `1` and `!` increate and decrease the forward speed of the left motor
+  * `2` and `@` increate and decrease the forward speed of the right motor
+  * `3` and `#` increate and decrease the backward speed of the left motor
+  * `4` and `$` increate and decrease the backward speed of the right motor
 1. Press the asterisk (`*`) to quit controlling the robot.
 
 # Changing the code
