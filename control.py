@@ -12,14 +12,14 @@ motorR = 1
 
 motorR_forward = 2000
 motorR_backward = 1000
-motorL_forward = 2000
-motorL_backward = 1000
+motorL_forward = 1000
+motorL_backward = 2000
 
 try:
   RPL.pinMode(motorL,RPL.PWM)
-  RPL.pwmWrite(motorL,1500,freq)
+  RPL.servoWrite(motorL,1500,freq)
   RPL.pinMode(motorR,RPL.PWM)
-  RPL.pwmWrite(motorR,1500,freq)
+  RPL.servoWrite(motorR,1500,freq)
 except:
   pass
 
@@ -28,43 +28,43 @@ except:
 ######################
 def stopAll():
   try:
-    RPL.pwmWrite(motorL,1500, freq)
-    RPL.pwmWrite(motorR,1500, freq)
+    RPL.servoWrite(motorL,1500)
+    RPL.servoWrite(motorR,1500)
   except:
     print "error except"
     pass
 
 def forward():
-  RPL.pwmWrite(motorL,motorL_forward, freq)
-  RPL.pwmWrite(motorR,motorR_forward, freq)
+  RPL.servoWrite(motorL,motorL_forward)
+  RPL.servoWrite(motorR,motorR_forward)
 
 def reverse():
-  RPL.pwmWrite(motorL,motorL_backward, freq)
-  RPL.pwmWrite(motorR,motorR_backward, freq)
+  RPL.servoWrite(motorL,motorL_backward)
+  RPL.servoWrite(motorR,motorR_backward)
 
 def right():
-  RPL.pwmWrite(motorL,motorL_forward, freq)
-  RPL.pwmWrite(motorR,motorR_backward, freq)
+  RPL.servoWrite(motorL,motorL_forward)
+  RPL.servoWrite(motorR,motorR_backward)
 
 def left():
-  RPL.pwmWrite(motorL,motorL_backward,freq)
-  RPL.pwmWrite(motorR,motorR_forward,freq)
+  RPL.servoWrite(motorL,motorL_backward)
+  RPL.servoWrite(motorR,motorR_forward)
 
 def forward_right():
-  RPL.pwmWrite(motorL,motorL_forward,freq)
-  RPL.pwmWrite(motorR,1500,freq)
+  RPL.servoWrite(motorL,motorL_forward)
+  RPL.servoWrite(motorR,1500)
 
 def forward_left():
-  RPL.pwmWrite(motorL,1500,freq)
-  RPL.pwmWrite(motorR,motorR_forward,freq)
+  RPL.servoWrite(motorL,1500)
+  RPL.servoWrite(motorR,motorR_forward)
 
 def backward_right():
-  RPL.pwmWrite(motorL,1500,freq)
-  RPL.pwmWrite(motorR,motorR_backward,freq)
+  RPL.servoWrite(motorL,1500)
+  RPL.servoWrite(motorR,motorR_backward)
 
 def backward_left():
-  RPL.pwmWrite(motorL,motorL_backward,freq)
-  RPL.pwmWrite(motorR,1500,freq)
+  RPL.servoWrite(motorL,motorL_backward)
+  RPL.servoWrite(motorR,1500)
 
 def forwardSpeedChanges(change, mn = 1600, mx = 2900):
   global motorR_forward
