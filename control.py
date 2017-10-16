@@ -10,6 +10,15 @@ import sys, tty, termios, signal
 motorL = 0
 motorR = 1
 
+
+def r_speed_conversion(trueSpeed):
+    speed = trueSpeed + 1500
+    return speed
+
+def l_speed_conversion(trueSpeed):
+    speed = 1500 - trueSpeed
+    return speed
+
 motorR_forward = r_speed_conversion(500)
 motorR_backward = r_speed_conversion(-500)
 
