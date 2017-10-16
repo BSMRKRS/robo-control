@@ -89,7 +89,7 @@ def backward_left():
 def print_speed():
   print 'FORWARD: Left Motor: ', motorL_forward, ' Right Motor: ', motorR_forward, '\r'
 
-def forwardSpeedChanges(change, mn = 1600, mx = 2900):
+def forwardSpeedChanges(change, mn = 100, mx = 2900):
   global motorR_forward
   global motorL_forward
   motorR_forward += change
@@ -98,7 +98,7 @@ def forwardSpeedChanges(change, mn = 1600, mx = 2900):
   motorL_forward = max(min(motorL_forward, mx), mn)
   print_speed()
 
-def backwardSpeedChanges(change, mn = 100, mx = 1400):
+def backwardSpeedChanges(change, mn = 100, mx = 2900):
   global motorR_backward
   global motorL_backward
   motorR_backward -= change
@@ -113,7 +113,7 @@ def backwardRightSpeedChange(change, mn = 100, mx = 1400):
   motorR_backward = max(min(motorR_backward, mx), mn)
   print_speed()
 
-def backwardLeftSpeedChange(change, mn = 100, mx = 1400):
+def backwardLeftSpeedChange(change, mn = 1600, mx = 2900):
   global motorL_backward
   motorL_backward += change
   motorL_backward = max(min(motorL_backward, mx), mn)
@@ -125,7 +125,7 @@ def forwardRightSpeedChange(change, mn = 1600, mx = 2900):
   motorR_forward = max(min(motorR_forward, mx), mn)
   print_speed()
 
-def forwardLeftSpeedChange(change, mn = 1600, mx = 2900):
+def forwardLeftSpeedChange(change, mn = 100, mx = 1400):
   global motorL_forward
   motorL_forward += change
   motorL_forward = max(min(motorL_forward, mx), mn)
