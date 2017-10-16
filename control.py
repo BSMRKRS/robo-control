@@ -10,22 +10,22 @@ import sys, tty, termios, signal
 motorL = 0
 motorR = 1
 
-motorR_forward = r_speed_coversion(500)
-motorR_backward = r_speed_coversion(-500)
+motorR_forward = r_speed_conversion(500)
+motorR_backward = r_speed_conversion(-500)
 
-motorL_forward = l_speed_coversion(500)
-motorL_backward = l_speed_coversion(-500)
+motorL_forward = l_speed_conversion(500)
+motorL_backward = l_speed_conversion(-500)
 
 try:
   RPL.pinMode(motorL,RPL.SERVO)
-  RPL.servoWrite(motorL,l_speed_coversion(0))
+  RPL.servoWrite(motorL,l_speed_conversion(0))
   RPL.pinMode(motorR,RPL.SERVO)
-  RPL.servoWrite(motorR,r_speed_coversion(0))
+  RPL.servoWrite(motorR,r_speed_conversion(0))
 except:
   pass
 
 
-def r_speed_coversion(trueSpeed):
+def r_speed_conversion(trueSpeed):
     speed = trueSpeed + 1500
     return speed
 
@@ -54,12 +54,12 @@ def reverse():
   RPL.servoWrite(motorR,motorR_backward)
 
 def right():
-  RPL.servoWrite(motorL,l_speed_coversion(40))#motorL_forward)
-  RPL.servoWrite(motorR,r_speed_coversion(-40))#motorR_backward)
+  RPL.servoWrite(motorL,l_speed_conversion(40))#motorL_forward)
+  RPL.servoWrite(motorR,r_speed_conversion(-40))#motorR_backward)
 
 def left():
-  RPL.servoWrite(motorL,l_speed_coversion(-40))#motorL_backward)
-  RPL.servoWrite(motorR,r_speed_coversion(40))#motorR_forward)
+  RPL.servoWrite(motorL,l_speed_conversion(-40))#motorL_backward)
+  RPL.servoWrite(motorR,r_speed_conversion(40))#motorR_forward)
 
 def forward_right():
   RPL.servoWrite(motorL,motorL_forward)
