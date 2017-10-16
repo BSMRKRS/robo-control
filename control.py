@@ -10,18 +10,28 @@ import sys, tty, termios, signal
 motorL = 0
 motorR = 1
 
-motorR_forward = 2000
-motorR_backward = 1000
-motorL_forward = 1000
-motorL_backward = 2000
+motorR_forward = r_speed_coversion(500)
+motorR_backward = r_speed_coversion(-500)
+
+motorL_forward = l_speed_coversion(500)
+motorL_backward = l_speed_coversion(-500)
 
 try:
   RPL.pinMode(motorL,RPL.SERVO)
-  RPL.servoWrite(motorL,1500)
+  RPL.servoWrite(motorL,l_speed_coversion(0))
   RPL.pinMode(motorR,RPL.SERVO)
-  RPL.servoWrite(motorR,1500)
+  RPL.servoWrite(motorR,r_speed_coversion(0))
 except:
   pass
+
+
+def r_speed_coversion(trueSpeed):
+    speed = trueSpeed + 1500
+    return speed
+
+def l_speed_conversion(trueSpeed):
+    speed = 1500 - trueSpeed
+    return speed
 
 ######################
 ## Individual commands
@@ -44,12 +54,12 @@ def reverse():
   RPL.servoWrite(motorR,motorR_backward)
 
 def right():
-  RPL.servoWrite(motorL,1460)#motorL_forward)
-  RPL.servoWrite(motorR,1460)#motorR_backward)
+  RPL.servoWrite(motorL,l_speed_coversion(40))#motorL_forward)
+  RPL.servoWrite(motorR,r_speed_coversion(-40))#motorR_backward)
 
 def left():
-  RPL.servoWrite(motorL,1540)#motorL_backward)
-  RPL.servoWrite(motorR,1540)#motorR_forward)
+  RPL.servoWrite(motorL,l_speed_coversion(-40))#motorL_backward)
+  RPL.servoWrite(motorR,r_speed_coversion(40)#motorR_forward)
 
 def forward_right():
   RPL.servoWrite(motorL,motorL_forward)
@@ -74,7 +84,7 @@ def forwardSpeedChanges(change, mn = 1600, mx = 2900):
   global motorR_forward
   global motorL_forward
   motorR_forward += change
-  motorL_forward += change
+  motorL_forward -= change
   motorR_forward = max(min(motorR_forward, mx), mn)
   motorL_forward = max(min(motorL_forward, mx), mn)
   print_speed()
@@ -82,7 +92,7 @@ def forwardSpeedChanges(change, mn = 1600, mx = 2900):
 def backwardSpeedChanges(change, mn = 100, mx = 1400):
   global motorR_backward
   global motorL_backward
-  motorR_backward += change
+  motorR_backward -= change
   motorL_backward += change
   motorR_backward = max(min(motorR_backward, mx), mn)
   motorL_backward = max(min(motorL_backward, mx), mn)
