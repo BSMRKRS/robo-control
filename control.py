@@ -175,9 +175,9 @@ while True:
     elif ch == "]":
       forwardSpeedChanges(100)
     elif ch == "[":
-      backwardSpeedChanges(-100)
-    elif ch == "}":
       forwardSpeedChanges(-100)
+    elif ch == "}":
+      backwardSpeedChanges(-100)
     elif ch == "{":
       backwardSpeedChanges(100)
     elif ch == "1":
