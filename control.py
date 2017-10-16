@@ -37,6 +37,7 @@ def stopAll():
 def forward():
   RPL.servoWrite(motorL,motorL_forward)
   RPL.servoWrite(motorR,motorR_forward)
+  print_speed()
 
 def reverse():
   RPL.servoWrite(motorL,motorL_backward)
