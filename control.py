@@ -59,7 +59,7 @@ def right():
 
 def left():
   RPL.servoWrite(motorL,l_speed_coversion(-40))#motorL_backward)
-  RPL.servoWrite(motorR,r_speed_coversion(40)#motorR_forward)
+  RPL.servoWrite(motorR,r_speed_coversion(40))#motorR_forward)
 
 def forward_right():
   RPL.servoWrite(motorL,motorL_forward)
