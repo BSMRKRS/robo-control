@@ -67,7 +67,8 @@ def backward_left():
   RPL.servoWrite(motorR,1500)
 
 def print_speed():
-  print 'FORWARD: Left Motor: ', motorL_forward, ' Right Motor: ', motorR_forward, '\r'
+  print '--FORWARD: Left Motor: ', motorL_forward, ' Right Motor: ', motorR_forward, '\r'
+  print '  BACKWARD: Left Motor: ', motorR_backward, ' Right Motor: ', motorL_backward, '\r'
 
 def forwardSpeedChanges(change, mn = 1600, mx = 2900):
   global motorR_forward
