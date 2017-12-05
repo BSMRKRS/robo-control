@@ -33,21 +33,25 @@ def stopAll():
     print "error except"
     pass
 
+global sensitivity
+sensitivity = 500
+
 
 def rightMotorScaled(x, y):
         a = y + x
-        scaled = int(a * 500)
+        scaled = int(a * sensitivity)
         return scaled + 1500
 
 def leftMotorScaled(x, y):
         a = y - x
-        scaled = int(a * 500)
+        scaled = int(a * sensitivity)
         return 1500 - scaled
 
 
 
 if __name__ == '__main__':
     joy = xbox.Joystick()
+    global sensitivity
 
     while not joy.Back():
 
@@ -56,6 +60,13 @@ if __name__ == '__main__':
 
         RPL.servoWrite(motorL,leftMotorScaled(x, y))
         RPL.servoWrite(motorR,rightMotorScaled(x, y))
+
+        if joy.A() == 1:
+                sensitivity += 10
+                print sensitivity
+        if joy.B() == 1:
+                sensitivity -= 10
+                print sensitivity
 
 
 joy.close()
