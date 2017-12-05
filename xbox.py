@@ -98,11 +98,6 @@ class Joystick:
                 if len(response) == 140:
                     self.connectStatus = True
                     self.reading = response
-                    file_object = open("xboxCurrentStatus.txt","w")
-                    file_object.truncate()
-                    file_object.write(response)
-                    file_object.close()
-                    print "file written"
                 else:  #Any other response means we have lost wireless or controller battery
                     self.connectStatus = False
             self.refresh()
@@ -130,6 +125,11 @@ class Joystick:
     # Left stick Y axis value scaled between -1.0 (down) and 1.0 (up)
     def leftY(self,deadzone=500):
         self.refresh()
+        file_object = open("xboxCurrentStatus.txt","w")
+        file_object.truncate()
+        file_object.write(response)
+        file_object.close()
+        print "file written"
         raw = int(self.reading[13:19])
         return self.axisScale(raw,deadzone)
 
