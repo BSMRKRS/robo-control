@@ -13,19 +13,11 @@ motorL = 0
 motorR = 1
 
 
-def r_speed_conversion(trueSpeed):
-    speed = trueSpeed + 1500
-    return speed
-
-def l_speed_conversion(trueSpeed):
-    speed = 1500 - trueSpeed
-    return speed
-
 try:
   RPL.pinMode(motorL,RPL.SERVO)
-  RPL.servoWrite(motorL,l_speed_conversion(0))
+  RPL.servoWrite(motorL, 1500)
   RPL.pinMode(motorR,RPL.SERVO)
-  RPL.servoWrite(motorR,r_speed_conversion(0))
+  RPL.servoWrite(motorR, 1500)
 except:
   pass
 
@@ -44,18 +36,13 @@ def stopAll():
 
 def rightMotorScaled(x, y):
         a = y + x
-        scaled = a * 200
-        return scaled + 1500
-
-def rightMotorScaled(x, y):
-        a = y + x
-        scaled = a * 200
+        scaled = int(a * 750)
         return scaled + 1500
 
 def leftMotorScaled(x, y):
         a = y - x
-        scaled = a * 750
-        return int(scaled + 1500)
+        scaled = int(a * 750)
+        return scaled + 1500
 
 
 
