@@ -93,8 +93,16 @@ class Joystick:
                 if len(response) == 140:
                     self.connectStatus = True
                     self.reading = response
-                    print response
+                    file_object = open("xboxCurrentStatus.txt","w")
+                    file_object.write(response)
+                    file_object.close()
+                    print "file written"
+                    time.sleep(5)
+                    file_object = open("xboxCurrentStatus.txt","r")
+                    print file_object
                     time.sleep()
+
+
                 else:  #Any other response means we have lost wireless or controller battery
                     self.connectStatus = False
 
