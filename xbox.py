@@ -98,6 +98,7 @@ class Joystick:
                     file_object.write(response)
                     file_object.close()
                     print "file written"
+                    self.refresh()
                 else:  #Any other response means we have lost wireless or controller battery
                     self.connectStatus = False
 
