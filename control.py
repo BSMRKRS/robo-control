@@ -38,17 +38,17 @@ sensitivity = 500
 
 
 def rightMotorScaled(x, y):
-        f = int(1500 * y)
+        f = int(1000 * y)
         t = int(500 * x)
         scaled = min(f - t,1000)
-        return int(1500 - scaled)
+        return int(1500 + scaled)
 
 
 def leftMotorScaled(x, y):
-        f = int(1500 * y)
+        f = int(1000 * y)
         t = int(500 * x)
         scaled = min(f + t, 1000)
-        return int(scaled + 1500)
+        return int(1500 - scaled)
 
 
 
