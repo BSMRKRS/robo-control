@@ -38,8 +38,6 @@ sensitivity = 500
 
 
 def rightMotorScaled(x, y):
-        y = logScaleFun(y)
-        x = logScaleFun(x)
         f = int(1250 * y)
         t = int(125 * x/2)
         scaled = f - t
@@ -47,8 +45,6 @@ def rightMotorScaled(x, y):
 
 
 def leftMotorScaled(x, y):
-        y = logScaleFun(y)
-        x = logScaleFun(x)
         f = int(1250 * y)
         t = int(125 * x/2)
         scaled = f + t
@@ -58,7 +54,7 @@ def logScaleFun(a):
     shift = 10*a - 7
     temp = 1.3 ** shift
     temp = temp/2.179
-    return temp
+    return temp - 0.073
 
 
 if __name__ == '__main__':
