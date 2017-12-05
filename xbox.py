@@ -105,7 +105,7 @@ class Joystick:
                     print "file written"
                 else:  #Any other response means we have lost wireless or controller battery
                     self.connectStatus = False
-            refresh()
+            self.refresh()
 
     """Return a status of True, when the controller is actively connected.
     Either loss of wireless signal or controller powering off will break connection.  The
