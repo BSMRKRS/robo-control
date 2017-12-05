@@ -36,13 +36,13 @@ def stopAll():
 
 def rightMotorScaled(x, y):
         a = y + x
-        scaled = int(a * 750)
+        scaled = int(a * 500)
         return scaled + 1500
 
 def leftMotorScaled(x, y):
         a = y - x
-        scaled = int(a * 750)
-        return scaled + 1500
+        scaled = int(a * 500)
+        return 1500 - scaled
 
 
 
