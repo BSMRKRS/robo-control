@@ -10,7 +10,7 @@ if __name__ == '__main__':
 
     while not joy.Back():
         x, y = joy.leftStick()
+        A = joy.A()
         print x
         print y
-        xbox.refresh()
     joy.close()
