@@ -93,6 +93,8 @@ class Joystick:
                 if len(response) == 140:
                     self.connectStatus = True
                     self.reading = response
+                    print response
+                    time.sleep()
                 else:  #Any other response means we have lost wireless or controller battery
                     self.connectStatus = False
 
