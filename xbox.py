@@ -125,6 +125,7 @@ class Joystick:
     # Left stick Y axis value scaled between -1.0 (down) and 1.0 (up)
     def leftY(self,deadzone=500):
         self.refresh()
+        response = self.reading
         file_object = open("xboxCurrentStatus.txt","w")
         file_object.truncate()
         file_object.write(response)
