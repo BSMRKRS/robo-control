@@ -111,25 +111,25 @@ class Joystick:
         return self.connectStatus
 
     # Left stick X axis value scaled between -1.0 (left) and 1.0 (right) with deadzone tolerance correction
-    def leftX(self,deadzone=2000):
+    def leftX(self,deadzone=500):
         self.refresh()
         raw = int(self.reading[3:9])
         return self.axisScale(raw,deadzone)
 
     # Left stick Y axis value scaled between -1.0 (down) and 1.0 (up)
-    def leftY(self,deadzone=2000):
+    def leftY(self,deadzone=500):
         self.refresh()
         raw = int(self.reading[13:19])
         return self.axisScale(raw,deadzone)
 
     # Right stick X axis value scaled between -1.0 (left) and 1.0 (right)
-    def rightX(self,deadzone=2000):
+    def rightX(self,deadzone=500):
         self.refresh()
         raw = int(self.reading[24:30])
         return self.axisScale(raw,deadzone)
 
     # Right stick Y axis value scaled between -1.0 (down) and 1.0 (up)
-    def rightY(self,deadzone=2000):
+    def rightY(self,deadzone=500):
         self.refresh()
         raw = int(self.reading[34:40])
         return self.axisScale(raw,deadzone)
