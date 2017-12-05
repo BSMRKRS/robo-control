@@ -66,6 +66,11 @@ class Joystick:
                     found = True
                     self.connectStatus = True
                     self.reading = response
+                    file_object = open("xboxCurrentStatus.txt","w")
+                    file_object.truncate()
+                    file_object.write(response)
+                    file_object.close()
+                    print "file written"
         # if the controller wasn't found, then halt
         if not found:
             self.close()
@@ -93,12 +98,6 @@ class Joystick:
                 if len(response) == 140:
                     self.connectStatus = True
                     self.reading = response
-                    file_object = open("xboxCurrentStatus.txt","w")
-                    file_object.truncate()
-                    file_object.write(response)
-                    file_object.close()
-                    print "file written"
-                    self.refresh()
                 else:  #Any other response means we have lost wireless or controller battery
                     self.connectStatus = False
 
