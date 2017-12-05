@@ -55,7 +55,7 @@ def rightMotorScaled(x, y):
 def leftMotorScaled(x, y):
         a = y - x
         scaled = a * 750
-        return scaled + 1500
+        return int(scaled + 1500)
 
 
 
