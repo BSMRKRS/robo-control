@@ -26,6 +26,10 @@ import subprocess
 import os
 import select
 import time
+import ftplib
+
+ftp = ftplib.FTP('192.168.21.209', 'jwrickman18', 'Heap!860')
+ftp.cwd('Desktop/code/robo-control')
 
 class Joystick:
 
@@ -39,38 +43,26 @@ class Joystick:
         joy = xbox.Joystick()
     """
     def __init__(self,refreshRate = 30):
-        self.proc = subprocess.Popen(['xboxdrv','--no-uinput','--detach-kernel-driver'], stdout=subprocess.PIPE)
-        self.pipe = self.proc.stdout
-        #
-        self.connectStatus = False  #will be set to True once controller is detected and stays on
-        self.reading = '0' * 140    #initialize stick readings to all zeros
-        #
+
         self.refreshTime = 0    #absolute time when next refresh (read results from xboxdrv stdout pipe) is to occur
         self.refreshDelay = 1.0 / refreshRate   #joystick refresh is to be performed 30 times per sec by default
-        #
-        # Read responses from 'xboxdrv' for upto 2 seconds, looking for controller/receiver to respond
-        found = False
-        waitTime = time.time() + 2
-        while waitTime > time.time() and not found:
-            readable, writeable, exception = select.select([self.pipe],[],[],0)
-            if readable:
-                response = self.pipe.readline()
-                # Hard fail if we see this, so force an error
-                if response[0:7] == 'No Xbox':
-                    raise IOError('No Xbox controller/receiver found')
-                # Success if we see the following
-                if response[0:12] == 'Press Ctrl-c':
-                    found = True
-                # If we see 140 char line, we are seeing valid input
-                if len(response) == 140:
-                    found = True
-                    self.connectStatus = True
-                    self.reading = response
-                    file_object = open("xboxCurrentStatus.txt","w")
-                    file_object.truncate()
-                    file_object.write(response)
-                    file_object.close()
-                    print "file written"
+        response = open("xboxCurrentStatus.txt", "wb")
+        try:
+            ftp.retrbinary('RETR xboxCurrentStatus.txt', response.write)
+            found = True
+        except:
+            found = False
+        # Hard fail if we see this, so force an error
+        if response[0:7] == 'No Xbox':
+            raise IOError('No Xbox controller/receiver found')
+        # Success if we see the following
+        if response[0:12] == 'Press Ctrl-c':
+            found = True
+        # If we see 140 char line, we are seeing valid input
+        if len(response) == 140:
+            found = True
+            self.connectStatus = True
+            self.reading = response
         # if the controller wasn't found, then halt
         if not found:
             self.close()
@@ -84,16 +76,10 @@ class Joystick:
         # Refresh the joystick readings based on regular defined freq
         if self.refreshTime < time.time():
             self.refreshTime = time.time() + self.refreshDelay  #set next refresh time
-            # If there is text available to read from xboxdrv, then read it.
-            readable, writeable, exception = select.select([self.pipe],[],[],0)
-            if readable:
-                # Read every line that is availabe.  We only need to decode the last one.
-                while readable:
-                    response = self.pipe.readline()
-                    # A zero length response means controller has been unplugged.
-                    if len(response) == 0:
-                        raise IOError('Xbox controller disconnected from USB')
-                    readable, writeable, exception = select.select([self.pipe],[],[],0)
+            response = self.reading()
+                # A zero length response means controller has been unplugged.
+                if len(response) == 0:
+                    raise IOError('Xbox controller disconnected from USB')
                 # Valid controller response will be 140 chars.
                 if len(response) == 140:
                     self.connectStatus = True
@@ -126,11 +112,6 @@ class Joystick:
     def leftY(self,deadzone=500):
         self.refresh()
         response = self.reading
-        file_object = open("xboxCurrentStatus.txt","w")
-        file_object.truncate()
-        file_object.write(response)
-        file_object.close()
-        print "file written"
         raw = int(self.reading[13:19])
         return self.axisScale(raw,deadzone)
 
