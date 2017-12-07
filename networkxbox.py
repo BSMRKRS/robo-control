@@ -119,7 +119,7 @@ class Joystick:
     def networkUpdate(self):
         self.refresh()
         response = self.reading()
-        file_object = open("xboxCurrentStatus.txt","w")
+        file_object = open("xboxCurrentStatusServer.txt","w")
         file_object.truncate()
         file_object.write(response)
         file_object.close()

@@ -46,9 +46,9 @@ class Joystick:
 
         self.refreshTime = 0    #absolute time when next refresh (read results from xboxdrv stdout pipe) is to occur
         self.refreshDelay = 1.0 / refreshRate   #joystick refresh is to be performed 30 times per sec by default
-        response = open("xboxCurrentStatus.txt", "wb")
+        response = open("xboxCurrentStatusClient.txt", "wb")
         try:
-            ftp.retrbinary('RETR xboxCurrentStatus.txt', response.write)
+            ftp.retrbinary('RETR xboxCurrentStatusServer.txt', response.write)
             found = True
         except:
             found = False
