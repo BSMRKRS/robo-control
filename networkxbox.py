@@ -1,4 +1,4 @@
-import xbox
+
 import math
 import ftplib
 import sys, tty
@@ -126,6 +126,4 @@ class Joystick:
 # Cleanup by ending the xboxdrv subprocess
     def close(self):
         os.system('pkill xboxdrv')
-
-while True:
-    networkUpdate()
+    
