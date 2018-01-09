@@ -1,25 +1,73 @@
-# robo-control
-Terminal control for a RoboPi based robot
+# Robot-Controller-Support
 
-# Getting Started
-1. Clone the repo with `git clone https://github.com/BSMRKRS/robo-control.git`
-1. Enter the directory you made with `cd robo-control`
-1. OPTIONAL: Change the keypress delay with `xset r rate 250 20`. This will remove the delay you see when you press a button to drive your robot.
-1. Start the code with `python control.py`
+Welcome to Robot Controller Support! This repo was created for the BSM robot. This program has only been tested on Mac OSX with a robot running raspbian (debian).
 
-# Driving
-1. Use the WASD (and QEZC) keys to drive.
-1. Change the speed with the following keys:
-    * `[` and `]` change the forward speed of both motors.
-    * `{` and `}` change the backward speed of both motors.
-    * `1` and `!` increate and decrease the forward speed of the left motor
-    * `2` and `@` increate and decrease the forward speed of the right motor
-    * `3` and `#` increate and decrease the backward speed of the left motor
-    * `4` and `$` increate and decrease the backward speed of the right motor
-1. Press the asterisk (`*`) to quit controlling the robot.
+## Supported Controllers/Tested Controllers
 
-# Changing the code
-If you want to add control for more motors, you'll need to change the code in three places:
-1. At the top define the motor pin number with `<<pin_name>> = <<pin_number>>, set the behavior of that pin with `RPL.pinMode(<<pin_name>>,RPL.SERVO)` Or whatever the mode is
-1. In the `## Individual commands` section, define the function that will be called when you press a key.
-1. In the loop that interprets the keypresses (i.e., below `while True`), you have to add another `elif ch == ` clause, and on the line below it, call the function you want to run when that key is pressed.
+Full Support:
+- PS4 Controller (wired or wireless)
+
+Partial Support:
+- Xbox One Controller (wired) - changing controller scheme on the fly doesn't work
+- Xbox 360 Controller (wired) - changing controller scheme on the fly doesn't work
+
+Not Supported:
+- Asus GamePad
+
+Not Tested:
+- Logitech controllers
+- PS3 controller
+- PS2 controller
+- Original Xbox controller
+- Wii U Pro Controller
+- Wii Pro Controller
+
+## Xbox Controllers (Xbox one & Xbox 360)
+
+- requires this driver https://github.com/360Controller/360Controller/releases
+
+## Setup
+
+- Make sure you have the required packages
+- clone this repo to the robot
+- clone on computer then run one of the python programs, like "Wireless KitBot.py"
+
+## Required Packages
+
+- pip
+```
+$ curl -O http://python-distribute.org/distribute_setup.py
+$ python distribute_setup.py
+$ curl -O https://raw.github.com/pypa/pip/master/contrib/get-pip.py
+$ python get-pip.py
+```
+- pygame
+```
+$ pip install pygame
+```
+
+## Mapping Options
+
+- can choose to control speed w/ right and left triggers or use right joystick
+- recommend using right joystick due to trigger dead zones
+- can changing mapping during use by pressing right bumper (does not work 100% of the time, may need to hold it for a sec or press multiple times)
+
+## Communication with robot
+
+- Uses laptop and use ssh to connect to robot
+
+## Issues
+
+- Xbox One & Xbox 360 Controller can't swap controller scheme on the fly
+
+## Troubleshooting
+
+You will receive this error if the program does not recognize your controller
+
+Traceback (most recent call last): </br>
+&nbsp;&nbsp;&nbsp;  File "Controller.py", line 120, in <module> </br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    roboSpeed() </br>
+&nbsp;&nbsp;&nbsp;  File "Controller.py", line 70, in roboSpeed </br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    if -yDeadZoneRight < yAxisRight < yDeadZoneLeft: </br>
+NameError: global name 'yAxisRight' is not defined </br>
+
