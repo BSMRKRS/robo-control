@@ -29,8 +29,15 @@ Not Tested:
 ## Setup
 
 - Make sure you have the required packages
-- clone this repo to the robot
-- clone on computer then run one of the python programs, like "Wireless KitBot.py"
+- Clone this repo to both the client and the host computer
+- Change the ip, username, and password in the file clientRead.py on line 7
+- Start ftp on the host computer:
+```
+$ sudo -s launchctl load -w /System/Library/LaunchDaemons/ftp.plist
+```
+- Run clientRead.py on client
+- Run Controller.py on host
+
 
 ## Required Packages
 
@@ -50,15 +57,12 @@ $ pip install pygame
 
 - can choose to control speed w/ right and left triggers or use right joystick
 - recommend using right joystick due to trigger dead zones
-- can changing mapping during use by pressing right bumper (does not work 100% of the time, may need to hold it for a sec or press multiple times)
-
-## Communication with robot
-
-- Uses laptop and use ssh to connect to robot
+- can changing mapping during use by pressing right bumper
 
 ## Issues
 
 - Xbox One & Xbox 360 Controller can't swap controller scheme on the fly
+- Changing controller scheme on the fly in not consistent
 
 ## Troubleshooting
 
