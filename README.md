@@ -30,7 +30,7 @@ Not Tested:
 
 - Make sure you have the required packages
 - Clone this repo to both the client and the host computer
-- Change the ip, username, and password in the file clientRead.py on line 7
+- Change the ip, username, and password in the file clientRead.py on line 7 and this repos directory on line 8
 - Start ftp on the host computer:
 ```
 $ sudo -s launchctl load -w /System/Library/LaunchDaemons/ftp.plist
@@ -74,4 +74,3 @@ Traceback (most recent call last): </br>
 &nbsp;&nbsp;&nbsp;  File "Controller.py", line 70, in roboSpeed </br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    if -yDeadZoneRight < yAxisRight < yDeadZoneLeft: </br>
 NameError: global name 'yAxisRight' is not defined </br>
-
