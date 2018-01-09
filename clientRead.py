@@ -4,13 +4,13 @@
 import RoboPiLib as RPL
 import ftplib
 while True:
-    ftp = ftplib.FTP('ip', 'username', 'password')
-    ftp.cwd('Desktop/Robot-Controller-Support')
-    gFile = open("ftpTemp", "wb")
-    ftp.retrbinary('RETR ftptestFile.txt', gFile.write)
+    ftp = ftplib.FTP('ip', 'username', 'password') # host computer info
+    ftp.cwd('directory of this repository') # directory of repo on host
+    gFile = open("ftpTemp.txt", "wb")
+    ftp.retrbinary('RETR ftpTemp', gFile.write)
     gFile.close()
     ftp.quit()
-    gFile = open("ftpTemp", "r")
+    gFile = open("ftpTemp.txt", "r")
     buff = gFile.read()
     convertTxtArray = buff.split()
     motorL = convertTxtArray[0]

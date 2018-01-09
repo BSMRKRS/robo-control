@@ -104,7 +104,7 @@ def KitBotSpeed(speed):
 
 
 # -------------------Main Program--------------------------
-f = open('ftptestFile.txt','r+')
+f = open('ftpTemp','r+')
 while True:
     joysticks()
     roboSpeed()
