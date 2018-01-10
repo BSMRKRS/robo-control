@@ -68,7 +68,7 @@ def inverse_kinimatic(x, y):
 	dist = distance(x, y)
 	D1 = math.atan2(y, x)
 	D2 = LawOfCosines(dist, len1, len2)
-    A1 = D1 + D2
+	A1 = D1 + D2
 	B2 = LawOfCosines(len1, len2, dist)
 	return A1, B1
 
@@ -115,7 +115,7 @@ def runMotors(newCount1, newCount2):
             else:
                 count1 -= 1
             lastA1State = a1State
-            if count1 = newCount1: #if the current count equals the new count, stop the motor
+            if count1 == newCount1: #if the current count equals the new count, stop the motor
                 RPL.pwmWrite(motor1Control, 1500, freq)
         if a2State != lastA2State: #reads channel a and b from encoder and updates the count
             if RPL.digitalRead(motor2ChannelB) != a2State:
@@ -123,7 +123,7 @@ def runMotors(newCount1, newCount2):
             else:
                 count2 -= 1
             lastA2State = a2State
-            if count2 = newCount2: #if the current count equals the new count, stop the motor
+            if count2 == newCount2: #if the current count equals the new count, stop the motor
                 RPL.pwmWrite(motor2Control, 1500, freq)
 
 
