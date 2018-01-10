@@ -7,7 +7,7 @@ channelAPin = 1
 # VCCPin is attached to pwr for pin 2
 #GNDPin is attached to gnd for pin 2
 channelBPin = 3
-speedPin = 4
+
 
 #### Pin Setup ####
 RPL.pinMode(directionPin, RPL.Output)
