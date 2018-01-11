@@ -1,3 +1,28 @@
+################################
+# Jack Rickman
+# 2018
+#
+# ArmControl.py v0.1
+#
+# Designed for a robotic arm with two encoded DC motors, elbow and shoulder.
+# Takes a requested (x,y) coordinate in the arms range of motion (1.)
+# and translates it into the angles of the arm beams (2.), and then into the
+# countable events from the encoders (3.). The program then runs the
+# motors until the counted events from the encoders is equal to
+# the requested number of events (4.), moving the motors to the correct
+# angles, and moving the endpoint of the arm to the correct (x,y)
+# posistion.
+#
+# Assumes the starting position for the endpoint is (0,0) -- if it is not, find how many countable events
+# motors start away from (0,0)
+#
+# Designed for Benilde St. Margaret's Rescue Robot, running on
+# Raspberry Pi 3's with RoboPi hats.
+#
+# Utilizes the RoboPiLib library (RoboPyLib_v0_97.py), from William Henning
+#
+# !!!Untested Alpha Program!!!
+#
 ########################
     ## 0. INITIALIZE
 ########################
@@ -33,8 +58,8 @@ RPL.pinMode(motor2ChannelB, RPL.INPUT)
 #### GLOBAL VARIABLES ####
 
 #Initializes the count at starting position of arm - need to calculate starting position of angle 2
-count1 = 0
-count2 = 0
+global count1 = 0
+global count2 = 0
 
 #Length of arms, from axle to axle
 len1 = 12
@@ -43,11 +68,22 @@ len2 = 12
 #for pwm motor control
 freq = 3000
 
+#Countable events per revolution of output shaft !!! This includes the motors internal gear ratio, and
+# the external gear ratio !!! Currently, the motor counts 5462.22 events per output revolution, and
+# is on a 16:1 ratio, so motor1CountableEvents = 5462.22 * 16 = 87395.52 events for one full revolution of the joint
+motor1CountableEvents = 87395.52
+#Ditto motor1^^^, can be different if two motors have different encoders
+motor2CountableEvents = 87395.52
+
+
 ################################
     ## 1. USER INPUT
 ################################
 
-#Takes x,y coordinate pair for the arm's endpoint requested destination
+# Takes x,y coordinate pair for the arm's endpoint requested destination
+# If this program is to be used to increment through (x,y) coordinates along a plane/automatically,
+# comment this section out, and increment through armKinimatics(x,y) using an outside program to increment through
+# values.
 x = float(raw_input("x>"))
 y = float(raw_input("y>"))
 
@@ -78,8 +114,9 @@ def deg(rad):
 ################################
     ## 3. CONVERT ANGLES TO MECH. COUNT
 ################################
-def angleToCount(angle):
-    count = angle * 242.765
+def angleToCount(angle, motorXCountableEvents):
+	countableEventsPerDegree = motorXCountableEvents / 360
+    count = angle * countableEventsPerDegree
     return count
 
 ################################
@@ -109,7 +146,7 @@ def runMotors(newCount1, newCount2):
     # Updates count from encoder1 and encoder2
     while count1 != newCount1 or count2 != newCount2:
         a1State = RPl.digitalRead(motor1ChannelA)
-        if a1State != lastA1State: #reads channel a and b from encoder and updates the count
+        if a1State != lastA1State: #reads channel a and b from encoder and updates the count (countable events)
             if RPL.digitalRead(motor1ChannelB) != a1State:
                 count1 += 1
             else:
@@ -132,7 +169,11 @@ def runMotors(newCount1, newCount2):
 ################################
     ## EXECUTE
 ################################
-angle1, angle2 = angle(x,y)
-newCount1 = angleToCount(angle1)
-newCount2 = angleToCount(angle2)
-runMotors(newCount1, newCount2)
+def armKinimatics(x, y):
+	global motor1CountableEvents, motor2CountableEvents
+	angle1, angle2 = angle(x,y)
+	newCount1 = angleToCount(angle1, motor1CountableEvents)
+	newCount2 = angleToCount(angle2, motor2CountableEvents)
+	runMotors(newCount1, newCount2)
+
+armKinimatics(x, y)
