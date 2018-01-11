@@ -35,7 +35,7 @@
 ########################
     ## 0. INITIALIZE
 ########################
-import RoboPiLib as RPL
+import RoboPiLib_pwm as RPL
 import math
 
 ######### PINS ##########
