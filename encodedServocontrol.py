@@ -41,4 +41,4 @@ def runMotors(newCount1):
             if count1 == newCount1: #if the current count equals the new count, stop the motor
                 RPL.pwmWrite(controlPin, 1500, freq)
 
-runMotors(5462.22)
+runMotors(raw_input("> "))
