@@ -103,6 +103,7 @@ def KitBotSpeed(speed):
     return speed + center
 
 
+
 # -------------------Main Program--------------------------
 f = open('ftpTemp','r+')
 while True:
@@ -115,4 +116,6 @@ while True:
     f.write(str(motorL))
     f.write(" ")
     f.write(str(motorR))
+    f.write(" ")
+    f.write(str(time.time()))
     f.truncate()
