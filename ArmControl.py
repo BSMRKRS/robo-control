@@ -1,3 +1,28 @@
+################################
+# Jack Rickman
+# 2018
+#
+# ArmControl.py v0.1
+#
+# Designed for a robotic arm with two encoded DC motors, elbow and shoulder.
+# Takes a requested (x,y) coordinate in the arms range of motion (1.)
+# and translates it into the angles of the arm beams (2.), and then into the
+# countable events from the encoders (3.). The program then runs the
+# motors until the counted events from the encoders is equal to
+# the requested number of events (4.), moving the motors to the correct
+# angles, and moving the endpoint of the arm to the correct (x,y)
+# posistion.
+#
+# Assumes the starting position for the endpoint is (0,0) -- if it is not, find how many countable events
+# motors start away from (0,0)
+#
+# Designed for Benilde St. Margaret's Rescue Robot, running on
+# Raspberry Pi 3's with RoboPi hats.
+#
+# Utilizes the RoboPiLib library (RoboPyLib_v0_97.py), from William Henning
+#
+# !!!Untested Alpha Program!!!
+#
 ########################
     ## 0. INITIALIZE
 ########################
