@@ -58,8 +58,8 @@ RPL.pinMode(motor2ChannelB, RPL.INPUT)
 #### GLOBAL VARIABLES ####
 
 #Initializes the count at starting position of arm - need to calculate starting position of angle 2
-count1 = 0
-count2 = 0
+global count1 = 0
+global count2 = 0
 
 #Length of arms, from axle to axle
 len1 = 12
@@ -68,11 +68,22 @@ len2 = 12
 #for pwm motor control
 freq = 3000
 
+#Countable events per revolution of output shaft !!! This includes the motors internal gear ratio, and
+# the external gear ratio !!! Currently, the motor counts 5462.22 events per output revolution, and
+# is on a 16:1 ratio, so motor1CountableEvents = 5462.22 * 16 = 87395.52 events for one full revolution of the joint
+motor1CountableEvents = 87395.52
+#Ditto motor1^^^, can be different if two motors have different encoders
+motor2CountableEvents = 87395.52
+
+
 ################################
     ## 1. USER INPUT
 ################################
 
-#Takes x,y coordinate pair for the arm's endpoint requested destination
+# Takes x,y coordinate pair for the arm's endpoint requested destination
+# If this program is to be used to increment through (x,y) coordinates along a plane/automatically,
+# comment this section out, and increment through armKinimatics(x,y) using an outside program to increment through
+# values.
 x = float(raw_input("x>"))
 y = float(raw_input("y>"))
 
@@ -93,7 +104,7 @@ def inverse_kinimatic(x, y):
 	dist = distance(x, y)
 	D1 = math.atan2(y, x)
 	D2 = LawOfCosines(dist, len1, len2)
-    A1 = D1 + D2
+	A1 = D1 + D2
 	B2 = LawOfCosines(len1, len2, dist)
 	return A1, B1
 
@@ -103,8 +114,9 @@ def deg(rad):
 ################################
     ## 3. CONVERT ANGLES TO MECH. COUNT
 ################################
-def angleToCount(angle):
-    count = angle * 242.765
+def angleToCount(angle, motorXCountableEvents):
+	countableEventsPerDegree = motorXCountableEvents / 360
+    count = angle * countableEventsPerDegree
     return count
 
 ################################
@@ -134,13 +146,13 @@ def runMotors(newCount1, newCount2):
     # Updates count from encoder1 and encoder2
     while count1 != newCount1 or count2 != newCount2:
         a1State = RPl.digitalRead(motor1ChannelA)
-        if a1State != lastA1State: #reads channel a and b from encoder and updates the count
+        if a1State != lastA1State: #reads channel a and b from encoder and updates the count (countable events)
             if RPL.digitalRead(motor1ChannelB) != a1State:
                 count1 += 1
             else:
                 count1 -= 1
             lastA1State = a1State
-            if count1 = newCount1: #if the current count equals the new count, stop the motor
+            if count1 == newCount1: #if the current count equals the new count, stop the motor
                 RPL.pwmWrite(motor1Control, 1500, freq)
         if a2State != lastA2State: #reads channel a and b from encoder and updates the count
             if RPL.digitalRead(motor2ChannelB) != a2State:
@@ -148,7 +160,7 @@ def runMotors(newCount1, newCount2):
             else:
                 count2 -= 1
             lastA2State = a2State
-            if count2 = newCount2: #if the current count equals the new count, stop the motor
+            if count2 == newCount2: #if the current count equals the new count, stop the motor
                 RPL.pwmWrite(motor2Control, 1500, freq)
 
 
@@ -157,7 +169,11 @@ def runMotors(newCount1, newCount2):
 ################################
     ## EXECUTE
 ################################
-angle1, angle2 = angle(x,y)
-newCount1 = angleToCount(angle1)
-newCount2 = angleToCount(angle2)
-runMotors(newCount1, newCount2)
+def armKinimatics(x, y):
+	global motor1CountableEvents, motor2CountableEvents
+	angle1, angle2 = angle(x,y)
+	newCount1 = angleToCount(angle1, motor1CountableEvents)
+	newCount2 = angleToCount(angle2, motor2CountableEvents)
+	runMotors(newCount1, newCount2)
+
+armKinimatics(x, y)
