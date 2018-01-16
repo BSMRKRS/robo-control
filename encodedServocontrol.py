@@ -39,8 +39,6 @@ def runMotors(newCount1):
             else:
                 count1 -= 1
             lastA1State = a1State
-            print count1
-            if count1 == newCount1: #if the current count equals the new count, stop the motor
-                RPL.pwmWrite(controlPin, 1500, freq)
+    RPL.pwmWrite(controlPin, 1500, freq)
 
 runMotors(float(raw_input("> ")))
