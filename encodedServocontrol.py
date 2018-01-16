@@ -18,7 +18,6 @@ RPL.digitalWrite(2, 1)
 #############
 count1 = 0
 a1State = 0
-lastA1State = RPL.digitalRead(channelAPin)
 freq = 3000
 
 def runMotors(newCount1):
@@ -26,9 +25,9 @@ def runMotors(newCount1):
     lastA1State = RPL.digitalRead(channelAPin)
     # Starts Motor1 and Motor2 in correct direction
     if newCount1 > count1:
-        RPL.pwmWrite(controlPin, 2000, freq)
-    elif newCount1 < count1:
         RPL.pwmWrite(controlPin, 1000, freq)
+    elif newCount1 < count1:
+        RPL.pwmWrite(controlPin, 2000, freq)
     else:
         RPL.pwmWrite(controlPin, 1500, freq)
     # Updates count from encoder
