@@ -19,6 +19,7 @@ RPL.digitalWrite(2, 1)
 count1 = 0
 a1State = 0
 lastA1State = RPL.digitalRead(channelAPin)
+freq = 3000
 
 def runMotors(newCount1):
     global count1
