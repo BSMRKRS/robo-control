@@ -73,17 +73,10 @@ def main():
 												# and reset them
 
 		LockRotary.acquire()					# get lock for rotary switch
-		NewCounter = Rotary_counter			# get counter value
-		Rotary_counter = 0						# RESET IT TO 0
+		NewCounter = Rotary_counter			# get counter value	
 		LockRotary.release()					# and release lock
 
-		if (NewCounter !=0):					# Counter has CHANGED
-			Volume = Volume + NewCounter*abs(NewCounter)	# Decrease or increase volume
-			if Volume < 0:						# limit volume to 0...100
-				Volume = 0
-			if Volume > 100:					# limit volume to 0...100
-				Volume = 100
-			print NewCounter, Volume			# some test print
+			print NewCounter		# some test print
 
 
 
