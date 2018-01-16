@@ -33,7 +33,7 @@ def runMotors(newCount1):
         RPL.pwmWrite(controlPin, 1500, freq)
     # Updates count from encoder
     while count1 != newCount1:
-        a1State = RPl.digitalRead(channelAPin)
+        a1State = RPL.digitalRead(channelAPin)
         if a1State != lastA1State: #reads channel a and b from encoder and updates the count (countable events)
             if RPL.digitalRead(channelBPin) != a1State:
                 count1 += 1
