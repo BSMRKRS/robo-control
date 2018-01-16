@@ -73,10 +73,10 @@ def main():
 												# and reset them
 
 		LockRotary.acquire()					# get lock for rotary switch
-		NewCounter = Rotary_counter			# get counter value	
+		NewCounter = Rotary_counter			# get counter value
 		LockRotary.release()					# and release lock
 
-			print NewCounter		# some test print
+		print NewCounter		# some test print
 
 
 
