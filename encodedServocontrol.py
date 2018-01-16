@@ -22,7 +22,7 @@ lastA1State = RPL.digitalRead(channelAPin)
 
 def runMotors(newCount1):
     global count1
-    lastA1State = digitalRead(channelAPin)
+    lastA1State = RPL.digitalRead(channelAPin)
     # Starts Motor1 and Motor2 in correct direction
     if newCount1 > count1:
         RPL.pwmWrite(controlPin, 2000, freq)
