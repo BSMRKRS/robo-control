@@ -12,8 +12,8 @@ channelBPin = 3
 #### Pin Setup ####
 RPL.pinMode(controlPin, RPL.PWM)
 RPL.pinMode(2, RPL.OUTPUT)
-RPL.pinMode(channelAPin, RPL.Input)
-RPL.pinMode(channelBPin, RPL.Input)
+RPL.pinMode(channelAPin, RPL.INPUT)
+RPL.pinMode(channelBPin, RPL.INPUT)
 RPL.digitalWrite(2, 1)
 #############
 count1 = 0
