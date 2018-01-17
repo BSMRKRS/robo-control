@@ -70,6 +70,7 @@ def main():
 	        RPL.pwmWrite(0, 1000, 3000)
 	    else:
 	        RPL.pwmWrite(0, 1500, 3000)
+	Run(requestedCount)
 
 								# Init interrupts, GPIO, ...
 def Run(requestedCount):
