@@ -73,7 +73,7 @@ def main():
 	        RPL.pwmWrite(0, 1500, 3000)
 
 								# Init interrupts, GPIO, ...
-
+def Run():
 	while True :								# start test
 		sleep(0.1)								# sleep 100 msec
 
