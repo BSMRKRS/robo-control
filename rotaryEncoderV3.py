@@ -84,6 +84,7 @@ def main():
 		LockRotary.acquire()					# get lock for rotary switch
 		NewCounter = Rotary_counter				# get counter value
 		LockRotary.release()
+		print NewCounter
 		if abs(NewCounter - requestedCount) < 20:
 			RPL.pwmWrite(0, 1500, 3000)
 			print NewCounter
