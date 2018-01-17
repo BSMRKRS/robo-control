@@ -3,6 +3,7 @@ import RPi.GPIO as GPIO
 import RoboPiLib_pwm as RPL
 import threading
 from time import sleep
+RPL.RoboPiInit("/dev/ttyAMA0",115200)
 
 						# GPIO Ports
 Enc_A = 6 				# Encoder input A: input GPIO 4
