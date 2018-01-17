@@ -88,7 +88,7 @@ def main():
 		if abs(NewCounter - requestedCount) < 20:
 			RPL.pwmWrite(0, 1500, 3000)
 			print NewCounter
-			main()
+			break
 
 
 
