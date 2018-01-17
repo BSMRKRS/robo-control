@@ -63,7 +63,6 @@ def main():
 	global Rotary_counter, LockRotary, OldCounter
 	NewCounter = 0
 	requestedCount = int(raw_input("> "))
-	init()
 	if NewCounter != requestedCount:
 	    # Starts Motor1 and Motor2 in correct direction
 	    if requestedCount > NewCounter:
@@ -73,7 +72,7 @@ def main():
 	    else:
 	        RPL.pwmWrite(0, 1500, 3000)
 
-									# Init interrupts, GPIO, ...
+	init()								# Init interrupts, GPIO, ...
 
 	while True :								# start test
 		sleep(0.1)								# sleep 100 msec
