@@ -15,7 +15,9 @@ Current_B = 1					# moving while we init software
 
 LockRotary = threading.Lock()		# create lock for rotary switch
 OldCounter = 0
-
+RPL.pinMode(0, RPL.PWM)
+RPL.pinMode(1, RPL.INPUT)
+RPL.digitalWrite(1, 1)
 # initialize interrupt handlers
 def init():
 	GPIO.setwarnings(True)
