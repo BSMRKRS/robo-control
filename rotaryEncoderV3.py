@@ -59,17 +59,20 @@ def rotary_interrupt(A_or_B):
 # Main loop. Demonstrate reading, direction and speed of turning left/rignt
 def main():
 	global Rotary_counter, LockRotary, OldCounter
+	NewCounter = 0
+	requestedCount = int(raw_input(""))
+	init()
+	if NewCounter != requestedCount:
+	    # Starts Motor1 and Motor2 in correct direction
+	    if requestedCount > NewCounter:
+	        RPL.pwmWrite(0, 500, 3000)
+	    elif requestedCount < NewCounter:
+	        RPL.pwmWrite(0, 2500, 3000)
+	    else:
+	        RPL.pwmWrite(0, 1500, 3000)
 
+									# Init interrupts, GPIO, ...
 
-	Volume = 0									# Current Volume
-	NewCounter = 0								# for faster reading with locks
-
-
-	init()										# Init interrupts, GPIO, ...
-	RPL.pinMode(0, RPL.OUTPUT)
-	RPL.pinMode(1, RPL.OUTPUT)
-	RPL.digitalWrite(0, 1)
-	RPL.digitalWrite(1, 1)
 	while True :								# start test
 		sleep(0.1)								# sleep 100 msec
 
@@ -78,8 +81,10 @@ def main():
 												# and reset them
 
 		LockRotary.acquire()					# get lock for rotary switch
-		NewCounter = Rotary_counter				# get counter value
+		NewCounter = Rotary_counter		# get counter value
 		LockRotary.release()
+		if NewCounter == requestedCount:
+			RPL.pwmWrite(0, 1500, 3000)
 		if NewCounter != OldCounter:					# and release lock
 			print NewCounter
 			OldCounter = NewCounter		# some test print
