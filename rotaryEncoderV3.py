@@ -86,10 +86,8 @@ def main():
 		NewCounter = Rotary_counter				# get counter value
 		LockRotary.release()
 		if NewCounter > requestedCount:
-			RPL.pwmWrite(0, 1500, 3000)	
-		if NewCounter != OldCounter:					# and release lock
+			RPL.pwmWrite(0, 1500, 3000)
 			print NewCounter
-			OldCounter = NewCounter		# some test print
 
 
 
