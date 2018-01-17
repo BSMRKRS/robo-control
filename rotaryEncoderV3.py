@@ -76,7 +76,7 @@ def main():
 def Run(requestedCount):
 	global Rotary_counter, LockRotary, OldCounter
 	while True :								# start test
-		sleep(0.1)								# sleep 100 msec
+		sleep(0.01)								# sleep 100 msec
 
 												# because of threading make sure no thread
 												# changes value until we get them
