@@ -1,11 +1,12 @@
 
 import RPi.GPIO as GPIO
+import RoboPiLib_pwm as RPL
 import threading
 from time import sleep
 
 						# GPIO Ports
-Enc_A = 17 				# Encoder input A: input GPIO 4
-Enc_B = 18		        # Encoder input B: input GPIO 14
+Enc_A = 6 				# Encoder input A: input GPIO 4
+Enc_B = 12		        # Encoder input B: input GPIO 14
 
 Rotary_counter = 0  			# Start counting from 0
 Current_A = 1					# Assume that rotary switch is not
@@ -64,7 +65,10 @@ def main():
 
 
 	init()										# Init interrupts, GPIO, ...
-
+	RPL.pinMode(0, RPL.OUTPUT)
+	RPL.pinMode(1, RPL.OUTPUT)
+	RPL.digitalWrite(0, 1)
+	RPL.digitalWrite(1, 1)
 	while True :								# start test
 		sleep(0.1)								# sleep 100 msec
 
