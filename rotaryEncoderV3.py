@@ -88,6 +88,7 @@ def main():
 		if NewCounter > requestedCount:
 			RPL.pwmWrite(0, 1500, 3000)
 			print NewCounter
+			return False
 
 
 
