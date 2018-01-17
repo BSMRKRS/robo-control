@@ -83,10 +83,11 @@ def main():
 												# and reset them
 
 		LockRotary.acquire()					# get lock for rotary switch
-		NewCounter = Rotary_counter		# get counter value
-		LockRotary.release()
+		NewCounter = Rotary_counter
 		if NewCounter == requestedCount:
-			RPL.pwmWrite(0, 1500, 3000)
+			RPL.pwmWrite(0, 1500, 3000)			# get counter value
+		LockRotary.release()
+
 		if NewCounter != OldCounter:					# and release lock
 			print NewCounter
 			OldCounter = NewCounter		# some test print
