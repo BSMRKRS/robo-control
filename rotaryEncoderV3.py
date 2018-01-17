@@ -12,7 +12,7 @@ Current_A = 1					# Assume that rotary switch is not
 Current_B = 1					# moving while we init software
 
 LockRotary = threading.Lock()		# create lock for rotary switch
-
+OldCounter = 0
 
 # initialize interrupt handlers
 def init():
@@ -56,7 +56,7 @@ def rotary_interrupt(A_or_B):
 
 # Main loop. Demonstrate reading, direction and speed of turning left/rignt
 def main():
-	global Rotary_counter, LockRotary
+	global Rotary_counter, LockRotary, OldCounter
 
 
 	Volume = 0									# Current Volume
@@ -73,8 +73,7 @@ def main():
 												# and reset them
 
 		LockRotary.acquire()					# get lock for rotary switch
-		NewCounter = Rotary_counter
-		OldCounter = 0		# get counter value
+		NewCounter = Rotary_counter				# get counter value
 		LockRotary.release()
 		if NewCounter != OldCounter:					# and release lock
 			print NewCounter
