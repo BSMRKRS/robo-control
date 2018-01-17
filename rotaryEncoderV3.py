@@ -6,23 +6,23 @@ from time import sleep
 RPL.RoboPiInit("/dev/ttyAMA0",115200)
 
 						# GPIO Ports
-Enc_A = 6 				# Encoder input A: input GPIO 4
-Enc_B = 12		        # Encoder input B: input GPIO 14
+Enc_A = 6 				# Encoder input A: input GPIO 6
+Enc_B = 12		        # Encoder input B: input GPIO 12
 
 Rotary_counter = 0  			# Start counting from 0
 Current_A = 1					# Assume that rotary switch is not
 Current_B = 1					# moving while we init software
 
-LockRotary = threading.Lock()		# create lock for rotary switch
+LockRotary = threading.Lock()		# create lock for rotary switch?
 OldCounter = 0
 RPL.pinMode(0, RPL.PWM)
 RPL.pinMode(1, RPL.OUTPUT)
 RPL.digitalWrite(1, 1)
-# initialize interrupt handlers
-def init():
+
+def init(): # initialize interrupt handlers???
 	GPIO.setwarnings(True)
-	GPIO.setmode(GPIO.BCM)					# Use BCM mode
-											# define the Encoder switch inputs
+	GPIO.setmode(GPIO.BCM)					# Use BCM mode?
+											# define the Encoder switch inputs ?
 	GPIO.setup(Enc_A, GPIO.IN)
 	GPIO.setup(Enc_B, GPIO.IN)
 											# setup callback thread for the A and B encoder
