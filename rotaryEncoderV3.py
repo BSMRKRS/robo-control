@@ -60,7 +60,6 @@ def rotary_interrupt(A_or_B):
 
 # Main loop. Demonstrate reading, direction and speed of turning left/rignt
 def main():
-	global Rotary_counter, LockRotary, OldCounter
 	NewCounter = 0
 	requestedCount = int(raw_input("> "))
 	if NewCounter != requestedCount:
@@ -73,7 +72,8 @@ def main():
 	        RPL.pwmWrite(0, 1500, 3000)
 
 								# Init interrupts, GPIO, ...
-def Run():
+def Run(requestedCount):
+	global Rotary_counter, LockRotary, OldCounter
 	while True :								# start test
 		sleep(0.1)								# sleep 100 msec
 
