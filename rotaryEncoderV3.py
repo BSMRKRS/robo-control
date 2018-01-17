@@ -80,7 +80,6 @@ def main():
 												# because of threading make sure no thread
 												# changes value until we get them
 												# and reset them
-
 		LockRotary.acquire()					# get lock for rotary switch
 		NewCounter = Rotary_counter				# get counter value
 		LockRotary.release()
@@ -89,6 +88,7 @@ def main():
 			RPL.pwmWrite(0, 1500, 3000)
 			print NewCounter
 			break
+
 
 
 
