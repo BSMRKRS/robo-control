@@ -60,7 +60,7 @@ def rotary_interrupt(A_or_B):
 def main():
 	global Rotary_counter, LockRotary, OldCounter
 	NewCounter = 0
-	requestedCount = int(raw_input(""))
+	requestedCount = int(raw_input("> "))
 	init()
 	if NewCounter != requestedCount:
 	    # Starts Motor1 and Motor2 in correct direction
