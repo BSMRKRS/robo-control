@@ -62,7 +62,7 @@ def rotary_interrupt(A_or_B):
 def main():
 	global Rotary_counter, LockRotary, OldCounter
 	NewCounter = 0
-	requestedCount = int(raw_input("> "))
+
 	init()
 	if NewCounter != requestedCount:
 	    # Starts Motor1 and Motor2 in correct direction
@@ -88,7 +88,7 @@ def main():
 		if abs(NewCounter - requestedCount) < 20:
 			RPL.pwmWrite(0, 1500, 3000)
 			print NewCounter
-			main()
+			requestedCount = int(raw_input("> "))
 
 
 
