@@ -60,7 +60,9 @@ def rotary_interrupt(A_or_B):
 
 # Main loop. Demonstrate reading, direction and speed of turning left/rignt
 def main():
-	NewCounter = 0
+	global Rotary_counter
+	Rotary_counter = 0
+	NewCounter = Rotary_counter
 	requestedCount = int(raw_input("> "))
 	if NewCounter != requestedCount:
 	    # Starts Motor1 and Motor2 in correct direction
