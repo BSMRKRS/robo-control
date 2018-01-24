@@ -51,7 +51,7 @@ class Encoder(object):
 
 		if (Switch_A and Switch_B):						# Both one active? Yes -> end of sequence
 			LockRotary.acquire()						# get lock
-			if A_or_B == Enc_B:							# Turning direction depends on
+			if A_or_B == self.Enc_B:							# Turning direction depends on
 				self.Rotary_counter += 1						# which input gave last interrupt
 			else:										# so depending on direction either
 				self.Rotary_counter -= 1						# increase or decrease counter
