@@ -5,13 +5,8 @@ import threading
 from time import sleep
 RPL.RoboPiInit("/dev/ttyAMA0",115200)
 
-						# GPIO Ports
-Enc_A = 6 				# Encoder input A: input GPIO 6
-Enc_B = 12		        # Encoder input B: input GPIO 12
 
-Rotary_counter = 0  			# Start counting from 0
-Current_A = 1					# Assume that rotary switch is not
-Current_B = 1					# moving while we init software
+
 
 LockRotary = threading.Lock()		# create lock for rotary switch?
 OldCounter = 0
@@ -20,10 +15,10 @@ RPL.pinMode(1, RPL.OUTPUT)
 RPL.digitalWrite(1, 1)
 
 class Encoder(object):
-
+	global LockRotary
 	def __init__(self):
-		self.Enc_A = Enc_A
-		self.Enc_B = Enc_B
+		self.Enc_A = 6
+		self.Enc_B = 12
 		self.Current_A = 1
 		self.Current_B = 1
 		self.Rotary_counter = 0
