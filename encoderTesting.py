@@ -79,3 +79,5 @@ def main(encoder1):
 		if abs(encoder1.Rotary_counter - requestedCount) < 10:
 			RPL.pwmWrite(0, 1500, 3000)
 			main(encoder1)
+encoder1 = Encoder()
+main(encoder1)
