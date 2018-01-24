@@ -67,9 +67,9 @@ def main(encoder1):
 	if NewCounter != requestedCount:
 	    # Starts Motor1 and Motor2 in correct direction
 	    if requestedCount > NewCounter:
-	        RPL.pwmWrite(0, 2000, 3000)
+	        RPL.pwmWrite(0, 2500, 3000)
 	    elif requestedCount < NewCounter:
-	        RPL.pwmWrite(0, 1000, 3000)
+	        RPL.pwmWrite(0, 500, 3000)
 	    else:
 	        RPL.pwmWrite(0, 1500, 3000)
 
