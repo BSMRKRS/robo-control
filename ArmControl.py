@@ -37,30 +37,32 @@
 ########################
 import RoboPiLib_pwm as RPL
 import math
+import RPi.GPIO as GPIO
+import threading
+from time import sleep
+RPL.RoboPiInit("/dev/ttyAMA0",115200)
 
 ######### PINS ##########
 
 ### MOTOR 1 ###
 motor1Control = 0
-motor1ChannelA = 1
 motor1EncoderPwrGnd = 2
-motor1ChannelB =  3
+#GPIO pins, NOT on RoboPiHat
+motor1ChannelA = 6
+motor1ChannelB =  12
 ###############
 
 ### MOTOR 2 ###
 motor2Control = 4
 motor2EncoderPwrGnd = 5
+#GPIO pins, NOT on RoboPiHat
 motor2ChannelA = 6
 motor2ChannelB = 7
 ###############
 
 #### PIN SETUP ####
 RPL.pinMode(motor1Control, RPL.PWM)
-RPL.pinMode(motor1ChannelA, RPL.INPUT)
-RPL.pinMode(motor1ChannelB, RPL.INPUT)
 RPL.pinMode(motor2Control, RPL.PWM)
-RPL.pinMode(motor2ChannelA, RPL.INPUT)
-RPL.pinMode(motor2ChannelB, RPL.INPUT)
 ###################
 ##########################
 
@@ -76,10 +78,10 @@ freq = 3000
 
 #Countable events per revolution of output shaft !!! This includes the motors internal gear ratio, and
 # the external gear ratio !!! Currently, the motor counts 5462.22 events per output revolution, and
-# is on a 16:1 ratio, so motor1CountableEvents = 5462.22 * 16 = 87395.52 events for one full revolution of the joint
-motor1CountableEvents = 87395.52
+# is on a 16:1 ratio, so motor1CycleEvents = 5462.22 * 16 = 87395.52 events for one full revolution of the joint
+motor1CycleEvents = 21848.88
 #Ditto motor1^^^, can be different if two motors have different encoders
-motor2CountableEvents = 87395.52
+motor2CycleEvents = 11098.56
 
 
 ################################
@@ -120,9 +122,9 @@ def deg(rad):
 ################################
     ## 3. CONVERT ANGLES TO MECH. COUNT
 ################################
-def angleToCount(angle, motorXCountableEvents):
-	countableEventsPerDegree = motorXCountableEvents / 360
-	count = angle * countableEventsPerDegree
+def angleToCount(angle, motorXCycleEvents):
+	CycleEventsPerDegree = motorXCycleEvents / 360
+	count = angle * CycleEventsPerDegree
 	return count
 
 ################################
@@ -162,7 +164,7 @@ def runMotors(newCount1, newCount2, encoder1, encoder2):
     # Updates count from encoder1 and encoder2
 
 ################################
-	## ENCODER
+	## 3. ENCODER
 ################################
 class Encoder(object, Enc_A, Enc_B):
 	global LockRotary
@@ -215,10 +217,10 @@ class Encoder(object, Enc_A, Enc_B):
     ## EXECUTE
 ################################
 def armKinimatics(x, y):
-	global motor1CountableEvents, motor2CountableEvents
+	global motor1CycleEvents, motor2CycleEvents
 	angle1, angle2 = angle(x,y)
-	newCount1 = angleToCount(angle1, motor1CountableEvents)
-	newCount2 = angleToCount(angle2, motor2CountableEvents)
+	newCount1 = angleToCount(angle1, motor1CycleEvents)
+	newCount2 = angleToCount(angle2, motor2CycleEvents)
 	runMotors(newCount1, newCount2)
 encoder1 = Encoder(motor1ChannelA, motor1ChannelB)
 encoder2 = Encoder(motor2ChannelA, motor2ChannelB)
