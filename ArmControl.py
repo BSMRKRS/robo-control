@@ -210,6 +210,36 @@ class Encoder(object, Enc_A, Enc_B):
 			LockRotary.release()						# and release lock
 		return											# THAT'S IT
 
+###############################
+	## Motor Classes
+###############################
+class Motor(object):
+	global freq
+	def __init__(self):
+		self.motor_number = 0
+		self.controlPin = 0
+		self.encoderPowerPin = 0
+		self.ChannelA = 0
+		self.ChannelB = 0
+		self.forward_speed = 1000
+		self.backward_speed = 1000
+		self.encoder = 0
+		self.cycleEvents = 0
+
+	def stop(self):
+		RPL.pwmWrite(self.controlPin, 1500, freq)
+
+	def forwards(self):
+		RPL.pwmWrite(self.controlPin, 1500 + speed, freq)
+
+	def backwards(self):
+		RPL.pwmWrite(self.controlPin, 1500 - speed, freq)
+
+	def current_angle(self):
+		angle = self.encoder.Rotary_counter / self.cycleEvents
+		angle = angle * 360
+		return angle
+
 
 
 
