@@ -137,17 +137,17 @@ def runMotors(newCount1, newCount2, encoder1, encoder2):
 	count1 = encoder1.Rotary_counter
 	count2 = encoder2.Rotary_counter		# Starts Motor1 and Motor2 in correct direction
 	if newCount1 > count1:
-        RPL.pwmWrite(motor1Control, 2500, freq)
-    elif newCount1 < count1:
-        RPL.pwmWrite(motor1Control, 500, freq)
-    else:
-        RPL.pwmWrite(motor1Control, 1500, freq)
-    if newCount2 > count2:
-        RPL.pwmWrite(motor2Control, 2500, freq)
-    elif newCount2 < count2:
-        RPL.pwmWrite(motor2Control, 500, freq)
-    else:
-        RPL.pwmWrite(motor2Control, 1500, freq)
+		RPL.pwmWrite(motor1Control, 2500, freq)
+	elif newCount1 < count1:
+		RPL.pwmWrite(motor1Control, 500, freq)
+	else:
+		RPL.pwmWrite(motor1Control, 1500, freq)
+	if newCount2 > count2:
+		RPL.pwmWrite(motor2Control, 2500, freq)
+	elif newCount2 < count2:
+		RPL.pwmWrite(motor2Control, 500, freq)
+	else:
+		RPL.pwmWrite(motor2Control, 1500, freq)
 	a = True
 	b = True
 	while a or b:
