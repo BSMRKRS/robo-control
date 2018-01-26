@@ -211,9 +211,9 @@ class Motor(object):
 def armKinimatics(x, y):
 	angle1, angle2 = angle(x,y)
 	newCount1 = angleToCount(angle1, motor1.cycleEvents)
-	newCount2 = angleToCount(angle2, motor2.cycleEvents)
+	#newCount2 = angleToCount(angle2, motor2.cycleEvents)
 	motor1.move_to_position(newCount1)
-	motor2.move_to_position(newCount2)
+	#motor2.move_to_position(newCount2)
 
 
 
@@ -226,7 +226,7 @@ motor1.forward_speed = 1000
 motor1.backward_speed = 1000
 motor1.cycleEvents = 21848.88
 
-
+"""
 encoder2 = Encoder(motor2ChannelA, motor2ChannelB)
 motor2 = Motor()
 motor2.controlPin = 2
@@ -235,6 +235,6 @@ motor2.encoder = encoder2
 motor2.forward_speed = 1000
 motor2.backward_speed = 1000
 motor2.cycleEvents = 11098.56
-
+"""
 
 armKinimatics(x, y)
