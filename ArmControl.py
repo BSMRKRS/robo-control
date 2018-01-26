@@ -209,11 +209,12 @@ class Motor(object):
     ## EXECUTE
 ################################
 def armKinimatics(x, y):
-	global motor1CycleEvents, motor2CycleEvents
 	angle1, angle2 = angle(x,y)
-	newCount1 = angleToCount(angle1, motor1CycleEvents)
-	newCount2 = angleToCount(angle2, motor2CycleEvents)
-	runMotors(newCount1, newCount2)
+	newCount1 = angleToCount(angle1, motor1.cycleEvents)
+	newCount2 = angleToCount(angle2, motor2.cycleEvents)
+	motor1.move_to_position(newCount1)
+	motor2.move_to_position(newCount2)
+
 
 
 encoder1 = Encoder(motor1ChannelA, motor1ChannelB)
