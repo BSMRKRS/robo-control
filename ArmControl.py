@@ -64,9 +64,9 @@ freq = 3000
 #Countable events per revolution of output shaft !!! This includes the motors internal gear ratio, and
 # the external gear ratio !!! Currently, the motor counts 5462.22 events per output revolution, and
 # is on a 16:1 ratio, so motor1CycleEvents = 5462.22 * 16 = 87395.52 events for one full revolution of the joint
-motor1CycleEvents = 21848.88
+
 #Ditto motor1^^^, can be different if two motors have different encoders
-motor2CycleEvents = 11098.56
+
 
 
 ################################
