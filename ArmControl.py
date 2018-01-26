@@ -240,6 +240,17 @@ class Motor(object):
 		angle = angle * 360
 		return angle
 
+	def move_to_position(self, new_position):
+		if new_position > self.encoder.Rotary_counter:
+			self.forwards()
+		if new_position < self.encoder.Rotary_counter:
+			self.backwards()
+		else:
+			self.stop()
+		while abs(self.encoder.Rotary_counter - new_position) < 5:
+			time.sleep(0.001)
+		self.stop()
+
 
 
 
