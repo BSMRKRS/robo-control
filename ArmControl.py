@@ -44,26 +44,11 @@ RPL.RoboPiInit("/dev/ttyAMA0",115200)
 
 ######### PINS ##########
 
-### MOTOR 1 ###
-motor1Control = 0
-motor1EncoderPwrGnd = 2
-#GPIO pins, NOT on RoboPiHat
-motor1ChannelA = 6
-motor1ChannelB =  12
-###############
 
-### MOTOR 2 ###
-motor2Control = 4
-motor2EncoderPwrGnd = 5
-#GPIO pins, NOT on RoboPiHat
-motor2ChannelA = 6
-motor2ChannelB = 7
-###############
 
-#### PIN SETUP ####
-RPL.pinMode(motor1Control, RPL.PWM)
-RPL.pinMode(motor2Control, RPL.PWM)
-###################
+
+
+
 ##########################
 
 #### GLOBAL VARIABLES ####
@@ -127,41 +112,7 @@ def angleToCount(angle, motorXCycleEvents):
 	count = angle * CycleEventsPerDegree
 	return count
 
-################################
-    ## 4. RUN MOTOR
-################################
 
-# Runs motors until count = requested count
-def runMotors(newCount1, newCount2, encoder1, encoder2):
-	global motor1Control, motor2Control, freq
-	count1 = encoder1.Rotary_counter
-	count2 = encoder2.Rotary_counter
-    # Starts Motor1 and Motor2 in correct direction
-    if newCount1 > count1:
-        RPL.pwmWrite(motor1Control, 2500, freq)
-    elif newCount1 < count1:
-        RPL.pwmWrite(motor1Control, 500, freq)
-    else:
-        RPL.pwmWrite(motor1Control, 1500, freq)
-    if newCount2 > count2:
-        RPL.pwmWrite(motor2Control, 2500, freq)
-    elif newCount2 < count2:
-        RPL.pwmWrite(motor2Control, 500, freq)
-    else:
-        RPL.pwmWrite(motor2Control, 1500, freq)
-	a = True
-	b = True
-	while a or b:
-		if abs(newCount1 - encoder1.Rotary_counter) < 5:
-			RPL.pwmWrite(motor1Control, 1500, freq)
-			a = False
-			print "Motor 1 complete"
-
-		if abs(newCount2 - encoder2.Rotary_counter) < 5:
-			RPL.pwmWrite(motor2Control, 1500, freq)
-			b = False
-			print "Motor 2 complete"
-    # Updates count from encoder1 and encoder2
 
 ################################
 	## 3. ENCODER
@@ -211,7 +162,7 @@ class Encoder(object, Enc_A, Enc_B):
 		return											# THAT'S IT
 
 ###############################
-	## Motor Classes
+	## Motor Class
 ###############################
 class Motor(object):
 	global freq
@@ -263,6 +214,26 @@ def armKinimatics(x, y):
 	newCount1 = angleToCount(angle1, motor1CycleEvents)
 	newCount2 = angleToCount(angle2, motor2CycleEvents)
 	runMotors(newCount1, newCount2)
+
+
 encoder1 = Encoder(motor1ChannelA, motor1ChannelB)
+motor1 = Motor()
+motor1.controlPin = 0
+motor1.encoderPowerPin = 1
+motor1.encoder = encoder1
+motor1.forward_speed = 1000
+motor1.backward_speed = 1000
+motor1.cycleEvents = 21848.88
+
+
 encoder2 = Encoder(motor2ChannelA, motor2ChannelB)
+motor2 = Motor()
+motor2.controlPin = 2
+motor2.encoderPowerPin = 3
+motor2.encoder = encoder2
+motor2.forward_speed = 1000
+motor2.backward_speed = 1000
+motor2.cycleEvents = 11098.56
+
+
 armKinimatics(x, y)
