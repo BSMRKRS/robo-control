@@ -135,9 +135,8 @@ def angleToCount(angle, motorXCycleEvents):
 def runMotors(newCount1, newCount2, encoder1, encoder2):
 	global motor1Control, motor2Control, freq
 	count1 = encoder1.Rotary_counter
-	count2 = encoder2.Rotary_counter
-    # Starts Motor1 and Motor2 in correct direction
-    if newCount1 > count1:
+	count2 = encoder2.Rotary_counter		# Starts Motor1 and Motor2 in correct direction
+	if newCount1 > count1:
         RPL.pwmWrite(motor1Control, 2500, freq)
     elif newCount1 < count1:
         RPL.pwmWrite(motor1Control, 500, freq)
@@ -161,7 +160,7 @@ def runMotors(newCount1, newCount2, encoder1, encoder2):
 			RPL.pwmWrite(motor2Control, 1500, freq)
 			b = False
 			print "Motor 2 complete"
-    # Updates count from encoder1 and encoder2
+# Updates count from encoder1 and encoder2
 
 ################################
 	## 3. ENCODER
@@ -179,21 +178,21 @@ class Encoder(object, Enc_A, Enc_B):
 	def startEncoders(self):
 		GPIO.setwarnings(True)
 		GPIO.setmode(GPIO.BCM)					# Use BCM mode?
-												# define the Encoder switch inputs ?
+#												# define the Encoder switch inputs ?
 		GPIO.setup(self.Enc_A, GPIO.IN)
 		GPIO.setup(self.Enc_B, GPIO.IN)
-												# setup callback thread for the A and B encoder
-												# use interrupts for all inputs
+#												# setup callback thread for the A and B encoder
+#												# use interrupts for all inputs
 		GPIO.add_event_detect(self.Enc_A, GPIO.RISING, callback=self.rotary_interrupt) 				# NO bouncetime
 		GPIO.add_event_detect(self.Enc_B, GPIO.RISING, callback=self.rotary_interrupt) 				# NO bouncetime
 		return
 
 	def rotary_interrupt(self, A_or_B):
-														# read both of the switches
+#													# read both of the switches
 		Switch_A = GPIO.input(self.Enc_A)
 		Switch_B = GPIO.input(self.Enc_B)
-														# now check if state of A or B has changed
-														# if not that means that bouncing caused it
+#														# now check if state of A or B has changed
+#														# if not that means that bouncing caused it
 		if self.Current_A == Switch_A and self.Current_B == Switch_B:		# Same interrupt as before (Bouncing)?
 			return										# ignore interrupt!
 
