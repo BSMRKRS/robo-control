@@ -76,7 +76,7 @@ def main(encoder1):
             RPL.pwmWrite(0, 1500, 3000)
 
     while True:								# start test
-        sleep(0.01)								# sleep 100 msec
+        sleep(0.001)								# sleep 100 msec
         print encoder1.Rotary_counter
         if abs(encoder1.Rotary_counter - requestedCount) < 5:
             RPL.pwmWrite(0, 1500, 3000)
