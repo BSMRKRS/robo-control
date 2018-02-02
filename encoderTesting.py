@@ -17,8 +17,8 @@ class Encoder(object):
     global LockRotary
 
     def __init__(self):
-        self.Enc_A = 6  # GPIO encoder pin A
-        self.Enc_B = 12  # GPIO encoder pin B
+        self.Enc_A = 19  # GPIO encoder pin A
+        self.Enc_B = 16  # GPIO encoder pin B
         self.Current_A = 1  # This assumes that Encoder is initaiate while the motor is not moving
         self.Current_B = 1
         self.Rotary_counter = 0
