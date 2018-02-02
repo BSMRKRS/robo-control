@@ -158,10 +158,10 @@ class Motor(object):
         RPL.pwmWrite(self.controlPin, 1500, freq)
 
     def forwards(self):
-        RPL.pwmWrite(self.controlPin, 1500 + speed, freq)
+        RPL.pwmWrite(self.controlPin, 1500 + forward_speed, freq)
 
     def backwards(self):
-        RPL.pwmWrite(self.controlPin, 1500 - speed, freq)
+        RPL.pwmWrite(self.controlPin, 1500 - backward_speed, freq)
 
     def current_angle(self):
         angle = self.encoder.Rotary_counter / self.cycleEvents
