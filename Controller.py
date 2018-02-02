@@ -1,11 +1,11 @@
-import pygame # controller
+import pygame  # controller
 #import robotonomy.RoboPiLib as RPL
 #import robotonomy.setup
 
 #######################
-## 0. Initialization
+# 0. Initialization
 ########################
-import pygame # controller
+import pygame  # controller
 #import robotonomy.RoboPiLib as RPL
 #import robotonomy.setup
 
@@ -28,30 +28,32 @@ yDeadZoneRight = 0.06
 maxMotorL = 1000
 maxMotorR = 1000
 
-#Arm position
+# Arm position
 armX = 0
 armY = 0
 
 #########################
-### 1. UI
+# 1. UI
 #########################
 
 
 # Weclome Screen
-print "#"*60
+print "#" * 60
 print "Welcome to the BSM robot controller support python program!"
-print "#"*60
+print "#" * 60
 print "I recommend choosing the joystick layout."
 print "For support please visit https://github.com/avoss19/Robot-Controller-Support"
-print "#"*60
-print "#"*60
+print "#" * 60
+print "#" * 60
 
 # Defualts to joystick control if input was not put in correctly
 #########################
-## 2. READ JOYSTICK
+# 2. READ JOYSTICK
 #########################
 
 # get joystick readings
+
+
 def joysticks():
     global xAxisLeft, yAxisLeft, xAxisRight, yAxisRight, triggerLeft, triggerRight
 
@@ -62,7 +64,7 @@ def joysticks():
         joystick = pygame.joystick.Joystick(i)
         joystick.init()
 
-        xAxisLeft = joystick.get_axis(0) #Why are these in the for loop?
+        xAxisLeft = joystick.get_axis(0)  # Why are these in the for loop?
         yAxisLeft = joystick.get_axis(1)
 
         xAxisRight = joystick.get_axis(2)
@@ -71,10 +73,12 @@ def joysticks():
         triggerLeft = joystick.get_axis(4)
         triggerRight = joystick.get_axis(5)
 ###########################
-## 3. INTERPRET JOYSTICK
-###########################\
+# 3. INTERPRET JOYSTICK
+# \
 
 # Interpret Drive Motors
+
+
 def driveMotors():
     motorSpeedL = 0
     motorSpeedR = 0
@@ -103,11 +107,13 @@ def driveMotors():
     return motorL, motorR
 
 # Interpret arm controls
+
+
 def armJoystickInterpret():
     global armX, armY
     if time.time() - updateTime >= delay:
         if not -yDeadZoneLeft < yAxisLeft < yDeadZoneLeft:
-            armX = armX + yAxisLeft # Need to find a good scale
+            armX = armX + yAxisLeft  # Need to find a good scale
         if triggerRight == 1:
             armY += 0.1
         if triggerLeft == 1:
@@ -117,6 +123,7 @@ def armJoystickInterpret():
 def KitBotSpeed(speed):
     center = 1500
     return speed + center
+
 
 def updateFTP():
     drive = roboDirection()
@@ -129,9 +136,8 @@ def updateFTP():
         f.write(" ")
 
 
-
 # -------------------Main Program--------------------------
-f = open('ftpTemp','r+')
+f = open('ftpTemp', 'r+')
 while True:
     joysticks()
     updateFTP()

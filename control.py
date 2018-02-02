@@ -1,12 +1,15 @@
 import RoboPiLib as RPL
-RPL.RoboPiInit("/dev/ttyAMA0",115200)
+RPL.RoboPiInit("/dev/ttyAMA0", 115200)
 import xbox
 import math
 
-import sys, tty, termios, signal
+import sys
+import tty
+import termios
+import signal
 
 ######################
-## Motor Establishment
+# Motor Establishment
 ######################
 
 motorL = 0
@@ -14,46 +17,48 @@ motorR = 1
 
 
 try:
-  RPL.pinMode(motorL,RPL.SERVO)
-  RPL.servoWrite(motorL, 1500)
-  RPL.pinMode(motorR,RPL.SERVO)
-  RPL.servoWrite(motorR, 1500)
+    RPL.pinMode(motorL, RPL.SERVO)
+    RPL.servoWrite(motorL, 1500)
+    RPL.pinMode(motorR, RPL.SERVO)
+    RPL.servoWrite(motorR, 1500)
 except:
-  pass
+    pass
 
 
 ######################
-## Individual commands
+# Individual commands
 ######################
 def stopAll():
-  try:
-    RPL.servoWrite(motorL,1500)
-    RPL.servoWrite(motorR,1500)
-  except:
-    print "error except"
-    pass
+    try:
+        RPL.servoWrite(motorL, 1500)
+        RPL.servoWrite(motorR, 1500)
+    except:
+        print "error except"
+        pass
+
 
 global sensitivity
 sensitivity = 500
 
 
 def rightMotorScaled(x, y):
-        f = int(1250 * y)
-        t = int(125 * x/2)
-        scaled = f - t
-        return int(1500 + scaled)
+    f = int(1250 * y)
+    t = int(125 * x / 2)
+    scaled = f - t
+    return int(1500 + scaled)
 
 
 def leftMotorScaled(x, y):
-        f = int(1250 * y)
-        t = int(125 * x/2)
-        scaled = f + t
-        return int(1500 - scaled)
+    f = int(1250 * y)
+    t = int(125 * x / 2)
+    scaled = f + t
+    return int(1500 - scaled)
+
 
 def logScaleFun(a):
-    shift = 10*a - 7
+    shift = 10 * a - 7
     temp = 1.3 ** shift
-    temp = temp/2.179
+    temp = temp / 2.179
     return temp - 0.073
 
 
@@ -66,15 +71,15 @@ if __name__ == '__main__':
         # Servo
         x, y = joy.leftStick()
 
-        RPL.servoWrite(motorL,leftMotorScaled(x, y))
-        RPL.servoWrite(motorR,rightMotorScaled(x, y))
+        RPL.servoWrite(motorL, leftMotorScaled(x, y))
+        RPL.servoWrite(motorR, rightMotorScaled(x, y))
 
         if joy.A() == 1:
-                sensitivity += 10
-                print sensitivity
+            sensitivity += 10
+            print sensitivity
         if joy.B() == 1:
-                sensitivity -= 10
-                print sensitivity
+            sensitivity -= 10
+            print sensitivity
 
 
 joy.close()
