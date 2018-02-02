@@ -110,12 +110,29 @@ class Inverse_Kinimatics():
         angle1, angle2 = Inverse_Kinimatics.angle(x, y)
         newCount1 = Inverse_Kinimatics.angleToCount(angle1, motor1.cycleEvents)
         newCount2 = Inverse_Kinimatics.angleToCount(angle2, motor2.cycleEvents)
-        while a or b:
+        Inverse_Kinimatics.runMotors(newCount1, newCount2)
 
     def angleToCount(angle, motorXCycleEvents):
         CycleEventsPerDegree = motorXCycleEvents / 360
         count = angle * CycleEventsPerDegree
         return count
+
+    def runMotors(newCount1, newCount2):
+        global motor1, motor2, encoder1, encoder2, freq
+        motor1.move_to_position(newCount1)  # Starts Motor1
+        motor2.move_to_position(newCount2)  # Starts Motor2
+        a = True
+        b = True
+        while a or b:
+            if abs(newCount1 - encoder1.Rotary_counter) < 5:
+                motor1.stop()
+                a = False
+                print "Motor 1 complete"
+
+            if abs(newCount2 - encoder2.Rotary_counter) < 5:
+                motor2.stop()
+                b = False
+                print "Motor 2 complete"
 
 
 ################################
@@ -214,9 +231,6 @@ class Motor(object):
             self.backwards()
         else:
             self.stop()
-        while abs(self.encoder.Rotary_counter - new_position) > 5:
-            time.sleep(0.01)
-        self.stop()
 
 ################################
     # EXECUTE
