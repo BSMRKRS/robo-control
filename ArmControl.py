@@ -110,8 +110,7 @@ class Inverse_Kinimatics():
         angle1, angle2 = Inverse_Kinimatics.angle(x, y)
         newCount1 = Inverse_Kinimatics.angleToCount(angle1, motor1.cycleEvents)
         newCount2 = Inverse_Kinimatics.angleToCount(angle2, motor2.cycleEvents)
-        motor1.move_to_position(newCount1)
-        motor2.move_to_position(newCount2)
+        while a or b:
 
     def angleToCount(angle, motorXCycleEvents):
         CycleEventsPerDegree = motorXCycleEvents / 360
