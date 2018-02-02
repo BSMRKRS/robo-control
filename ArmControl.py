@@ -41,6 +41,7 @@ import RPi.GPIO as GPIO
 import threading
 from time import sleep
 RPL.RoboPiInit("/dev/ttyAMA0", 115200)
+LockRotary = threading.Lock()
 
 # PINS #
 
