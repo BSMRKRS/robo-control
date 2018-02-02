@@ -21,6 +21,7 @@ import math
 import RPi.GPIO as GPIO
 import threading
 from time import sleep
+LockRotary = threading.Lock()
 RPL.RoboPiInit("/dev/ttyAMA0", 115200)
 
 
