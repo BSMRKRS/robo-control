@@ -48,16 +48,16 @@ RPL.RoboPiInit("/dev/ttyAMA0", 115200)
 motor1Control = 0
 motor1EncoderPwrGnd = 2
 # GPIO pins, NOT on RoboPiHat
-motor1ChannelA = 6
-motor1ChannelB = 12
+motor1ChannelA = 19
+motor1ChannelB = 16
 ###############
 
 # MOTOR 2 #
 motor2Control = 4
 motor2EncoderPwrGnd = 5
 # GPIO pins, NOT on RoboPiHat
-motor2ChannelA = 6
-motor2ChannelB = 7
+motor2ChannelA = 26
+motor2ChannelB = 20
 ###############
 
 # PIN SETUP #
