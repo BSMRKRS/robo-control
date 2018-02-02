@@ -1,28 +1,9 @@
 ################################
-#
-# ArmControl.py v0.1
+# ArmControl.py v0.2
 #
 # Copyright Jack Rickman, 2018
 #
 # Designed for a robotic arm with two encoded DC motors, elbow and shoulder.
-#
-# (0.) Initializes RaspberryPi, RoboPiLib, and other libraries. Holds all
-# variables based on hardware setup, pins, and other customizables.
-#
-# (1.) Takes a requested (x,y) coordinate in the arms range of motion
-# 	!!!Comment (1.) out if using ArmControl.py for iterating through (x,y) coord
-#
-# (2.) Translates (x,y) into the necessary angles of the arm beams for the endp
-# be at (x,y)
-
-# (3.) From there the angles are translated into the countable events from enco
-#
-# (4.) The program then runs the motors until the counted events from the encod
-# equal to the requested number of events , moving the motors to the correct
-# angles, and moving the endpoint of the arm to the correct (x,y)
-# posistion.
-#
-# Assumes the starting position for the endpoint is (0,0) -- if it is not, find
 #
 # Designed for Benilde St. Margaret's Rescue Robot, running on
 # Raspberry Pi 3's with RoboPi hats.
@@ -30,7 +11,8 @@
 # Utilizes the RoboPiLib library (RoboPyLib_v0_97.py), from William Henning
 #
 # !!!Untested Alpha Program!!!
-#
+##################################
+
 ########################
 # 0. INITIALIZE
 ########################
@@ -41,13 +23,6 @@ import threading
 from time import sleep
 RPL.RoboPiInit("/dev/ttyAMA0", 115200)
 
-# PINS #
-
-
-##########################
-
-# GLOBAL VARIABLES #
-
 
 # Length of arms, from axle to axle
 len1 = 12
@@ -55,34 +30,6 @@ len2 = 12
 
 # for pwm motor control
 freq = 3000
-
-# Countable events per revolution of output shaft !!! This includes the motors
-# internal gear ratio, and
-# the external gear ratio !!! Currently, the motor counts 5462.22 events pe
-# output revolution, and
-# is on a 16:1 ratio, so motor1CycleEvents = 5462.22 * 16 = 87395.52 events for
-# one full revolution of the joint
-
-# Ditto motor1^^^, can be different if two motors have different encoders
-
-
-################################
-# 1. USER INPUT
-################################
-
-# Takes x,y coordinate pair for the arm's endpoint requested destination
-# If this program is to be used to increment through (x,y) coordinates along a
-# plane/automatically,
-# comment this section out, and increment through armKinimatics(x,y) using an
-# outside program to increment through
-# values.
-x = float(raw_input("x>"))
-y = float(raw_input("y>"))
-
-################################
-# 2. INVERSE KINIMATICS
-###############################
-# inverse_kinimatic takes an x,y coordinate and returns it as two angles
 
 
 class Inverse_Kinimatics():
@@ -133,11 +80,6 @@ class Inverse_Kinimatics():
                 motor2.stop()
                 b = False
                 print "Motor 2 complete"
-
-
-################################
-    # 3. CONVERT ANGLES TO MECH. COUNT
-################################
 
 
 ################################
@@ -237,6 +179,16 @@ class Motor(object):
 ################################
 
 
+# Takes x,y coordinate pair for the arm's endpoint requested destination
+# If this program is to be used to increment through (x,y) coordinates along a
+# plane/automatically,
+# comment this section out, and increment through armKinimatics(x,y) using an
+# outside program to increment through
+# values.
+x = float(raw_input("x>"))
+y = float(raw_input("y>"))
+
+## Motor 1 ##
 encoder1 = Encoder(motor1ChannelA, motor1ChannelB)
 motor1 = Motor()
 motor1.controlPin = 0
@@ -246,7 +198,7 @@ motor1.forward_speed = 1000
 motor1.backward_speed = 1000
 motor1.cycleEvents = 21848.88
 
-
+## Motor2 ##
 encoder2 = Encoder(motor2ChannelA, motor2ChannelB)
 motor2 = Motor()
 motor2.controlPin = 2
