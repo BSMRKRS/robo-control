@@ -71,6 +71,7 @@ class Inverse_Kinimatics():
         a = True
         b = True
         while a or b:
+
             if abs(newCount1 - encoder1.Rotary_counter) < 5:
                 motor1.stop()
                 a = False
@@ -120,8 +121,8 @@ class Encoder(object, Enc_A, Enc_B):
         if self.Current_A == Switch_A and self.Current_B == Switch_B:
             return										# ignore interrupt!
 
-        self.Current_A = Switch_A								# remember new state
-        Current_B = Switch_B								# for next bouncing check
+        self.Current_A = Switch_A						# remember new state
+        Current_B = Switch_B							# for next bouncing check
         self.Current_B = Switch_B
 
         if (Switch_A and Switch_B):		# Both one active? Yes -> end of sequence
