@@ -143,16 +143,19 @@ class Encoder(object):
 class Motor(object):
     global freq
 
-    def __init__(self):
-        self.motor_number = 0
-        self.controlPin = 0
-        self.encoderPowerPin = 0
-        self.ChannelA = 0
-        self.ChannelB = 0
-        self.forward_speed = 1000
-        self.backward_speed = 1000
-        self.encoder = 0
-        self.cycleEvents = 0
+    def __init__(self, controlPin, encoderPowerPin, forward_speed,
+                 backward_speed, encoder, cycleEvents):
+        self.controlPin = controlPin
+        self.forward_speed = forward_speed
+        self.backward_speed = backward_speed
+        self.encoder = encoder
+        self.cycleEvents = cycleEvents
+        self.pinSetup(encoderPowerPin)
+
+    def pinSetup(self, encoderPowerPin):
+        RPL.pinMode(encoderPowerPin, RPL.OUTPUT)
+        RPL.digitalWrite(encoderPowerPin, 1)
+        RPL.pinMode(self.controlPin, RPL.PWM)
 
     def stop(self):
         RPL.pwmWrite(self.controlPin, 1500, freq)
@@ -190,25 +193,16 @@ class Motor(object):
 x = float(raw_input("x>"))
 y = float(raw_input("y>"))
 
+# Motor(controlPin, encoderPowerPin, encoder, forward_speed, backward_speed, cycleEvents)
+
 ## Motor 1 ##
-encoder1 = Encoder(motor1ChannelA, motor1ChannelB)
-motor1 = Motor()
-motor1.controlPin = 0
-motor1.encoderPowerPin = 1
-motor1.encoder = encoder1
-motor1.forward_speed = 1000
-motor1.backward_speed = 1000
-motor1.cycleEvents = 21848.88
+encoder1 = Encoder(19, 16)
+motor1 = Motor(0, 1, encoder1, 1000, 1000, 21848.88))
+
 
 ## Motor2 ##
-encoder2 = Encoder(motor2ChannelA, motor2ChannelB)
-motor2 = Motor()
-motor2.controlPin = 2
-motor2.encoderPowerPin = 3
-motor2.encoder = encoder2
-motor2.forward_speed = 1000
-motor2.backward_speed = 1000
-motor2.cycleEvents = 11098.56
+encoder2=Encoder(26, 20)
+motor2=Motor(2, 3, encoder2, 1000, 1000, 11098.56))
 
 
 Inverse_Kinimatics.armKinimatics(x, y)
