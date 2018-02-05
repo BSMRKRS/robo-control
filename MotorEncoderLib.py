@@ -1,6 +1,3 @@
-LockRotary = threading.Lock()		# create lock for rotary switch?
-
-
 class Encoder(object):
     global LockRotary
 
