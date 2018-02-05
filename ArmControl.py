@@ -66,19 +66,19 @@ class Inverse_Kinimatics():
         return count
 
     def runMotors(newCount1, newCount2):
-        global motor1, motor2, encoder1, encoder2, freq
+        global motor1, motor2, freq
         motor1.move_to_position(newCount1)  # Starts Motor1
         motor2.move_to_position(newCount2)  # Starts Motor2
         a = True
         b = True
         while a or b:
 
-            if abs(newCount1 - encoder1.Rotary_counter) < 5:
+            if abs(newCount1 - motor1.encoder.Rotary_counter) < 5:
                 motor1.stop()
                 a = False
                 print "Motor 1 complete"
 
-            if abs(newCount2 - encoder2.Rotary_counter) < 5:
+            if abs(newCount2 - motor2.encoder.Rotary_counter) < 5:
                 motor2.stop()
                 b = False
                 print "Motor 2 complete"
@@ -143,12 +143,12 @@ class Encoder(object):
 class Motor(object):
     global freq
 
-    def __init__(self, controlPin, encoderPowerPin, forward_speed,
-                 backward_speed, encoder, cycleEvents):
+    def __init__(self, controlPin, encoderPowerPin, Enc_A, Enc_B,
+                forward_speed, backward_speed, encoder, cycleEvents):
         self.controlPin = controlPin
+        self.encoder = Encoder(Enc_A, Enc_B)
         self.forward_speed = forward_speed
         self.backward_speed = backward_speed
-        self.encoder = encoder
         self.cycleEvents = cycleEvents
         self.pinSetup(encoderPowerPin)
 
@@ -193,16 +193,16 @@ class Motor(object):
 x = float(raw_input("x>"))
 y = float(raw_input("y>"))
 
-# Motor(controlPin, encoderPowerPin, encoder, forward_speed, backward_speed, cycleEvents)
+# Motor(controlPin, encoderPowerPin, Enc_A, Enc_B,
+#          forward_speed, backward_speed, cycleEvents)
 
 ## Motor 1 ##
-encoder1 = Encoder(19, 16)
-motor1 = Motor(0, 1, encoder1, 1000, 1000, 21848.88))
+motor1 = Motor(0, 1, 19, 16, 1000, 1000, 21848.88))
 
 
 ## Motor2 ##
-encoder2=Encoder(26, 20)
-motor2=Motor(2, 3, encoder2, 1000, 1000, 11098.56))
+
+motor2=Motor(2, 3, 26, 20, 1000, 1000, 11098.56))
 
 
 Inverse_Kinimatics.armKinimatics(x, y)
