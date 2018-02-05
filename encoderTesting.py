@@ -1,12 +1,3 @@
-
-import RPi.GPIO as GPIO
-import RoboPiLib_pwm as RPL
-import threading
-from time import sleep
-from ArmControl import Motor
-from ArmControl import Encoder
-RPL.RoboPiInit("/dev/ttyAMA0", 115200)
-
 LockRotary = threading.Lock()		# create lock for rotary switch?
 
 
@@ -14,8 +5,8 @@ class Encoder(object):
     global LockRotary
 
     def __init__(self, Enc_A, Enc_B):
-        self.Enc_A = 0  # GPIO encoder pin A
-        self.Enc_B = 0  # GPIO encoder pin B
+        self.Enc_A = Enc_A  # GPIO encoder pin A
+        self.Enc_B = Enc_B  # GPIO encoder pin B
         self.Current_A = 1  # This assumes that Encoder inits while mtr is stop
         self.Current_B = 1
         self.Rotary_counter = 0
@@ -66,25 +57,28 @@ class Encoder(object):
 class Motor(object):
     global freq
 
-    def __init__(self):
-        self.motor_number = 0
-        self.controlPin = 0
-        self.encoderPowerPin = 0
-        self.ChannelA = 0
-        self.ChannelB = 0
-        self.forward_speed = 1000
-        self.backward_speed = 1000
-        self.encoder = 0
-        self.cycleEvents = 0
+    def __init__(self, controlPin, encoderPowerPin, forward_speed,
+                 backward_speed, encoder, cycleEvents):
+        self.controlPin = controlPin
+        self.forward_speed = forward_speed
+        self.backward_speed = backward_speed
+        self.encoder = encoder
+        self.cycleEvents = cycleEvents
+        self.pinSetup(encoderPowerPin)
+
+    def pinSetup(self, encoderPowerPin):
+        RPL.pinMode(encoderPowerPin, RPL.OUTPUT)
+        RPL.digitalWrite(encoderPowerPin, 1)
+        RPL.pinMode(self.controlPin, RPL.PWM)
 
     def stop(self):
         RPL.pwmWrite(self.controlPin, 1500, freq)
 
     def forwards(self):
-        RPL.pwmWrite(self.controlPin, 1500 + speed, freq)
+        RPL.pwmWrite(self.controlPin, 1500 + forward_speed, freq)
 
     def backwards(self):
-        RPL.pwmWrite(self.controlPin, 1500 - speed, freq)
+        RPL.pwmWrite(self.controlPin, 1500 - backward_speed, freq)
 
     def current_angle(self):
         angle = self.encoder.Rotary_counter / self.cycleEvents
