@@ -87,10 +87,10 @@ class Inverse_Kinimatics():
 ################################
     # 3. ENCODER
 ################################
-class Encoder(object, Enc_A, Enc_B):
+class Encoder(object):
     global LockRotary
 
-    def __init__(self):
+    def __init__(self, Enc_A, Enc_B):
         self.Enc_A = Enc_A  # GPIO encoder pin A
         self.Enc_B = Enc_B  # GPIO encoder pin B
         self.Current_A = 1  # This assumes that Encoder inits while mtr is stop

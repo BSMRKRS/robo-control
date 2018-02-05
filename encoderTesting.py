@@ -10,12 +10,12 @@ RPL.RoboPiInit("/dev/ttyAMA0", 115200)
 LockRotary = threading.Lock()		# create lock for rotary switch?
 
 
-class Encoder(object, Enc_A, Enc_B):
+class Encoder(object):
     global LockRotary
 
-    def __init__(self):
-        self.Enc_A = Enc_A  # GPIO encoder pin A
-        self.Enc_B = Enc_B  # GPIO encoder pin B
+    def __init__(self, Enc_A, Enc_B):
+        self.Enc_A = 0  # GPIO encoder pin A
+        self.Enc_B = 0  # GPIO encoder pin B
         self.Current_A = 1  # This assumes that Encoder inits while mtr is stop
         self.Current_B = 1
         self.Rotary_counter = 0
