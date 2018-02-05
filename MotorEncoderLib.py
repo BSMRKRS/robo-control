@@ -57,12 +57,12 @@ class Encoder(object):
 class Motor(object):
     global freq
 
-    def __init__(self, controlPin, encoderPowerPin, forward_speed,
-                 backward_speed, encoder, cycleEvents):
+    def __init__(self, controlPin, encoderPowerPin, Enc_A, Enc_B,
+                 forward_speed, backward_speed, encoder, cycleEvents):
         self.controlPin = controlPin
+        self.encoder = Encoder(Enc_A, Enc_B)
         self.forward_speed = forward_speed
         self.backward_speed = backward_speed
-        self.encoder = encoder
         self.cycleEvents = cycleEvents
         self.pinSetup(encoderPowerPin)
 
