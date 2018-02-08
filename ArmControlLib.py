@@ -1,5 +1,5 @@
 ################################
-# MotorEncoderLib v0.1
+# ArmControlLib v0.1
 #
 # Copyright Jack Rickman, 2018
 #
@@ -8,9 +8,8 @@
 # Designed for Benilde St. Margaret's Rescue Robot, running on
 # Raspberry Pi 3's with RoboPi hats.
 #
-# Utilizes the RoboPiLib library (RoboPyLib_v0_97.py), from William Henning
+# Utilizes the RoboPiLib library (RoboPyLib_pwmv0_97.py), from William Henning
 #
-# !!!Untested Alpha Program!!!
 ##################################
 import threading
 import time
