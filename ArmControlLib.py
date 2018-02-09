@@ -28,7 +28,7 @@ class Encoder(object):
     def __init__(self, Enc_A, Enc_B):
         self.Enc_A = Enc_A  # GPIO encoder pin A
         self.Enc_B = Enc_B  # GPIO encoder pin B
-        self.Current_A = 1  # This assumes that Encoder inits while mtr is stop
+        self.Current_A = 1  # This assumes that Encoder inits while mtr is stopped
         self.Current_B = 1
         self.Rotary_counter = 0
         self.startEncoders()
