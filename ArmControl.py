@@ -103,16 +103,20 @@ def angle(x, y):
 
     return A1, A2
 
+
+def ui():
+    x = float(raw_input("x>"))
+    y = float(raw_input("y>"))
+    armKinimatics(x, y)
+
 ################################
 # EXECUTE
 ################################
 
 
-x = float(raw_input("x>"))
-y = float(raw_input("y>"))
-
 # Motor(controlPin, encoderPowerPin, Enc_A, Enc_B,
 #          forward_speed, backward_speed, cycleEvents)
+
 
 ## Motor 1 ##
 motor1 = ACL.Motor(0, 1, 19, 16, 500, 500, 21848.88, freq)
@@ -121,5 +125,4 @@ motor1 = ACL.Motor(0, 1, 19, 16, 500, 500, 21848.88, freq)
 ## Motor2 ##
 motor2 = ACL.Motor(2, 3, 26, 20, 500, 500, 11098.56, freq)
 
-
-armKinimatics(x, y)
+ui()
