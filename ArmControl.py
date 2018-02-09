@@ -57,8 +57,8 @@ def deg(rad):
 
 def armKinimatics(x, y):
     angle1, angle2 = angle(x, y)
-    newCount1 = angleToCount(angle1, motor1.cycleEvents)
-    newCount2 = angleToCount(angle2, motor2.cycleEvents)
+    newCount1 = angleToCount(deg(angle1), motor1.cycleEvents)
+    newCount2 = angleToCount(deg(angle2), motor2.cycleEvents)
     runMotors(newCount1, newCount2)
 
 
