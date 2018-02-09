@@ -85,10 +85,11 @@ class Motor(object):
         self.backward_speed = backward_speed
         self.cycleEvents = cycleEvents
         self.freq = freq
-        self.pinSetup(encoderPowerPin)
+        self.encoderPowerPin = encoderPowerPin
+        self.pinSetup()
 
-    def pinSetup(self, encoderPowerPin):
-        RPL.pinMode(encoderPowerPin, RPL.OUTPUT)
+    def pinSetup(self):
+        RPL.pinMode(self.encoderPowerPin, RPL.OUTPUT)
         RPL.digitalWrite(encoderPowerPin, 1)
         RPL.pinMode(self.controlPin, RPL.PWM)
 
