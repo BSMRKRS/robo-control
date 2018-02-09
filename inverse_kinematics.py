@@ -2,6 +2,14 @@ import math
 import sys
 import pygame
 
+
+class Arm(object):
+
+    def __init__(self):
+        self.len1 = 12.0
+        self.len2 = 12.0
+
+
 pygame.init()
 
 size = width, height = 480, 480
@@ -10,10 +18,6 @@ black = 0, 0, 0,
 
 
 screen = pygame.display.set_mode(size)
-
-
-len1 = 12.0
-len2 = 12.0
 
 
 def LawOfCosines(a, b, c):
