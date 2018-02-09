@@ -108,14 +108,12 @@ class Motor(object):
         return angle
 
     def move_to_position(self, new_position):
-        if new_position > self.encoder.Rotary_counter:
+        if new_position >= self.encoder.Rotary_counter:
             self.forwards()
             print "Motor forwards"
         if new_position < self.encoder.Rotary_counter:
             self.backwards()
             print "Motor backwards"
-        else:
-            self.stop()
 
 ############################
     # Inverse Kinimatics
