@@ -78,7 +78,7 @@ class Encoder(object):
 class Motor(object):
 
     def __init__(self, controlPin, encoderPowerPin, Enc_A, Enc_B,
-                 forward_speed, backward_speed, encoder, cycleEvents, freq):
+                 forward_speed, backward_speed, cycleEvents, freq):
         self.controlPin = controlPin
         self.encoder = Encoder(Enc_A, Enc_B)
         self.forward_speed = forward_speed
