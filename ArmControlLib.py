@@ -90,7 +90,7 @@ class Motor(object):
 
     def pinSetup(self):
         RPL.pinMode(self.encoderPowerPin, RPL.OUTPUT)
-        RPL.digitalWrite(encoderPowerPin, 1)
+        RPL.digitalWrite(self.encoderPowerPin, 1)
         RPL.pinMode(self.controlPin, RPL.PWM)
 
     def stop(self):
