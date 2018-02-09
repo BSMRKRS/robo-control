@@ -87,7 +87,7 @@ def runMotors(newCount1, newCount2):
             print "Motor 2 complete"
 
 
-def angles(x, y):
+def angle(x, y):
     dist = distance(x, y)
 
     D1 = math.atan2(y, x)
