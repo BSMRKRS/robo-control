@@ -99,6 +99,7 @@ def angle(x, y):
     A1 = D1 + D2
 
     A2 = LawOfCosines(len1, len2, dist)
+    print A1, A2
 
     return A1, A2
 
@@ -107,6 +108,7 @@ def ui():
     x = float(raw_input("x>"))
     y = float(raw_input("y>"))
     armKinimatics(x, y)
+    ui()
 
 ################################
 # EXECUTE
