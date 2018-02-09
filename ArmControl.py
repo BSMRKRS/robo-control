@@ -77,7 +77,7 @@ def runMotors(newCount1, newCount2):
     a = True
     b = True
     while a or b:
-        time.sleep(0.001)
+        sleep(0.001)
         if abs(newCount1 - motor1.encoder.Rotary_counter) < 5:
             motor1.stop()
             a = False
