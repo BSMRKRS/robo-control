@@ -120,10 +120,10 @@ def ui():
 
 
 ## Motor 1 ##
-motor1 = ACL.Motor(0, 1, 19, 16, 500, 500, 21848.88, freq)
+motor1 = ACL.Motor(0, 1, 19, 16, 1000, 1000, 21848.88, freq)
 
 
 ## Motor2 ##
-motor2 = ACL.Motor(2, 3, 26, 20, 500, 500, 11098.56, freq)
+motor2 = ACL.Motor(2, 3, 26, 20, 1000, 1000, 11098.56, freq)
 
 ui()
