@@ -105,4 +105,4 @@ motor1 = ACL.Motor(0, 1, 19, 16, 1000, 1000, 21848.88, freq)
 motor2 = ACL.Motor(2, 3, 26, 20, 1000, 1000, 11098.56, freq)
 
 
-ACL.armKinimatics(x, y, motor1, motor2)
+armKinimatics(x, y, motor1, motor2)
