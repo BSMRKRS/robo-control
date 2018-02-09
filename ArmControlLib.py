@@ -130,6 +130,8 @@ class Inverse_Kinimatics():
         return math.sqrt(x * x + y * y)
 
     def inverse_kinimatic(x, y):
+        len1 = 12.0
+        len2 = 12.0  # TODO: Fix hardwrite of length
         dist = distance(x, y)
         D1 = math.atan2(y, x)
         D2 = LawOfCosines(dist, len1, len2)
