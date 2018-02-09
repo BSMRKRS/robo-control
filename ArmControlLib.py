@@ -15,6 +15,7 @@ import threading
 import time
 import RPi.GPIO as GPIO
 import RoboPiLib_pwm as RPL
+import math
 LockRotary = threading.Lock()
 
 ###############################
@@ -118,3 +119,79 @@ class Motor(object):
 ############################
     # Inverse Kinimatics
 ############################
+
+
+class Inverse_Kinimatics(object):
+
+    def __init__(self, len1, len2):
+        self.len1 = len1
+        self.len2 = len2
+
+    def LawOfCosines(a, b, c):
+        C = math.acos((a * a + b * b - c * c) / (2 * a * b))
+        return C
+
+    def distance(x, y):
+        return math.sqrt(x * x + y * y)
+
+    def inverse_kinimatic(x, y):
+        len1 = self.len1
+        len2 = self.len2
+        dist = self.distance(x, y)
+        D1 = math.atan2(y, x)
+        D2 = self.LawOfCosines(dist, len1, len2)
+        A1 = D1 + D2
+        B2 = self.LawOfCosines(len1, len2, dist)
+        return A1, B1
+
+    def deg(rad):
+        return rad * 180 / math.pi
+
+    def armKinimatics(self, x, y):
+        angle1, angle2 = self.angle(x, y)
+        newCount1 = self.angleToCount(angle1, motor1.cycleEvents)
+        newCount2 = self.angleToCount(angle2, motor2.cycleEvents)
+        self.runMotors(newCount1, newCount2)
+
+    def angleToCount(angle, motorXCycleEvents):
+        CycleEventsPerDegree = motorXCycleEvents / 360
+        count = angle * CycleEventsPerDegree
+        return count
+
+    def runMotors(newCount1, newCount2):
+        global motor1, motor2
+        print "Motor1 newCount: %d" % newCount1
+        print "Motor2 newCount: %d" % newCount2
+        motor1.move_to_position(newCount1)  # Starts Motor1
+        motor2.move_to_position(newCount2)  # Starts Motor2
+        a = True
+        b = True
+        while a or b:
+            sleep(0.001)
+            print "Motor1 rot count: %d Motor2 rot count: %d" % (
+                motor1.encoder.Rotary_counter, motor2.encoder.Rotary_counter)
+            if abs(newCount1 - motor1.encoder.Rotary_counter) < 5:
+                motor1.stop()
+                a = False
+                print "Motor 1 complete"
+
+            if abs(newCount2 - motor2.encoder.Rotary_counter) < 5:
+                motor2.stop()
+                b = False
+                print "Motor 2 complete"
+
+    def angle(self, x, y):
+        len1 = self.len1
+        len2 = self.len2
+        dist = self.distance(x, y)
+
+        D1 = math.atan2(y, x)
+
+        D2 = self.LawOfCosines(dist, len1, len2)
+
+        A1 = D1 + D2
+
+        A2 = self.LawOfCosines(len1, len2, dist)
+        print self.deg(A1), self.deg(A2)
+
+        return self.deg(A1), self.deg(A2)
