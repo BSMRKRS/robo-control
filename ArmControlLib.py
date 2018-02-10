@@ -12,10 +12,11 @@
 #
 ##################################
 import threading
-import time
+from time import sleep
 import RPi.GPIO as GPIO
 import RoboPiLib_pwm as RPL
 import math
+
 LockRotary = threading.Lock()
 
 ###############################
