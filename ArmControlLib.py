@@ -127,14 +127,14 @@ class Inverse_Kinimatics(object):
         self.len1 = len1
         self.len2 = len2
 
-    def LawOfCosines(a, b, c):
+    def LawOfCosines(self, a, b, c):
         C = math.acos((a * a + b * b - c * c) / (2 * a * b))
         return C
 
-    def distance(x, y):
+    def distance(self, x, y):
         return math.sqrt(x * x + y * y)
 
-    def inverse_kinimatic(x, y):
+    def inverse_kinimatic(self, x, y):
         len1 = self.len1
         len2 = self.len2
         dist = self.distance(x, y)
@@ -144,7 +144,7 @@ class Inverse_Kinimatics(object):
         B2 = self.LawOfCosines(len1, len2, dist)
         return A1, B1
 
-    def deg(rad):
+    def deg(self, rad):
         return rad * 180 / math.pi
 
     def armKinimatics(self, x, y):
@@ -153,12 +153,12 @@ class Inverse_Kinimatics(object):
         newCount2 = self.angleToCount(angle2, motor2.cycleEvents)
         self.runMotors(newCount1, newCount2)
 
-    def angleToCount(angle, motorXCycleEvents):
+    def angleToCount(self, angle, motorXCycleEvents):
         CycleEventsPerDegree = motorXCycleEvents / 360
         count = angle * CycleEventsPerDegree
         return count
 
-    def runMotors(newCount1, newCount2):
+    def runMotors(self, newCount1, newCount2):
         global motor1, motor2
         print "Motor1 newCount: %d" % newCount1
         print "Motor2 newCount: %d" % newCount2
