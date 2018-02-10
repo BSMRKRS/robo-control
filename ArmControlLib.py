@@ -159,7 +159,6 @@ class Inverse_Kinimatics(object):
         return count
 
     def runMotors(self, newCount1, newCount2):
-        global motor1, motor2
         print "Motor1 newCount: %d" % newCount1
         print "Motor2 newCount: %d" % newCount2
         motor1.move_to_position(newCount1)  # Starts Motor1
