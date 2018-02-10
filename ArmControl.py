@@ -53,6 +53,6 @@ motor1 = ACL.Motor(0, 1, 19, 16, 1000, 1000, 21848.88, freq)
 
 ## Motor2 ##
 motor2 = ACL.Motor(2, 3, 26, 20, 1000, 1000, 11098.56, freq)
-inverse_kinimatic_instance = ACL.Inverse_Kinimatics(len1, len2)
+inverse_kinimatic_instance = ACL.Inverse_Kinimatics(len1, len2, motor1, motor2)
 
 ui()
