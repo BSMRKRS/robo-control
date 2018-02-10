@@ -12,7 +12,7 @@
 #
 ##################################
 import threading
-from time import sleep
+import time
 import RPi.GPIO as GPIO
 import RoboPiLib_pwm as RPL
 import math
@@ -168,10 +168,12 @@ class Inverse_Kinimatics(object):
         self.motor2.move_to_position(newCount2)  # Starts Motor2
         a = True
         b = True
+        time_start = time.time()
         while a or b:
-            sleep(0.001)
-            print "Motor1 rot count: %d Motor2 rot count: %d" % (
-                self.motor1.encoder.Rotary_counter, self.motor2.encoder.Rotary_counter)
+            time.sleep(0.001)
+            if time.time() - time_start > 1:
+                print "Motor1 rot count: %d Motor2 rot count: %d" % (
+                    self.motor1.encoder.Rotary_counter, self.motor2.encoder.Rotary_counter)
             if abs(newCount1 - self.motor1.encoder.Rotary_counter) < 5:
                 self.motor1.stop()
                 a = False
