@@ -31,13 +31,36 @@ len2 = 12
 # for pwm motor control
 freq = 3000
 
+x = 0
+y = 0
+
+
+def coords():
+    global x, y
+    inverse_kinimatic_instance.armKinimatics(x, y)
+    coords()
+
 
 def ui():
-    x = float(raw_input("x>"))
-    y = float(raw_input("y>"))
-    inverse_kinimatic_instance.armKinimatics(x, y)
-    ui()
-
+    global x, y
+    print "(%f, %f)" % (x, y)
+    choice = raw_input("")
+    if choice == "coords":
+        x = float(raw_input("x>"))
+        y = float(raw_input("y>"))
+        coords()
+    elif choice == "d":
+        x += 1
+        coords()
+    elif choice == "a":
+        x -= 1
+        coords()
+    elif choice == "w":
+        y += 1
+        coords()
+    elif choice == "s":
+        y -= 1
+        coords()
 ################################
 # EXECUTE
 ################################
