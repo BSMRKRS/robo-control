@@ -66,8 +66,8 @@ def ui():
 ################################
 
 
-# Motor(controlPin, encoderPowerPin, Enc_A, Enc_B,
-#          forward_speed, backward_speed, cycleEvents)
+# Motor(controlPin, encoderPowerPin, Enc_A GPIO Pin, Enc_B GPIO Pin,
+#          forward_speed, backward_speed, EncoderCyclesPerRotation, PWM frequency)
 
 
 ## Motor 1 ##
