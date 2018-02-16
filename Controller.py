@@ -1,13 +1,8 @@
-import pygame  # controller
-#import robotonomy.RoboPiLib as RPL
-#import robotonomy.setup
 
 #######################
 # 0. Initialization
 ########################
 import pygame  # controller
-#import robotonomy.RoboPiLib as RPL
-#import robotonomy.setup
 
 
 # Initialize pygame
@@ -126,9 +121,8 @@ def KitBotSpeed(speed):
 
 
 def updateFTP():
-    drive = roboDirection()
-    print roboDirection()
-    data = [drive[0], drive[1], time.time()]
+    data = [inverse_kinimatic_instance.data[0],
+            inverse_kinimatic_instance.data[1], time.time()]
     f.seek(0)
     f.truncate()
     for i in data:
@@ -139,5 +133,4 @@ def updateFTP():
 # -------------------Main Program--------------------------
 f = open('ftpTemp', 'r+')
 while True:
-    joysticks()
     updateFTP()
