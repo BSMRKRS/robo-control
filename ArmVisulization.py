@@ -13,20 +13,42 @@ size = width, height = 480, 480
 
 black = 0, 0, 0,
 
-
+x = 24.0
+y = 0.0
 screen = pygame.display.set_mode(size)
 
 
 rectangle = [0, 240], [0, 190], [240, 190], [240, 240]
 
 
+def ui():
+    global x, y
+    print "(%f, %f)" % (x, y)
+    choice = raw_input(">")
+    if choice == "coords":
+        x = float(raw_input("x>"))
+        y = float(raw_input("y>"))
+        arm.visualization(x, y)
+    elif choice == "d":
+        x += 1
+        arm.visualization(x, y)
+    elif choice == "a":
+        x -= 1
+        arm.visualization(x, y)
+    elif choice == "w":
+        y += 1
+        arm.visualization(x, y)
+    elif choice == "s":
+        y -= 1
+        arm.visualization(x, y)
+
+
 while 1:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
-    x = float(raw_input("x>"))
-    y = float(raw_input("y>"))
-    arm.visualization(x, y)
+
+    ui()
     endpoints = [240, 190], [arm.shoulder_x, arm.shoulder_y], [
         arm.forarm_x, arm.forarm_y]
     endpoints_test = [240, 190], [arm.shoulder_x, arm.shoulder_y], [
