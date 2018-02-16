@@ -13,8 +13,11 @@
 ##################################
 import threading
 import time
-import RPi.GPIO as GPIO
-import RoboPiLib_pwm as RPL
+try:
+    import RPi.GPIO as GPIO
+    import RoboPiLib_pwm as RPL
+except:
+    print "Not connected to RaspberryPi"
 import math
 
 LockRotary = threading.Lock()
@@ -168,13 +171,13 @@ class Inverse_Kinimatics(object):
         self.motor2.move_to_position(newCount2)  # Starts Motor2
         a = True
         b = True
-        time_start = time.time()
+        timeStart = time.time()
         while a or b:
             time.sleep(0.001)
-            if time.time() - time_start > 1:
+            if time.time() - timeStart > 1:
                 print "Motor1 rot count: %d Motor2 rot count: %d" % (
                     self.motor1.encoder.Rotary_counter, self.motor2.encoder.Rotary_counter)
-                    time_start = time.time()
+                timeStart = time.time()
             if abs(newCount1 - self.motor1.encoder.Rotary_counter) < 5:
                 self.motor1.stop()
                 a = False
@@ -198,5 +201,21 @@ class Inverse_Kinimatics(object):
 
         A2 = self.LawOfCosines(len1, len2, dist)
         print self.deg(A1), self.deg(A2)
+        return A1, A2
 
-        return self.deg(A1), self.deg(A2)
+    def shoulderEnd(self, a1):
+        self.shoulder_x = 240 + self.len1 * math.cos(a1) * 10
+        self.shoulder_y = 190 - self.len1 * math.sin(a1) * 10
+
+    def forarmEnd(self, x, y, a1, a2):
+        self.forarm_x_test = 240 + x * 10
+        self.forarm_y_test = 190 - y * 10
+        self.forarm_x = self.shoulder_x + self.len2 * \
+            math.cos(a1 + a2 - math.pi) * 10
+        self.forarm_y = self.shoulder_y - self.len2 * \
+            math.sin(a1 + a2 - math.pi) * 10
+
+    def visualization(self, x, y):
+        a1, a2 = self.angle(x, y)
+        self.shoulderEnd(a1)
+        self.forarmEnd(x, y, a1, a2)
