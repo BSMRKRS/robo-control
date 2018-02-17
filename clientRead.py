@@ -3,8 +3,10 @@
 
 import ArmControlLib as ACL
 import ftplib
-ftp = ftplib.FTP('ip', 'username', 'password')  # host computer info
-ftp.cwd('directory of this repository')  # directory of repo on host
+ftp = ftplib.FTP('192.168.21.225', 'jwrickman18',
+                 'Heap!860')  # host computer info
+# directory of repo on host
+ftp.cwd('/Users/jwrickman18/Desktop/code/robo-control')
 
 ## Motor 1 ##
 motor1 = ACL.Motor(0, 1, 26, 20, 1000, 1000, 21848.88, freq)
