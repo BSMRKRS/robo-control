@@ -130,6 +130,7 @@ class Inverse_Kinimatics(object):
         self.len2 = len2
         self.motor1 = motor1
         self.motor2 = motor2
+        self.data = [0, 0]
 
     def LawOfCosines(self, a, b, c):
         C = math.acos((a * a + b * b - c * c) / (2 * a * b))
@@ -153,8 +154,9 @@ class Inverse_Kinimatics(object):
 
     def armKinimatics(self, x, y):
         angle1, angle2 = self.angle(x, y)
-        newCount1 = self.angleToCount(angle1, self.motor1.cycleEvents)
-        newCount2 = self.angleToCount(angle2, self.motor2.cycleEvents)
+        # TODO: Hard coded cycleevents Fix!!
+        newCount1 = self.angleToCount(angle1, 21848.88)
+        newCount2 = self.angleToCount(angle2, 11098.56)
         self.data[0] = newCount1
         self.data[1] = newCount2
         self.visualization(x, y)

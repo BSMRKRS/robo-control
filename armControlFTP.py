@@ -1,6 +1,7 @@
 import math
 import sys
 import pygame
+import time
 from ArmControlLib import Inverse_Kinimatics
 
 
@@ -19,6 +20,7 @@ screen = pygame.display.set_mode(size)
 
 
 rectangle = [0, 240], [0, 190], [240, 190], [240, 240]
+f = open('ftpTemp.txt', 'r+')
 
 
 def updateFTP():
@@ -26,12 +28,10 @@ def updateFTP():
             arm.data[1], time.time()]
     f.seek(0)
     f.truncate()
-    for i in data:
-        f.write(str(data[i]))
+    for i in range(0, 3):
+        f.write(str(data[int(i)]))
+        print str(data[int(i)])
         f.write(" ")
-
-
-f = open('ftpTemp', 'r+')
 
 
 def ui():
@@ -41,20 +41,24 @@ def ui():
     if choice == "coords":
         x = float(raw_input("x>"))
         y = float(raw_input("y>"))
-        arm.Kinimatics(x, y)
+        arm.armKinimatics(x, y)
+        updateFTP()
     elif choice == "d":
         x += 1
-        arm.Kinimatics(x, y)
+        arm.armKinimatics(x, y)
+        updateFTP()
     elif choice == "a":
         x -= 1
-        arm.Kinimatics(x, y)
+        arm.armKinimatics(x, y)
+        updateFTP()
     elif choice == "w":
         y += 1
-        arm.Kinimatics(x, y)
+        arm.armKinimatics(x, y)
+        updateFTP()
     elif choice == "s":
         y -= 1
-        arm.Kinimatics(x, y)
-    updateFTP()
+        arm.armKinimatics(x, y)
+        updateFTP()
 
 
 while 1:
