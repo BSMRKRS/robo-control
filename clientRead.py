@@ -29,6 +29,7 @@ while a:
     ftp.quit()
     gFile = open("ftpTemp.txt", "r")
     buff = gFile.read()
+    gFile.close()
     convertTxtArray = buff.split()
     motor1_count_request = convertTxtArray[0]
     print motor1_count_request
@@ -40,9 +41,8 @@ while a:
     print latency
     print "Worked one time"
     timeStart = time.time()
-    time.sleep(0.001)
+    time.sleep(0.01)
     if time.time() - timeStart > 1:
         print "Motor1 rot count: %d Motor2 rot count: %d" % (
             motor1.encoder.Rotary_counter, motor2.encoder.Rotary_counter)
         timeStart = time.time()
-    gFile.close()
