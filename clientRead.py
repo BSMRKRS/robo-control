@@ -3,6 +3,7 @@
 
 import ArmControlLib as ACL
 import ftplib
+RPL.RoboPiInit("/dev/ttyAMA0", 115200)
 ftp = ftplib.FTP('192.168.21.225', 'jwrickman18',
                  'Heap!860')  # host computer info
 # directory of repo on host
