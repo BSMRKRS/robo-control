@@ -33,8 +33,16 @@ while a:
     motor1_count_request = float(convertTxtArray[0])
     motor2_count_request = float(convertTxtArray[1])
     latency = time.time() - float(convertTxtArray[2])
-    motor1.move_to_position(motor1_count_request)
-    motor2.move_to_position(motor2_count_request)
+    if abs(motor1_count_request - motor1.encoder.Rotary_counter) < 10:
+        motor1.stop()
+        print "motor1 complete"
+    else:
+        motor1.move_to_position(motor1_count_request)
+    if abs(motor2_count_request - motor2.encoder.Rotary_counter) < 10:
+        motor2.stop()
+        print "motor2 complete"
+    else:
+        motor2.move_to_position(motor2_count_request)
     print latency
     print "Worked one time"
     timeStart = time.time()
