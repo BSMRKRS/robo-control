@@ -21,14 +21,19 @@ motor2 = ACL.Motor(2, 3, 19, 16, 1000, 1000, 11098.56, freq)
 
 while True:
     gFile = open("ftpTemp.txt", "wb")
-    ftp.retrbinary('RETR ftpTemp.txt', gFile.write)
+    try:
+        ftp.retrbinary('RETR ftpTemp.txt', gFile.write)
+    except:
+        print "issue with ftp.retrbinary line 25"
     gFile.close()
     ftp.quit()
     gFile = open("ftpTemp.txt", "r")
     buff = gFile.read()
     convertTxtArray = buff.split()
     motor1_count_request = convertTxtArray[0]
+    print motor1_count_request
     motor2_count_request = convertTxtArray[1]
+    print motor2_count_request
     latency = time.time() - float(convertTxtArray[2])
     motor1.move_to_position(motor1_count_request)
     motor2.move_to_position(motor2_count_request)
