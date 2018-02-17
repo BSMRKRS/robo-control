@@ -7,7 +7,7 @@ ftp = ftplib.FTP('192.168.21.225', 'jwrickman18',
                  'Heap!860')  # host computer info
 # directory of repo on host
 ftp.cwd('/Users/jwrickman18/Desktop/code/robo-control')
-
+freq = 3000
 ## Motor 1 ##
 motor1 = ACL.Motor(0, 1, 26, 20, 1000, 1000, 21848.88, freq)
 
