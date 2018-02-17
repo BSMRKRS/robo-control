@@ -40,3 +40,11 @@ while a:
     print latency
     print "Worked one time"
     a = False
+
+timeStart = time.time()
+while True:
+    time.sleep(0.001)
+    if time.time() - timeStart > 1:
+        print "Motor1 rot count: %d Motor2 rot count: %d" % (
+            motor1.encoder.Rotary_counter, motor2.encoder.Rotary_counter)
+        timeStart = time.time()
