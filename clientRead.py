@@ -26,7 +26,10 @@ while a:
     except:
         print "issue with ftp.retrbinary line 25"
     gFile.close()
-    ftp.quit()
+    try:
+        ftp.quit()
+    except:
+        print "ftp.quit() did not work"
     gFile = open("ftpTemp.txt", "r")
     buff = gFile.read()
     gFile.close()
