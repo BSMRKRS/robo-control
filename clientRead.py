@@ -4,6 +4,7 @@
 import ArmControlLib as ACL
 import ftplib
 import RoboPiLib_pwm as RPL
+import time
 RPL.RoboPiInit("/dev/ttyAMA0", 115200)
 ftp = ftplib.FTP('192.168.21.225', 'jwrickman18',
                  'Heap!860')  # host computer info
