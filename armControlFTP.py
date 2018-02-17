@@ -27,11 +27,11 @@ def updateFTP():
     data = [arm.data[0],
             arm.data[1], time.time()]
     f.seek(0)
-    f.truncate()
     for i in range(0, 3):
         f.write(str(data[int(i)]))
         print str(data[int(i)])
         f.write(" ")
+    f.truncate()
 
 
 def ui():
