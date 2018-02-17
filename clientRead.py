@@ -18,8 +18,8 @@ motor1 = ACL.Motor(0, 1, 26, 20, 1000, 1000, 21848.88, freq)
 ## Motor2 ##
 motor2 = ACL.Motor(2, 3, 19, 16, 1000, 1000, 11098.56, freq)
 
-
-while True:
+a = True
+while a:
     gFile = open("ftpTemp.txt", "wb")
     try:
         ftp.retrbinary('RETR ftpTemp.txt', gFile.write)
@@ -38,3 +38,5 @@ while True:
     motor1.move_to_position(motor1_count_request)
     motor2.move_to_position(motor2_count_request)
     print latency
+    print "Worked one time"
+    a = False
