@@ -30,10 +30,8 @@ while a:
     buff = gFile.read()
     gFile.close()
     convertTxtArray = buff.split()
-    motor1_count_request = convertTxtArray[0]
-    print motor1_count_request
-    motor2_count_request = convertTxtArray[1]
-    print motor2_count_request
+    motor1_count_request = float(convertTxtArray[0])
+    motor2_count_request = float(convertTxtArray[1])
     latency = time.time() - float(convertTxtArray[2])
     motor1.move_to_position(motor1_count_request)
     motor2.move_to_position(motor2_count_request)
