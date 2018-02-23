@@ -22,6 +22,8 @@ motor2 = ACL.Motor(2, 3, 19, 16, 1000, 1000, 11098.56, freq)
 
 motor1CompletePrint = True
 motor2CompletePrint = True
+motor1_count_request_old = 0
+motor2_count_request_old = 0
 while True:
     gFile = open("ftpTemp.txt", "wb")
     ftp.retrbinary('RETR ftpTemp.txt', gFile.write)
@@ -30,23 +32,15 @@ while True:
     buff = gFile.read()
     gFile.close()
     convertTxtArray = buff.split()
-    motor1_count_request = float(convertTxtArray[0])
-    motor2_count_request = float(convertTxtArray[1])
-    print "Motor1 newCount: %d" % motor1_count_request
-    print "Motor2 newCount: %d" % motor2_count_request
-    motor1.move_to_position(motor1_count_request)  # Starts Motor1
-    motor2.move_to_position(motor2_count_request)  # Starts Motor2
-    a = True
-    b = True
-    timeStart = time.time()
-    while a or b:
-        time.sleep(0.001)
-        if abs(motor1_count_request - motor1.encoder.Rotary_counter) < 5:
-            motor1.stop()
-            a = False
-            print "Motor 1 complete"
-
-        if abs(motor2_count_request - motor2.encoder.Rotary_counter) < 5:
-            motor2.stop()
-            b = False
-            print "Motor 2 complete"
+    motor1_count_request_new = float(convertTxtArray[0])
+    motor2_count_request_new = float(convertTxtArray[1])
+    print "Latency: %f" % (time.time() - float(convertTxtArray[2]))
+    if motor1_count_request_new != motor1_count_request_old or motor2_count_request_new != motor2_count_request_old:
+        motor1.move_to_position(motor1_count_request_new)
+        motor2.move_to_position(motor2_count_request_new)
+        motor1_count_request_old = motor1_count_request_new
+        motor2_count_request_old = motor2_count_request_new
+    if abs(motor1_count_request - motor1.encoder.Rotary_counter) < 10:
+        motor1.stop()
+    if abs(motor2_count_request - motor2.encoder.Rotary_counter) < 10:
+        motor2.stop()
