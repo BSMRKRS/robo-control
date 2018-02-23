@@ -18,7 +18,7 @@ motor1 = ACL.Motor(0, 1, 26, 20, 1000, 1000, 21848.88, freq)
 ## Motor2 ##
 motor2 = ACL.Motor(2, 3, 19, 16, 1000, 1000, 11098.56, freq)
 
-IKI = ACL.Inverse_Kinimatics(12.0, 12.0, motor1, motor2)
+#IKI = ACL.Inverse_Kinimatics(12.0, 12.0, motor1, motor2)
 
 motor1CompletePrint = True
 motor2CompletePrint = True
