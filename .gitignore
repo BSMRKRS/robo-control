@@ -3,3 +3,5 @@
 __init__.pyc
 modules/__init__.pyc
 errors/*
+ftpTemp.txt
+ArmControlLib.pyc
