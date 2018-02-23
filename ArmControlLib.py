@@ -16,8 +16,13 @@ import time
 try:
     import RPi.GPIO as GPIO
     import RoboPiLib_pwm as RPL
+    connected = True
+    print "Connected to RaspberryPi with RoboPiHat"
+    print "ACL in: Connected Mode"
 except:
     print "Not connected to RaspberryPi"
+    connected = False
+    print "ACL in: Unconnected Mode"
 import math
 
 LockRotary = threading.Lock()
@@ -81,6 +86,7 @@ class Encoder(object):
 
 
 class Motor(object):
+    global connected
 
     def __init__(self, controlPin, encoderPowerPin, Enc_A, Enc_B,
                  forward_speed, backward_speed, cycleEvents, freq):
@@ -124,13 +130,15 @@ class Motor(object):
 
 
 class Inverse_Kinimatics(object):
+    global connected
 
     def __init__(self, len1, len2, motor1, motor2):
         self.len1 = len1
         self.len2 = len2
-        self.motor1 = motor1
-        self.motor2 = motor2
         self.data = [0, 0]
+        if connected:
+            self.motor1 = motor1
+            self.motor2 = motor2
 
     def LawOfCosines(self, a, b, c):
         C = math.acos((a * a + b * b - c * c) / (2 * a * b))
@@ -159,7 +167,10 @@ class Inverse_Kinimatics(object):
         newCount2 = self.angleToCount(angle2, 11098.56)
         self.data[0] = newCount1
         self.data[1] = newCount2
-        self.visualization(x, y)
+        if connected:
+            self.runMotors(newCount1, newCount2)
+        else:
+            self.visualization(x, y)
 
     def angleToCount(self, angle, motorXCycleEvents):
         CycleEventsPerDegree = motorXCycleEvents / 360
