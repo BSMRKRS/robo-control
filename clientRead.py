@@ -32,4 +32,24 @@ while True:
     convertTxtArray = buff.split()
     motor1_count_request = float(convertTxtArray[0])
     motor2_count_request = float(convertTxtArray[1])
-    IKI.runMotors(motor1_count_request, motor2_count_request)
+    print "Motor1 newCount: %d" % newCount1
+    print "Motor2 newCount: %d" % newCount2
+    motor1.move_to_position(newCount1)  # Starts Motor1
+    motor2.move_to_position(newCount2)  # Starts Motor2
+    a = True
+    b = True
+    timeStart = time.time()
+    while a or b:
+        time.sleep(0.001)
+        if time.time() - timeStart > 1:
+            print "Motor1 rot count: %d Motor2 rot count: %d" % (
+                motor1.encoder.Rotary_counter, motor2.encoder.Rotary_counter)
+        if abs(newCount1 - motor1.encoder.Rotary_counter) < 5:
+            motor1.stop()
+            a = False
+            print "Motor 1 complete"
+
+        if abs(newCount2 - motor2.encoder.Rotary_counter) < 5:
+            motor2.stop()
+            b = False
+            print "Motor 2 complete"
