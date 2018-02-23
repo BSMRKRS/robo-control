@@ -21,6 +21,8 @@ motor2 = ACL.Motor(2, 3, 19, 16, 1000, 1000, 11098.56, freq)
 while True:
     gFile = open("ftpTemp.txt", "wb")
     ftp.retrbinary('RETR ftpTemp.txt', gFile.write)
+    gFile.close()
+    gFile = open("ftpTemp.txt", "r")
     buff = gFile.read()
     gFile.close()
     convertTxtArray = buff.split()
