@@ -43,7 +43,7 @@ while True:
         motor2.move_to_position(motor2_count_request_new)
         motor1_count_request_old = motor1_count_request_new
         motor2_count_request_old = motor2_count_request_new
-    if abs(motor1_count_request - motor1.encoder.Rotary_counter) < 10:
+    if abs(motor1_count_request_new - motor1.encoder.Rotary_counter) < 10:
         motor1.stop()
-    if abs(motor2_count_request - motor2.encoder.Rotary_counter) < 10:
+    if abs(motor2_count_request_new - motor2.encoder.Rotary_counter) < 10:
         motor2.stop()
