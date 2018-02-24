@@ -195,12 +195,12 @@ class Inverse_Kinimatics(object):
                 print "Motor1 rot count: %d Motor2 rot count: %d" % (
                     self.motor1.encoder.Rotary_counter, self.motor2.encoder.Rotary_counter)
                 timeStart = time.time()
-            if abs(newCount1 - self.motor1.encoder.Rotary_counter) < 5:
+            if abs(newCount1 - self.motor1.encoder.Rotary_counter) < 10:
                 self.motor1.stop()
                 a = False
                 print "Motor 1 complete"
 
-            if abs(newCount2 - self.motor2.encoder.Rotary_counter) < 5:
+            if abs(newCount2 - self.motor2.encoder.Rotary_counter) < 10:
                 self.motor2.stop()
                 b = False
                 print "Motor 2 complete"
