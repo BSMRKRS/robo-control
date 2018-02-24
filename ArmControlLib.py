@@ -121,8 +121,10 @@ class Motor(object):
     def move_to_position(self, new_position):
         if new_position <= self.encoder.Rotary_counter:
             self.forwards()
+            print "Motor Forwards"
         elif new_position > self.encoder.Rotary_counter:
             self.backwards()
+            print "Motor Backwards"
 
 ############################
     # Inverse Kinimatics
