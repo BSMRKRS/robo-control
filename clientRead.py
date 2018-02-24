@@ -38,12 +38,16 @@ while True:
     motor1_count_request_new = float(convertTxtArray[0])
     motor2_count_request_new = float(convertTxtArray[1])
     print "Latency: %f" % (time.time() - float(convertTxtArray[2]))
+    time.sleep(0.001)
     if motor1_count_request_new != motor1_count_request_old or motor2_count_request_new != motor2_count_request_old:
+        print "New Command Recieved"
         motor1.move_to_position(motor1_count_request_new)
         motor2.move_to_position(motor2_count_request_new)
         motor1_count_request_old = motor1_count_request_new
         motor2_count_request_old = motor2_count_request_new
     if abs(motor1_count_request_new - motor1.encoder.Rotary_counter) < 10:
         motor1.stop()
+        print "Motor1 Stopped"
     if abs(motor2_count_request_new - motor2.encoder.Rotary_counter) < 10:
         motor2.stop()
+        print "Motor2 Stopped"
