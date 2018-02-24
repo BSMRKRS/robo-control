@@ -6,9 +6,12 @@ import ftplib
 import RoboPiLib_pwm as RPL
 import time
 RPL.RoboPiInit("/dev/ttyAMA0", 115200)
-ftp = ftplib.FTP('192.168.21.213', 'jwrickman18',
-                 'Heap!860')  # host computer info
-# directory of repo on host
+try:
+    ftp = ftplib.FTP('192.168.21.213', 'jwrickman18',
+                     'Heap!860')  # host computer info
+except:
+    ftp = ftplib.FTP(raw_input("IP"), 'jwrickman18',
+                     'Heap!860')  # host computer info# directory of repo on host
 ftp.cwd('/Users/jwrickman18/Desktop/code/robo-control')
 freq = 3000
 ## Motor 1 ##
