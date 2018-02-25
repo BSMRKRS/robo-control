@@ -45,6 +45,7 @@ while True:
         timeStart = time.time()
     if motor1_count_request_new != motor1_count_request_old or motor2_count_request_new != motor2_count_request_old:
         print "New Command Recieved"
-        IKI.runMotors(motor1_count_request_new, motor2_count_request_new)
+        IKI.runMotors(int(motor1_count_request_new),
+                      int(motor2_count_request_new))
         motor1_count_request_old = motor1_count_request_new
         motor2_count_request_old = motor2_count_request_new
