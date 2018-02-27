@@ -186,7 +186,7 @@ class Inverse_Kinimatics(object):
         b = True
         timeStart = time.time()
         while a or b:
-            time.sleep(0.01)
+            time.sleep(0.001)
             if time.time() - timeStart > 1:
                 print "Motor1 rot count: %d Motor2 rot count: %d" % (
                     self.motor1.encoder.Rotary_counter, self.motor2.encoder.Rotary_counter)
