@@ -137,9 +137,9 @@ class Inverse_Kinimatics(object):
     def __init__(self, len1, len2, motor1, motor2):
         self.len1 = len1
         self.len2 = len2
-        self.data = [0, 0]
         self.motor1 = motor1
         self.motor2 = motor2
+        self.data = [0, 0]
 
     def LawOfCosines(self, a, b, c):
         C = math.acos((a * a + b * b - c * c) / (2 * a * b))
