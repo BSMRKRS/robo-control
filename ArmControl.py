@@ -38,7 +38,7 @@ y = 0
 def coords():
     global x, y
     inverse_kinimatic_instance.armKinimatics(x, y)
-    coords()
+    ui()
 
 
 def ui():
