@@ -181,11 +181,8 @@ class Inverse_Kinimatics(object):
     def runMotors(self, newCount1, newCount2):
         print "Motor1 newCount: %d" % newCount1
         print "Motor2 newCount: %d" % newCount2
-        print "Start Motor1"
         self.motor1.move_to_position(int(newCount1))  # Starts Motor1
-        print "Start Motor2"
         self.motor2.move_to_position(int(newCount2))  # Starts Motor2
-        """
         a = True
         b = True
         timeStart = time.time()
@@ -198,13 +195,9 @@ class Inverse_Kinimatics(object):
             if abs(newCount1 - self.motor1.encoder.Rotary_counter) < 10:
                 self.motor1.stop()
                 a = False
-                print "Motor 1 complete"
-
             if abs(newCount2 - self.motor2.encoder.Rotary_counter) < 10:
                 self.motor2.stop()
                 b = False
-                print "Motor 2 complete"
-"""
 
     def angle(self, x, y):
         len1 = self.len1
