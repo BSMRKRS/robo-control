@@ -185,6 +185,7 @@ class Inverse_Kinimatics(object):
         self.motor1.move_to_position(newCount1)  # Starts Motor1
         print "Start Motor2"
         self.motor2.move_to_position(newCount2)  # Starts Motor2
+        """
         a = True
         b = True
         timeStart = time.time()
@@ -203,6 +204,7 @@ class Inverse_Kinimatics(object):
                 self.motor2.stop()
                 b = False
                 print "Motor 2 complete"
+"""
 
     def angle(self, x, y):
         len1 = self.len1
