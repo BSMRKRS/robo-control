@@ -86,7 +86,6 @@ class Encoder(object):
 
 
 class Motor(object):
-    global connected
 
     def __init__(self, controlPin, encoderPowerPin, Enc_A, Enc_B,
                  forward_speed, backward_speed, cycleEvents, freq):
@@ -132,7 +131,6 @@ class Motor(object):
 
 
 class Inverse_Kinimatics(object):
-    global connected
 
     def __init__(self, len1, len2, motor1, motor2):
         self.len1 = len1
