@@ -180,6 +180,7 @@ class Inverse_Kinimatics(object):
         print "Motor1 newCount: %d" % newCount1
         print "Motor2 newCount: %d" % newCount2
         self.motor1.move_to_position(int(newCount1))  # Starts Motor1
+        time.sleep(1)
         self.motor2.move_to_position(int(newCount2))  # Starts Motor2
         a = True
         b = True
