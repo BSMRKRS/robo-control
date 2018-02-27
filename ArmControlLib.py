@@ -182,9 +182,9 @@ class Inverse_Kinimatics(object):
         print "Motor1 newCount: %d" % newCount1
         print "Motor2 newCount: %d" % newCount2
         print "Start Motor1"
-        self.motor1.move_to_position(newCount1)  # Starts Motor1
+        self.motor1.move_to_position(int(newCount1))  # Starts Motor1
         print "Start Motor2"
-        self.motor2.move_to_position(newCount2)  # Starts Motor2
+        self.motor2.move_to_position(int(newCount2))  # Starts Motor2
         """
         a = True
         b = True
