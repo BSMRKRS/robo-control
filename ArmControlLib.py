@@ -199,6 +199,8 @@ class Inverse_Kinimatics(object):
             if abs(newCount2 - self.motor2.encoder.Rotary_counter) < 10:
                 self.motor2.stop()
                 b = False
+        self.motor1.stop()
+        self.motor2.stop()
 
     def angle(self, x, y):
         len1 = self.len1
