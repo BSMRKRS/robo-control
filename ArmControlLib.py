@@ -201,8 +201,6 @@ class Inverse_Kinimatics(object):
                 self.motor2.stop()
                 time.sleep(0.01)
                 b = False
-        self.motor1.stop()
-        self.motor2.stop()
 
     def angle(self, x, y):
         len1 = self.len1
