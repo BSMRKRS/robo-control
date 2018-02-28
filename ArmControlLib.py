@@ -195,9 +195,11 @@ class Inverse_Kinimatics(object):
                 timeStart = time.time()
             if abs(newCount1 - self.motor1.encoder.Rotary_counter) < 10:
                 self.motor1.stop()
+                time.sleep(0.01)
                 a = False
             if abs(newCount2 - self.motor2.encoder.Rotary_counter) < 10:
                 self.motor2.stop()
+                time.sleep(0.01)
                 b = False
         self.motor1.stop()
         self.motor2.stop()
