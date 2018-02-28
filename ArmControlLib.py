@@ -131,12 +131,14 @@ class Motor(object):
 
 
 class Inverse_Kinimatics(object):
+    global connected
 
     def __init__(self, len1, len2, motor1, motor2):
         self.len1 = len1
         self.len2 = len2
-        self.motor1 = motor1
-        self.motor2 = motor2
+        if connected:
+            self.motor1 = motor1
+            self.motor2 = motor2
         self.data = [0, 0]
 
     def LawOfCosines(self, a, b, c):
@@ -179,9 +181,9 @@ class Inverse_Kinimatics(object):
     def runMotors(self, newCount1, newCount2):
         print "Motor1 newCount: %d" % newCount1
         print "Motor2 newCount: %d" % newCount2
-        self.motor1.move_to_position(int(newCount1))  # Starts Motor1
+        self.motor1.move_to_position(newCount1)  # Starts Motor1
         time.sleep(0.1)
-        self.motor2.move_to_position(int(newCount2))  # Starts Motor2
+        self.motor2.move_to_position(newCount2)  # Starts Motor2
         a = True
         b = True
         timeStart = time.time()
