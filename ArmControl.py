@@ -61,6 +61,17 @@ def ui():
     elif choice == "s":
         y -= 1
         coords()
+    elif choice == "z":
+        motor1.forwards()
+    elif choice == "x":
+        motor1.backwards()
+    elif choice == "c":
+        motor2.forwards()
+    elif choice == "v":
+        motor2.backwards()
+    elif choice == " ":
+        motor1.stop()
+        motor2.stop()
 ################################
 # EXECUTE
 ################################
