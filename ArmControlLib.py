@@ -181,6 +181,7 @@ class Inverse_Kinimatics(object):
     def runMotors(self, newCount1, newCount2):
         print "Motor1 newCount: %d" % newCount1
         print "Motor2 newCount: %d" % newCount2
+        self.moving = True
         self.motor1.move_to_position(newCount1)  # Starts Motor1
         time.sleep(0.01)
         self.motor2.move_to_position(newCount2)  # Starts Motor2
@@ -202,6 +203,7 @@ class Inverse_Kinimatics(object):
                 time.sleep(0.01)
                 b = False
         print "Move Complete"
+        self.moving = False
 
     def angle(self, x, y):
         len1 = self.len1
