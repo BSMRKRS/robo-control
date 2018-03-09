@@ -72,6 +72,9 @@ def ui():
     elif choice == " ":
         motor1.stop()
         motor2.stop()
+    else:
+        motor1.stop()
+        motor2.stop()
 ################################
 # EXECUTE
 ################################
