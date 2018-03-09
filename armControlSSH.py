@@ -69,11 +69,9 @@ def ui():
         motor2.forwards()
     elif choice == "v":
         motor2.backwards()
-    elif choice == " ":
-        motor1.stop()
-        motor2.stop()
     else:
         motor1.stop()
+        time.sleep(0.01)
         motor2.stop()
     ui()
 ################################
