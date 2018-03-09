@@ -23,8 +23,6 @@ motor2 = ACL.Motor(2, 3, 19, 16, 1000, 1000, 11098.56, freq)
 
 IKI = ACL.Inverse_Kinimatics(12.0, 12.0, motor1, motor2)
 
-motor1CompletePrint = True
-motor2CompletePrint = True
 motor1_count_request_old = 0
 motor2_count_request_old = 0
 while True:
@@ -35,8 +33,8 @@ while True:
     buff = gFile.read()
     gFile.close()
     convertTxtArray = buff.split()
-    motor1_count_request_new = float(convertTxtArray[0])
-    motor2_count_request_new = float(convertTxtArray[1])
+    motor1_count_request_new, motor2_count_request_new = float(
+        convertTxtArray[0]), float(convertTxtArray[1])
     timeStart = time.time()
     time.sleep(0.001)
     if time.time() - timeStart > 1:
