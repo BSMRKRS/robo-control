@@ -6,12 +6,37 @@ import ftplib
 import RoboPiLib_pwm as RPL
 import time
 RPL.RoboPiInit("/dev/ttyAMA0", 115200)
+
+
+def ftpSetup():
+    gFile = open("IPinfo.txt", "r")
+    buff = gFile.read()
+    gFile.close()
+    ip_info_array = buff.split()
+    ipNum = ip_info_array[0]
+    userName = ip_info_array[1]
+    passWord = ip_info_array[2]
+    return ftplib.FTP(ipNum, userName,
+                      passWord)  # host computer info
+
+
+def ftpInfoUpdate():
+    print "Update FTP Info"
+    gFile = open("IPinfo.txt", "r+")
+    gFile.write(raw_input("IPAddress:"))
+    gFile.write(" ")
+    gFile.write(raw_input("UserName:"))
+    gFile.write(" ")
+    gFile.write(raw_input("PassWord"))
+    gFile.close()
+
+
 try:
-    ftp = ftplib.FTP('192.168.21.213', 'jwrickman18',
-                     'Heap!860')  # host computer info
+    ftp = ftpSetup()
 except:
-    ftp = ftplib.FTP(raw_input("IP"), 'jwrickman18',
-                     'Heap!860')  # host computer info# directory of repo on host
+    ftpInfoUpdate()
+    ftp = ftpSetup()
+
 ftp.cwd('/Users/jwrickman18/Desktop/code/robo-control')
 freq = 3000
 ## Motor 1 ##
