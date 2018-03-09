@@ -44,7 +44,7 @@ def coords():
 def ui():
     global x, y
     print "(%f, %f)" % (x, y)
-    choice = raw_input("")
+    choice = raw_input("Input:")
     if choice == "coords":
         x = float(raw_input("x>"))
         y = float(raw_input("y>"))
