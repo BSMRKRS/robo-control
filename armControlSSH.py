@@ -71,7 +71,7 @@ def ui():
         motor2.backwards()
     else:
         motor1.stop()
-        time.sleep(0.01)
+        sleep(0.01)
         motor2.stop()
     ui()
 ################################
