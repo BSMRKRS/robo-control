@@ -140,6 +140,7 @@ class Inverse_Kinimatics(object):
             self.motor1 = motor1
             self.motor2 = motor2
         self.data = [0, 0]
+        self.moving = False
 
     def LawOfCosines(self, a, b, c):
         C = math.acos((a * a + b * b - c * c) / (2 * a * b))
