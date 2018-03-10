@@ -53,7 +53,6 @@ motor2_count_request_old = 0
 
 
 def updateFTPfile():
-    print "Updating FTP Movements"
     gFile = open("ftpTemp.txt", "wb")
     ftp.retrbinary('RETR ftpTemp.txt', gFile.write)
     gFile.close()
@@ -66,7 +65,6 @@ def updateFTPfile():
 
 while True:
     motor1_count_request_new, motor2_count_request_new = updateFTPfile()
-    print "New Command Recieved"
     motor1.move_to_position(int(motor1_count_request_new))
     time.sleep(0.001)
     motor2.move_to_position(int(motor2_count_request_new))
