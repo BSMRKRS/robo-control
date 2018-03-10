@@ -63,8 +63,12 @@ def updateFTPfile():
     return float(convertTxtArray[0]), float(convertTxtArray[1])
 
 
+time_stamp = time.time()
 while True:
-    motor1_count_request_new, motor2_count_request_new = updateFTPfile()
+    if time.time() - time_stamp > 0.1:
+        motor1_count_request_new, motor2_count_request_new = updateFTPfile()
+        time_stamp = time.time()
+    else:
     motor1.move_to_position(int(motor1_count_request_new))
     time.sleep(0.001)
     motor2.move_to_position(int(motor2_count_request_new))
