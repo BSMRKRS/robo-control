@@ -122,10 +122,8 @@ class Motor(object):
             self.stop()
         elif new_position > self.encoder.Rotary_counter + 5:
             self.backwards()
-            print "Motor Backwards"
         elif new_position < self.encoder.Rotary_counter - 5:
             self.forwards()
-            print "Motor Forwards"
         else:
             motor.stop()
             print "Count out of range error"
