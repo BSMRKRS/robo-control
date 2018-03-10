@@ -50,17 +50,23 @@ IKI = ACL.Inverse_Kinimatics(12.0, 12.0, motor1, motor2)
 
 motor1_count_request_old = 0
 motor2_count_request_old = 0
+
+
+def updateFTPfile():
+
+
+print "Updating FTP Movements"
+gFile = open("ftpTemp.txt", "wb")
+ftp.retrbinary('RETR ftpTemp.txt', gFile.write)
+gFile.close()
+gFile = open("ftpTemp.txt", "r")
+buff = gFile.read()
+gFile.close()
+convertTxtArray = buff.split()
+return float(convertTxtArray[0]), float(convertTxtArray[1])
+
 while True:
-    print "Updating FTP Movements"
-    gFile = open("ftpTemp.txt", "wb")
-    ftp.retrbinary('RETR ftpTemp.txt', gFile.write)
-    gFile.close()
-    gFile = open("ftpTemp.txt", "r")
-    buff = gFile.read()
-    gFile.close()
-    convertTxtArray = buff.split()
-    motor1_count_request_new, motor2_count_request_new = float(
-        convertTxtArray[0]), float(convertTxtArray[1])
+    motor1_count_request_new, motor2_count_request_new = updateFTPfile()
     timeStart = time.time()
     time.sleep(0.001)
     if time.time() - timeStart > 1:
