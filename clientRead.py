@@ -53,17 +53,16 @@ motor2_count_request_old = 0
 
 
 def updateFTPfile():
+    print "Updating FTP Movements"
+    gFile = open("ftpTemp.txt", "wb")
+    ftp.retrbinary('RETR ftpTemp.txt', gFile.write)
+    gFile.close()
+    gFile = open("ftpTemp.txt", "r")
+    buff = gFile.read()
+    gFile.close()
+    convertTxtArray = buff.split()
+    return float(convertTxtArray[0]), float(convertTxtArray[1])
 
-
-print "Updating FTP Movements"
-gFile = open("ftpTemp.txt", "wb")
-ftp.retrbinary('RETR ftpTemp.txt', gFile.write)
-gFile.close()
-gFile = open("ftpTemp.txt", "r")
-buff = gFile.read()
-gFile.close()
-convertTxtArray = buff.split()
-return float(convertTxtArray[0]), float(convertTxtArray[1])
 
 while True:
     motor1_count_request_new, motor2_count_request_new = updateFTPfile()
