@@ -68,10 +68,6 @@ while True:
     motor1_count_request_new, motor2_count_request_new = updateFTPfile()
     timeStart = time.time()
     time.sleep(0.001)
-    if time.time() - timeStart > 1:
-        print "Motor1 rot count: %d Motor2 rot count: %d" % (
-            motor1.encoder.Rotary_counter, motor2.encoder.Rotary_counter)
-        timeStart = time.time()
     if motor1_count_request_new != motor1_count_request_old or motor2_count_request_new != motor2_count_request_old:
         print "New Command Recieved"
         if not IKI.moving:
