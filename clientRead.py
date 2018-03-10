@@ -66,10 +66,7 @@ def updateFTPfile():
 
 while True:
     motor1_count_request_new, motor2_count_request_new = updateFTPfile()
-    time.sleep(0.001)
     print "New Command Recieved"
-    if not IKI.moving:
-        IKI.runMotors(int(motor1_count_request_new),
-                      int(motor2_count_request_new))
-        motor1_count_request_old = motor1_count_request_new
-        motor2_count_request_old = motor2_count_request_new
+    motor1.move_to_position(int(motor1_count_request_new))
+    time.sleep(0.001)
+    motor2.move_to_position(int(motor2_count_request_new))
