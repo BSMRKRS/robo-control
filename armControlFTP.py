@@ -24,12 +24,9 @@ f = open('ftpTemp.txt', 'r+')
 
 
 def updateFTP():
-    data = [arm.data[0],
-            arm.data[1], time.time()]
     f.seek(0)
-    for i in range(0, 3):
-        f.write(str(data[int(i)]))
-        print str(data[int(i)])
+    for data in arm.data:
+        f.write(str(data))
         f.write(" ")
     f.truncate()
 
