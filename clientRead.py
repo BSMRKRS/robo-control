@@ -53,6 +53,7 @@ motor2_count_request_old = 0
 
 
 def updateFTPfile():
+    time_stamp = time.time()
     gFile = open("ftpTemp.txt", "wb")
     ftp.retrbinary('RETR ftpTemp.txt', gFile.write)
     gFile.close()
@@ -60,6 +61,7 @@ def updateFTPfile():
     buff = gFile.read()
     gFile.close()
     convertTxtArray = buff.split()
+    print time.time() - time_stamp
     return float(convertTxtArray[0]), float(convertTxtArray[1])
 
 
@@ -69,6 +71,6 @@ while True:
         motor1_count_request_new, motor2_count_request_new = updateFTPfile()
         time_stamp = time.time()
     else:
-    motor1.move_to_position(int(motor1_count_request_new))
-    time.sleep(0.001)
-    motor2.move_to_position(int(motor2_count_request_new))
+        motor1.move_to_position(int(motor1_count_request_new))
+        time.sleep(0.001)
+        motor2.move_to_position(int(motor2_count_request_new))
