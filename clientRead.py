@@ -40,11 +40,11 @@ except:
 ftp.cwd('/Users/jwrickman18/Desktop/code/robo-control')
 freq = 3000
 ## Motor 1 ##
-motor1 = ACL.Motor(0, 1, 26, 20, 1000, 1000, 21848.88, freq)
+motor1 = ACL.Brushless_Encoded_Motor(0, 1, 26, 20, 1000, 1000, 21848.88, freq)
 
 
 ## Motor2 ##
-motor2 = ACL.Motor(2, 3, 19, 16, 1000, 1000, 11098.56, freq)
+motor2 = ACL.Brushless_Encoded_Motor(2, 3, 19, 16, 1000, 1000, 11098.56, freq)
 
 IKI = ACL.Inverse_Kinimatics(12.0, 12.0, motor1, motor2)
 
