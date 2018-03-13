@@ -15,9 +15,9 @@ From here on I will refer to ArmControlLib as ACL
 ACL is an object based approach, designed to be used so that each physical motor
 runs as its own object. Each type of motor has its own class. The current list
 of supported motors is:
-######[1. Continous_Rotation_Servo](https://github.com/BSMRKRS/robo-control/tree/ArmControlTesting)
-###### 2. Brushless_Encoded_Motor
-###### 3. Stepper_Motor
+######[1. Continous_Rotation_Servo](https://github.com/BSMRKRS/robo-control/tree/ArmControlTesting#1-continous_rotation_servo)
+###### [2. Brushless_Encoded_Motor](#2-brushless_encoded_motor-1)
+###### [3. Stepper_Motor](#3-stepper_motor-1)
 
 ACL also contains an Inverse_Kinimatics class, currently only designed to work with
 two Brushless_Encoded_Motor(s)
