@@ -1,13 +1,13 @@
-ArmControlLib v0.2
+#ArmControlLib v0.2
 
-Copyright Jack Rickman, 2018
+######Copyright Jack Rickman, 2018
 
 Designed for Benilde St. Margaret's Rescue Robot, running on
 Raspberry Pi 3's with RoboPi hats.
 
 Utilizes the RoboPiLib library (RoboPyLib_pwmv0_97.py), from William Henning
 
-# Setup:
+## Setup:
 Import ArmControlLib as ACL
 
 From here on I will refer to ArmControlLib as ACL
@@ -15,9 +15,9 @@ From here on I will refer to ArmControlLib as ACL
 ACL is an object based approach, designed to be used so that each physical motor
 runs as its own object. Each type of motor has its own class. The current list
 of supported motors is:
-# 1. Continous_Rotation_Servo
-# 2. Brushless_Encoded_Motor
-# 3. Stepper_Motor
+###### 1. Continous_Rotation_Servo
+###### 2. Brushless_Encoded_Motor
+###### 3. Stepper_Motor
 
 ACL also contains an Inverse_Kinimatics class, currently only designed to work with
 two Brushless_Encoded_Motor(s)
