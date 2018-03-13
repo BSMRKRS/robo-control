@@ -15,16 +15,17 @@ From here on I will refer to ArmControlLib as ACL
 ACL is an object based approach, designed to be used so that each physical motor
 runs as its own object. Each type of motor has its own class. The current list
 of supported motors is:
-######[1. Continous_Rotation_Servo](https://github.com/BSMRKRS/robo-control/tree/ArmControlTesting#1-continous_rotation_servo)
+
+###### [1. Continous_Rotation_Servo](#1-continous_rotation_servo)
 ###### [2. Brushless_Encoded_Motor](#2-brushless_encoded_motor-1)
 ###### [3. Stepper_Motor](#3-stepper_motor-1)
 
 ACL also contains an Inverse_Kinimatics class, currently only designed to work with
 two Brushless_Encoded_Motor(s)
-# 4. Inverse_Kinimatics
+###### [4. Inverse_Kinimatics](#3-Inverse_Kinimatics)
 
 
-# 1. Continous_Rotation_Servo
+## 1. Continous_Rotation_Servo
   Establishment:
   'servo1 = ACL.Continous_Rotation_Servo(controlPin, speed)'
 
@@ -36,7 +37,7 @@ two Brushless_Encoded_Motor(s)
   'servo1.stop()' stops the motor
 
 
-# 2. Brushless_Encoded_Motor
+## 2. Brushless_Encoded_Motor
 Establishment: motor1 = ACL.Brushless_Encoded_Motor(controlPin, encoderPowerPin, Enc_A, Enc_B,
                  forward_speed, backward_speed, cycleEvents, freq)
 
@@ -72,5 +73,5 @@ Functions:
   direction based off the requested new_position. If the new_position is within an certain
   margin of error (default +- 5) of the current count, the motor will stop
 
-# 3. Stepper_Motor
+## 3. Stepper_Motor
 Establishment: motor1 = Stepper_Motor(dir_pin, pul_pin)
