@@ -22,12 +22,12 @@ of supported motors is:
 
 ACL also contains an Inverse_Kinimatics class, currently only designed to work with
 two Brushless_Encoded_Motor(s)
-###### [4. Inverse_Kinimatics](#3-Inverse_Kinimatics)
+###### [4. Inverse_Kinimatics](#4-Inverse_Kinimatics)
 
 
 ## 1. Continous_Rotation_Servo
   Establishment:
-  'servo1 = ACL.Continous_Rotation_Servo(controlPin, speed)'
+  "servo1 = ACL.Continous_Rotation_Servo(controlPin, speed)"
 
   Functions:
   'servo1.clockwise()' turns motor on and runs it in a clockwise direction
