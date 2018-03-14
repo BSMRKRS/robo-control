@@ -1,6 +1,6 @@
-#ArmControlLib v0.2
+# ArmControlLib v0.2
 
-######Copyright Jack Rickman, 2018
+###### Copyright Jack Rickman, 2018
 
 Designed for Benilde St. Margaret's Rescue Robot, running on
 Raspberry Pi 3's with RoboPi hats.
