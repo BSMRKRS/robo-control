@@ -75,3 +75,12 @@ Functions:
 
 ## 3. Stepper_Motor
 Establishment: motor1 = Stepper_Motor(dir_pin, pul_pin)
+
+Functions:
+motor1.clockwise() runs the stepper motor in the clockwise direction
+
+motor1.counterClockwise() runs the stepper motor in the counterClockwise direction
+
+motor1.move_steps(delta_step) moves the stepper motor a certain number of steps
+if delta_step is positive, move delta_steps in clockwise direction
+if delta_step is negative, move delta_step in counter-clockwise direction
