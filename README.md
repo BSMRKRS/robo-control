@@ -26,15 +26,15 @@ two Brushless_Encoded_Motor(s)
 
 
 ## 1. Continous_Rotation_Servo
-  Establishment:
-  "servo1 = ACL.Continous_Rotation_Servo(controlPin, speed)"
+Establishment:
+'servo1 = ACL.Continous_Rotation_Servo(controlPin, speed)''
 
-  Functions:
-  'servo1.clockwise()' turns motor on and runs it in a clockwise direction
+Functions:
+'servo1.clockwise()' turns motor on and runs it in a clockwise direction
 
-  'servo1.counterClockwise()' turns motor on and runs it in a counterClockwise direction
+'servo1.counterClockwise()' turns motor on and runs it in a counterClockwise direction
 
-  'servo1.stop()' stops the motor
+'servo1.stop()' stops the motor
 
 
 ## 2. Brushless_Encoded_Motor
