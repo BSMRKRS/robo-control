@@ -5,7 +5,7 @@ import time
 from ArmControlLib import Inverse_Kinimatics
 
 
-arm = Inverse_Kinimatics(12.0, 12.0, 0, 0)
+arm = Inverse_Kinimatics(12.0, 12.0, 0, 0, 0, 0)
 
 
 pygame.init()
