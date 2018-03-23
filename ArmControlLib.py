@@ -1,9 +1,7 @@
 ################################
-# ArmControlLib v0.1
+# ArmControlLib v0.3
 #
 # Copyright Jack Rickman, 2018
-#
-# Designed to control Brushed DC motors with encoders
 #
 # Designed for Benilde St. Margaret's Rescue Robot, running on
 # Raspberry Pi 3's with RoboPi hats.
@@ -26,6 +24,126 @@ except:
 import math
 
 LockRotary = threading.Lock()
+
+
+###############################
+# Motor Classes
+###############################
+
+
+class Brushless_Encoded_Motor(object):
+
+    def __init__(self, controlPin, encoderPowerPin, Enc_A, Enc_B,
+                 forward_speed, backward_speed, cycleEvents, freq):
+        self.controlPin = controlPin
+        self.encoder = Encoder(Enc_A, Enc_B)
+        self.forward_speed = forward_speed
+        self.backward_speed = backward_speed
+        self.cycleEvents = cycleEvents
+        self.freq = freq
+        self.encoderPowerPin = encoderPowerPin
+        self.pinSetup()
+
+    def pinSetup(self):  # sets up pins in correct modes
+        RPL.pinMode(self.encoderPowerPin, RPL.OUTPUT)
+        RPL.digitalWrite(self.encoderPowerPin, 1)
+        RPL.pinMode(self.controlPin, RPL.PWM)
+
+    def stop(self):  # stops the motor
+        RPL.pwmWrite(self.controlPin, 1500, self.freq)
+
+    def clockwise(self):  # runs the motor clockwise
+        RPL.pwmWrite(self.controlPin, 1500 + self.forward_speed, self.freq)
+
+    def counterClockwise(self):  # runs the motor counterClockwise
+        RPL.pwmWrite(self.controlPin, 1500 - self.backward_speed, self.freq)
+
+    def current_angle(self):  # finds the current angle of the motor
+        angle = self.encoder.Rotary_counter / self.cycleEvents
+        angle = angle * 360
+        return angle
+
+    # starts the motor in the correct direction, or stops it if count is within margin
+    def move_to_position(self, new_position):
+        if abs(new_position - self.encoder.Rotary_counter) < 10:
+            self.stop()
+        elif new_position > self.encoder.Rotary_counter + 5:
+            self.backwards()
+        elif new_position < self.encoder.Rotary_counter - 5:
+            self.forwards()
+        else:
+            motor.stop()
+            print "Count out of range error"
+
+
+class Continous_Rotation_Servo(object):
+
+    def __init__(controlPin, speed):
+        self.controlPin = controlPin
+        self.speed = speed
+        self.setup()
+
+    def setup(self):  # sets up the pin with correct mode
+        RPL.pinMode(self.controlPin, RPL.SERVO)
+        RPL.servoWrite(self.controlPin, 1500)
+
+    def clockwise(self):  # runs the motor clockwise
+        RPL.servoWrite(self.controlPin, 2000)
+
+    def counterClockwise(self):  # runs the motor counterClockwise
+        RPL.servoWrite(self.controlPin, 1000)
+
+    def stop(self):  # stops the motor
+        RPL.servoWrite(self.controlPin, 1500)
+
+
+class Stepper_Motor(object):
+
+    def __init__(dir_pin, pul_pin):
+        self.dir_pin = dir_pin
+        self.pul_pin = pul_pin
+        self.setup()
+        self.step = 0
+
+    def setup(self):  # sets up the pins with correct modes
+        RPL.pinMode(self.dir_pin, RPL.OUTPUT)
+        RPL.pinMode(self.pul_pin, RPL.PWM)
+        RPL.pwmWrite(self.pul_pin, 0, 500)
+
+    def clockwise(self):  # runs the motor clockwise, continously
+        RPL.digitalWrite(self.dir_pin, 0)
+        RPL.pwmWrite(self.pul_pin, 200, 400)
+
+    def counterClockwise(self):  # runs the motor counterClockwise, continously
+        RPL.digitalWrite(self.dir_pin, 1)
+        RPL.pwmWrite(self.pul_pin, 200, 400)
+
+    def move_steps(self, delta_step):  # moves the motor to a specific position
+        new_step = self.step + delta_step  # finds the requested position
+        if new_step > self.step:  # finds the required direction
+            RPL.digitalWrite(self.dir_pin, 1)
+            while new_step != self.step:  # while the current step count != requested count
+                # cycles the pul_pin between high and low
+                RPL.digitalWrite(self.pul_pin, 0)
+                time.sleep(0.001)
+                RPL.digitalWrite(self.pul_pin, 1)
+                time.sleep(0.001)
+                self.step += 1  # count one step with each cycle
+        elif new_step < self.step:
+            RPL.digitalWrite(self.dir_pin, 0)
+            while new_step != self.step:
+                RPL.digitalWrite(self.pul_pin, 0)
+                time.sleep(0.001)
+                RPL.digitalWrite(self.pul_pin, 1)
+                time.sleep(0.001)
+                self.step -= 1
+        else:
+            RPL.digitalWrite(self.dir_pin, 0)
+            print "Error, no change in step"
+
+    def stop(self):  # stops the motor
+        RPL.pwmWrite(self.pul_pin, 0, 400)
+
 
 ###############################
 # Encoder Class
@@ -80,53 +198,6 @@ class Encoder(object):
             LockRotary.release()				# and release lock
         return									# THAT'S IT
 
-###############################
-    # Motor Class
-###############################
-
-
-class Motor(object):
-
-    def __init__(self, controlPin, encoderPowerPin, Enc_A, Enc_B,
-                 forward_speed, backward_speed, cycleEvents, freq):
-        self.controlPin = controlPin
-        self.encoder = Encoder(Enc_A, Enc_B)
-        self.forward_speed = forward_speed
-        self.backward_speed = backward_speed
-        self.cycleEvents = cycleEvents
-        self.freq = freq
-        self.encoderPowerPin = encoderPowerPin
-        self.pinSetup()
-
-    def pinSetup(self):
-        RPL.pinMode(self.encoderPowerPin, RPL.OUTPUT)
-        RPL.digitalWrite(self.encoderPowerPin, 1)
-        RPL.pinMode(self.controlPin, RPL.PWM)
-
-    def stop(self):
-        RPL.pwmWrite(self.controlPin, 1500, self.freq)
-
-    def forwards(self):
-        RPL.pwmWrite(self.controlPin, 1500 + self.forward_speed, self.freq)
-
-    def backwards(self):
-        RPL.pwmWrite(self.controlPin, 1500 - self.backward_speed, self.freq)
-
-    def current_angle(self):
-        angle = self.encoder.Rotary_counter / self.cycleEvents
-        angle = angle * 360
-        return angle
-
-    def move_to_position(self, new_position):
-        if abs(new_position - self.encoder.Rotary_counter) < 10:
-            self.stop()
-        elif new_position > self.encoder.Rotary_counter + 5:
-            self.backwards()
-        elif new_position < self.encoder.Rotary_counter - 5:
-            self.forwards()
-        else:
-            motor.stop()
-            print "Count out of range error"
 
 ############################
     # Inverse Kinimatics
@@ -136,14 +207,17 @@ class Motor(object):
 class Inverse_Kinimatics(object):
     global connected
 
-    def __init__(self, len1, len2, motor1, motor2):
+    def __init__(self, len1, len2, motor1, motor2, motor3, motor4):
         self.len1 = len1
         self.len2 = len2
         if connected:
-            self.motor1 = motor1
-            self.motor2 = motor2
-        self.data = [0, 0]
+            self.motor1 = motor1  # shoulder motor
+            self.motor2 = motor2  # elbow motor
+            self.motor3 = motor3  # starboard wrist motor
+            self.motor4 = motor4  # port wrist motor
+        self.data = [0, 0, 0, 0]
         self.moving = False
+        self.visualization(24, 0)
 
     def LawOfCosines(self, a, b, c):
         C = math.acos((a * a + b * b - c * c) / (2 * a * b))
@@ -176,6 +250,22 @@ class Inverse_Kinimatics(object):
             self.runMotors(newCount1, newCount2)
         else:
             self.visualization(x, y)
+
+    def wristPitchUp(self):
+        self.motor3.counterClockwise()
+        self.motor4.clockwise()
+
+    def wristPitchDown(self):
+        self.motor3.clockwise()
+        self.motor4.counterClockwise()
+
+    def wristClockwise(self):
+        self.motor3.clockwise()
+        self.motor4.clockwise()
+
+    def wristCounterClockwise(self):
+        self.motor3.counterClockwise()
+        self.motor4.counterClockwise()
 
     def angleToCount(self, angle, motorXCycleEvents):
         CycleEventsPerDegree = motorXCycleEvents / 360
