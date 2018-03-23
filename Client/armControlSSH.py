@@ -62,13 +62,13 @@ def ui():
         y -= 1
         coords()
     elif choice == "z":
-        motor1.forwards()
+        motor1.clockwise()
     elif choice == "x":
-        motor1.backwards()
+        motor1.counterClockwise()
     elif choice == "c":
-        motor2.forwards()
+        motor2.clockwise()
     elif choice == "v":
-        motor2.backwards()
+        motor2.counterClockwise()
     else:
         motor1.stop()
         sleep(0.01)
@@ -89,6 +89,7 @@ motor1 = ACL.Brushless_Encoded_Motor(0, 1, 26, 20, 1000, 1000, 21848.88, freq)
 
 ## Motor2 ##
 motor2 = ACL.Brushless_Encoded_Motor(2, 3, 19, 16, 1000, 1000, 11098.56, freq)
-inverse_kinimatic_instance = ACL.Inverse_Kinimatics(len1, len2, motor1, motor2)
+inverse_kinimatic_instance = ACL.Inverse_Kinimatics(
+    len1, len2, motor1, motor2, 0, 0)
 
 ui()
