@@ -65,7 +65,7 @@ while True:
         if event.type == pygame.QUIT:
             sys.exit()
     ui()
-    sock.sendall(str(arm.data[0] + ' ' + arm.data[1]))
+    sock.sendall(str(int(arm.data[0])) + ' ' + int(arm.data[1])))
     sleep(socketRate)
 
     endpoints = [240, 190], [arm.shoulder_x, arm.shoulder_y], [
