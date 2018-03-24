@@ -34,6 +34,7 @@ while True:
         while True:
             data = connection.recv(9)
             data = data.split(' ')
+            time_stamp = time.time()
             if time.time() - time_stamp > 0.1:
                 time_stamp = time.time()
             else:
