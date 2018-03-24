@@ -68,9 +68,9 @@ class Brushless_Encoded_Motor(object):
         if abs(new_position - self.encoder.Rotary_counter) < 10:
             self.stop()
         elif new_position > self.encoder.Rotary_counter + 5:
-            self.backwards()
+            self.counterClockwise()
         elif new_position < self.encoder.Rotary_counter - 5:
-            self.forwards()
+            self.clockwise()
         else:
             motor.stop()
             print "Count out of range error"
