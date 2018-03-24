@@ -2,6 +2,7 @@ import math
 import sys
 import pygame
 import time
+import socket
 
 from ArmControlLib import Inverse_Kinimatics
 
