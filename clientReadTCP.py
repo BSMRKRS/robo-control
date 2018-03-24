@@ -47,13 +47,9 @@ while True:
         while True:
             data = connection.recv(9)
             data = data.split(' ')
-            time_stamp = time.time()
-            if time.time() - time_stamp > 0.1:
-                time_stamp = time.time()
-            else:
-                motor1.move_to_position(int(data[0]))
-                time.sleep(0.001)
-                motor2.move_to_position(int(data[1]))
+            motor1.move_to_position(int(data[0]))
+            time.sleep(0.001)
+            motor2.move_to_position(int(data[1]))
 
     finally:
         connection.close()
