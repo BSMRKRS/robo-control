@@ -10,6 +10,18 @@ import time
 import RoboPiLib_pwm as RPL
 RPL.RoboPiInit("/dev/ttyAMA0", 115200)
 
+
+
+freq = 3000
+## Motor 1 ##
+motor1 = ACL.Brushless_Encoded_Motor(0, 1, 26, 20, 1000, 1000, 21848.88, freq)
+
+
+## Motor2 ##
+motor2 = ACL.Brushless_Encoded_Motor(2, 3, 19, 16, 1000, 1000, 11098.56, freq)
+
+IKI = ACL.Inverse_Kinimatics(12.0, 12.0, motor1, motor2)
+
 ######################
 ##    Host Info     ##
 ######################
@@ -26,6 +38,7 @@ sock.listen(1)
 ######################
 ##      Main        ##
 ######################
+motor1 = ACL.
 while True:
     print >>sys.stderr, 'waiting for a connection'
     connection, client_address = sock.accept()
