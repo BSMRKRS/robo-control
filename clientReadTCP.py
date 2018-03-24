@@ -38,7 +38,7 @@ sock.listen(1)
 ######################
 ##      Main        ##
 ######################
-motor1 = ACL.
+
 while True:
     print >>sys.stderr, 'waiting for a connection'
     connection, client_address = sock.accept()
