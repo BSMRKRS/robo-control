@@ -65,12 +65,8 @@ while True:
         if event.type == pygame.QUIT:
             sys.exit()
     ui()
-    try:
-        sock.sendall(str(arm.data[0] + ' ' + arm.data[1]))
-        sleep(socketRate)
-
-    except:
-        print "Not connected to Robot!"
+    sock.sendall(str(arm.data[0] + ' ' + arm.data[1]))
+    sleep(socketRate)
 
     endpoints = [240, 190], [arm.shoulder_x, arm.shoulder_y], [
         arm.forarm_x, arm.forarm_y]
