@@ -51,6 +51,7 @@ while True:
             time.sleep(0.001)
             print data[1]
             motor2.binary_control(int(data[1]))
+            time.sleep(0.001)
 
     finally:
         connection.close()
