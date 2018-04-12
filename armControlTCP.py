@@ -63,29 +63,32 @@ def ui():
         y -= 1
         arm.armKinimatics(x, y)
 
-    shoulder = 0
-    elbow = 0
+
+shoulder = 0
+elbow = 0
 
 
 def ui_simple():
     global shoulder, elbow
     choice = raw_input()
-    if choice = "z":
+    if choice == "z":
         shoulder = 1
-    elif choice = "x":
+    elif choice == "x":
         shoulder = 2
-    elif choice = "c":
+    elif choice == "c":
         elbow = 1
-    elif choice = "v":
+    elif choice == "v":
         elbow = 2
     else:
         shoulder = 0
         elbow = 0
+    print "Shoulder: %i, Elbow: %i" % (shoulder, elbow)
 
 
 if simple:
+    print "Simple Mode"
     while True:
-
+        ui_simple()
         sock.sendall(str(str(int(shoulder)) + ' ' + str(int(elbow))))
         time.sleep(socketRate)
 elif not simple:
