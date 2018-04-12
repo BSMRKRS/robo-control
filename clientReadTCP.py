@@ -53,7 +53,7 @@ while True:
                 motor1.clockwise()
             elif data[0] == 2:
                 motor1.counterClockwise()
-            time.sleep(0.1))
+            time.sleep(0.1)
 
     finally:
         connection.close()
