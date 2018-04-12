@@ -63,6 +63,16 @@ class Brushless_Encoded_Motor(object):
         angle = angle * 360
         return angle
 
+    def binary_control(self, direction):
+        if direction == 0:
+            self.stop()
+        elif direction == 1:
+            self.clockwise()
+        elif direction == 2:
+            self.counterClockwise()
+        else:
+            self.stop()
+
     # starts the motor in the correct direction, or stops it if count is within margin
     def move_to_position(self, new_position):
         if abs(new_position - self.encoder.Rotary_counter) < 10:

@@ -57,6 +57,8 @@ def ui():
         arm.armKinimatics(x, y)
         updateFTP()
 
+for
+
 
 while 1:
     for event in pygame.event.get():

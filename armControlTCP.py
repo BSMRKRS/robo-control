@@ -39,6 +39,7 @@ sock.connect(server_address)
 
 rectangle = [0, 240], [0, 190], [240, 190], [240, 240]
 f = open('ftpTemp.txt', 'r+')
+simple = bool(raw_input("T/F, Simple Mode?>"))
 
 
 def ui():
@@ -62,22 +63,47 @@ def ui():
         y -= 1
         arm.armKinimatics(x, y)
 
+    shoulder = 0
+    elbow = 0
 
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            sys.exit()
-    ui()
-    sock.sendall(str(str(int(arm.data[0])) + ' ' + str(int(arm.data[1]))))
-    time.sleep(socketRate)
 
-    endpoints = [240, 190], [arm.shoulder_x, arm.shoulder_y], [
-        arm.forarm_x, arm.forarm_y]
-    endpoints_test = [240, 190], [arm.shoulder_x, arm.shoulder_y], [
-        arm.forarm_x_test, arm.forarm_y_test]
-    screen.fill([0, 0, 0])
-    pygame.draw.circle(screen, [0, 200, 0], [240, 190], 240, 1)
-    pygame.draw.polygon(screen, [200, 0, 0], rectangle, 5)
-    pygame.draw.lines(screen, [0, 0, 200], False, endpoints_test, 5)
-    pygame.draw.lines(screen, [200, 0, 0], False, endpoints, 5)
-    pygame.display.flip()
+def ui_simple():
+    global shoulder, elbow
+    choice = raw_input()
+    if choice = "z":
+        shoulder = 1
+    elif choice = "x":
+        shoulder = 2
+    elif choice = "c":
+        elbow = 1
+    elif choice = "v":
+        elbow = 2
+    else:
+        shoulder = 0
+        elbow = 0
+
+
+if simple:
+    while True:
+
+        sock.sendall(str(str(int(shoulder)) + ' ' + str(int(elbow))))
+        time.sleep(socketRate)
+elif not simple:
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+        ui()
+        sock.sendall(str(str(int(arm.data[0])) + ' ' + str(int(arm.data[1]))))
+        time.sleep(socketRate)
+
+        endpoints = [240, 190], [arm.shoulder_x, arm.shoulder_y], [
+            arm.forarm_x, arm.forarm_y]
+        endpoints_test = [240, 190], [arm.shoulder_x, arm.shoulder_y], [
+            arm.forarm_x_test, arm.forarm_y_test]
+        screen.fill([0, 0, 0])
+        pygame.draw.circle(screen, [0, 200, 0], [240, 190], 240, 1)
+        pygame.draw.polygon(screen, [200, 0, 0], rectangle, 5)
+        pygame.draw.lines(screen, [0, 0, 200], False, endpoints_test, 5)
+        pygame.draw.lines(screen, [200, 0, 0], False, endpoints, 5)
+        pygame.display.flip()
