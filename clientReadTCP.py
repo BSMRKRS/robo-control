@@ -47,10 +47,12 @@ while True:
             data = connection.recv(9)
             data = data.split(' ')
             print data[0]
-            motor1.binary_control(int(data[0]))
-            time.sleep(0.001)
-            print data[1]
-            motor2.binary_control(int(data[1]))
+            if data[0] == 0:
+                motor1.stop()
+            elif data[0] == 1:
+                motor1.clockwise()
+            elif data[0] == 2:
+                motor1.counterClockwise()
             time.sleep(0.001)
 
     finally:
