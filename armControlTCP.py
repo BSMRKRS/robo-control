@@ -29,7 +29,10 @@ screen = pygame.display.set_mode(size)
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # Connect the socket to the port on the server given by the caller
-server_address = (sys.argv[1], 10000)
+try:
+    server_address = (sys.argv[1], 10000)
+except:
+    server_address = (raw_input("Server IP> "), 10000)
 print >>sys.stderr, 'connecting to %s port %s' % server_address
 sock.connect(server_address)
 

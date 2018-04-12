@@ -210,6 +210,8 @@ class Inverse_Kinimatics(object):
     def __init__(self, len1, len2, motor1, motor2, motor3, motor4):
         self.len1 = len1
         self.len2 = len2
+        self.rot1 = math.radians(9.75)
+        self.rot2 = math.radians(19.5)
         if connected:
             self.motor1 = motor1  # shoulder motor
             self.motor2 = motor2  # elbow motor
@@ -217,7 +219,8 @@ class Inverse_Kinimatics(object):
             self.motor4 = motor4  # port wrist motor
         self.data = [0, 0, 0, 0]
         self.moving = False
-        self.visualization(24, 0)
+        self.visualization(12, 0)
+        # Speed stuff
 
     def LawOfCosines(self, a, b, c):
         C = math.acos((a * a + b * b - c * c) / (2 * a * b))
@@ -303,15 +306,18 @@ class Inverse_Kinimatics(object):
         len1 = self.len1
         len2 = self.len2
         dist = self.distance(x, y)
+#        print "dist: %f" % dist
 
         D1 = math.atan2(y, x)
 
         D2 = self.LawOfCosines(dist, len1, len2)
 
         A1 = D1 + D2
+#        print "A1: %f" % A1
 
         A2 = self.LawOfCosines(len1, len2, dist)
-        print self.deg(A1), self.deg(A2)
+#        print "A2: %f" % A2
+#        print self.deg(A1), self.deg(A2)
         return A1, A2
 
     def shoulderEnd(self, a1):
@@ -330,3 +336,54 @@ class Inverse_Kinimatics(object):
         a1, a2 = self.angle(x, y)
         self.shoulderEnd(a1)
         self.forarmEnd(x, y, a1, a2)
+
+    def derivative_c(self, dist, A2):
+        numerator = self.len1 * self.len2 * math.sin(A2) * self.rot2
+#        print "dC num: %f" % numerator
+        return numerator / float(dist)
+
+    def derivative_b2(self, dist, dC, A1):
+        alpha = dist ** 2 - self.len1 ** 2 + self.len2 ** 2
+#        print "alpha: %f" % alpha
+        beta = 2 * self.len1 * dist ** 2
+#        print "beta: %f" % beta
+        charlie = alpha / float(beta)
+#        print "charlie_inter: %f" % charlie
+        charlie = charlie * float(dC)
+#        print "charlie: %f" % charlie
+        delta = self.len1 ** 2 - self.len2 ** 2 + dist ** 2
+#        print "delta: %f" % delta
+        echo = 2 * self.len1 * dist
+#        print "echo: %f" % echo
+        foxtrot = delta / float(echo)
+        foxtrot = foxtrot ** 2
+#        print "foxtrot: %f" % foxtrot
+        golf = 1 - foxtrot
+#        print "golf: %f" % golf
+        hotel = golf ** -0.5
+#    print "hotel: %f" % hotel
+        return A1 - golf * charlie
+
+    def calcSpeed(self, x, y):
+        A1, A2 = self.angle(x, y)
+        dist = self.distance(x, y)
+        dC = self.derivative_c(dist, A2)
+#        print "dC: %f" % dC
+        dB2 = self.derivative_b2(dist, dC, A1)
+#        print "dB2: %f" % dB2
+        B2 = math.asin(y / dist)
+        dY = dist * math.cos(B2) * dB2 + dC * math.sin(B2)
+        dX = -1 * dist * math.sin(B2) * dB2 + dC * math.cos(B2)
+#        print "Speed along x axis: %f" % dX
+#        print "Speed along y axis: %f" % dY
+#        self.errorCheck(dist, dY, dX, dC, x, y)
+        return dY, dX
+
+    def errorCheck(self, dist, dY, dX, dC, x, y):
+        a = x * dX + y * dY
+        b = a / dist
+        print "errorCheck dc/dt: %f" % b
+        if b == dC:
+            print "correct"
+        else:
+            print "you messed up"

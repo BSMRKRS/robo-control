@@ -11,7 +11,6 @@ import RoboPiLib_pwm as RPL
 RPL.RoboPiInit("/dev/ttyAMA0", 115200)
 
 
-
 freq = 3000
 ## Motor 1 ##
 motor1 = ACL.Brushless_Encoded_Motor(0, 1, 26, 20, 1000, 1000, 21848.88, freq)
