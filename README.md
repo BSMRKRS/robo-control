@@ -23,3 +23,19 @@ If you want to add control for more motors, you'll need to change the code in th
 1. At the top define the motor pin number with `<<pin_name>> = <<pin_number>>, set the behavior of that pin with `RPL.pinMode(<<pin_name>>,RPL.SERVO)` Or whatever the mode is
 1. In the `## Individual commands` section, define the function that will be called when you press a key.
 1. In the loop that interprets the keypresses (i.e., below `while True`), you have to add another `elif ch == ` clause, and on the line below it, call the function you want to run when that key is pressed.
+
+# Calibrating the Robo Claw
+
+Go to: http://downloads.ionmc.com/docs/roboclaw_user_manual.pdf
+That is the user manual for the roboclaw. 
+
+Start on page 35, there are directions on changing/calibrating the settings using buttons. 
+You should only need to do this once. Follow those steps:
+
+1. Set the mode to #2
+2. Set the RC and Analog Mode Option to #1
+3. Set the battery cut of setting to #3.
+
+Note: a google doc to assist with pictures can be found at:
+https://docs.google.com/document/d/1vX8kyhk5Z4co1_WqM5d8NqWj-nqdgjSJMBSYlomTu0M/edit
+------------------------
