@@ -69,10 +69,30 @@ def ui():
         motor2.clockwise()
     elif choice == "v":
         motor2.counterClockwise()
+    elif choice == "b":
+        motor3.counterClockwise()
+        sleep(0.001)
+        motor4.counterClockwise()
+    elif choice == "n":
+        motor3.clockwise()
+        sleep(0.001)
+        motor4.clockwise()
+    elif choice == "m":
+        motor3.counterClockwise()
+        sleep(0.001)
+        motor4.clockwise()
+    elif choice == "l":
+        motor3.clockwise()
+        sleep(0.001)
+        motor4.counterClockwise()
     else:
         motor1.stop()
         sleep(0.01)
         motor2.stop()
+        sleep(0.01)
+        motor3.stop()
+        sleep(0.01)
+        motor4.stop()
     ui()
 ################################
 # EXECUTE
@@ -89,7 +109,11 @@ motor1 = ACL.Brushless_Encoded_Motor(0, 1, 26, 20, 1000, 1000, 21848.88, freq)
 
 ## Motor2 ##
 motor2 = ACL.Brushless_Encoded_Motor(2, 3, 19, 16, 1000, 1000, 11098.56, freq)
+
+motor3 = ACL.Continous_Rotation_Servo(4, 500)
+motor4 = ACL.Continous_Rotation_Servo(5, 500)
 inverse_kinimatic_instance = ACL.Inverse_Kinimatics(
-    len1, len2, motor1, motor2, 0, 0)
+    len1, len2, motor1, motor2, motor3, motor4)
+
 
 ui()
