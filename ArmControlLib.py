@@ -88,7 +88,7 @@ class Brushless_Encoded_Motor(object):
 
 class Continous_Rotation_Servo(object):
 
-    def __init__(controlPin, speed):
+    def __init__(self, controlPin, speed):
         self.controlPin = controlPin
         self.speed = speed
         self.setup()
