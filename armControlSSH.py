@@ -71,19 +71,19 @@ def ui():
         motor2.counterClockwise()
     elif choice == "b":
         motor3.counterClockwise()
-        sleep(0.001)
+        sleep(0.01)
         motor4.counterClockwise()
     elif choice == "n":
         motor3.clockwise()
-        sleep(0.001)
+        sleep(0.01)
         motor4.clockwise()
     elif choice == "m":
         motor3.counterClockwise()
-        sleep(0.001)
+        sleep(0.01)
         motor4.clockwise()
     elif choice == "l":
         motor3.clockwise()
-        sleep(0.001)
+        sleep(0.01)
         motor4.counterClockwise()
     else:
         motor1.stop()
