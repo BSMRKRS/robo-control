@@ -83,7 +83,7 @@ def ui():
         motor4.clockwise()
     elif choice == "l":
         motor3.clockwise()
-        sleep(0.01)
+        sleep(0.5)
         motor4.counterClockwise()
     else:
         motor1.stop()
