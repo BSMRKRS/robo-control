@@ -1,70 +1,50 @@
 import RoboPiLib as RPL
 RPL.RoboPiInit("/dev/ttyAMA0",115200)
 
-import sys, tty, termios, signal
+import time as time
+import serial
+import sys
+import tty
+import termios
+import signal
 
 ######################
 ## Motor Establishment
 ######################
 
-motorL = 0
-motorR = 1
+motorL = 3
+motorR = 0
 
-motorR_forward = 2000
-motorR_backward = 1000
-motorL_forward = 1000
-motorL_backward = 2000
+motorL_forward = 2000
+motorL_backward = 1000
+motorR_forward = 1750
+motorR_backward = 1150
+time1 = 1.215
+time2 = 1.15
 
 try:
   RPL.pinMode(motorL,RPL.SERVO)
   RPL.servoWrite(motorL,1500)
   RPL.pinMode(motorR,RPL.SERVO)
-  RPL.servoWrite(motorR,1500)
+  RPL.servoWrite(motorR,1150)
 except:
   pass
 
-######################
-## Individual commands
-######################
 def stopAll():
   try:
-    RPL.servoWrite(motorL,1500)
-    RPL.servoWrite(motorR,1500)
+    RPL.servoWrite(motorL,0)
+    RPL.servoWrite(motorR,0)
   except:
     print "error except"
     pass
 
+
+
 def forward():
-  RPL.servoWrite(motorL,motorL_forward)
-  RPL.servoWrite(motorR,motorR_forward)
+   RPL.servoWrite(motorL,motorL_forward)
 
 def reverse():
-  RPL.servoWrite(motorL,motorL_backward)
-  RPL.servoWrite(motorR,motorR_backward)
-
-def right():
-  RPL.servoWrite(motorL,1460)#motorL_forward)
-  RPL.servoWrite(motorR,1460)#motorR_backward)
-
-def left():
-  RPL.servoWrite(motorL,1540)#motorL_backward)
-  RPL.servoWrite(motorR,1540)#motorR_forward)
-
-def forward_right():
-  RPL.servoWrite(motorL,motorL_forward)
-  RPL.servoWrite(motorR,1500)
-
-def forward_left():
-  RPL.servoWrite(motorL,1500)
-  RPL.servoWrite(motorR,motorR_forward)
-
-def backward_right():
-  RPL.servoWrite(motorL,1500)
-  RPL.servoWrite(motorR,motorR_backward)
-
-def backward_left():
-  RPL.servoWrite(motorL,motorL_backward)
-  RPL.servoWrite(motorR,1500)
+   RPL.servoWrite(motorL,motorL_backward)
 
 def print_speed():
   print '--FORWARD: Left Motor: ', motorL_forward, ' Right Motor: ', motorR_forward, '\r'
@@ -88,29 +68,42 @@ def backwardSpeedChanges(change, mn = 100, mx = 1400):
   motorL_backward = max(min(motorL_backward, mx), mn)
   print_speed()
 
-def backwardRightSpeedChange(change, mn = 100, mx = 1400):
+def backwardRightSpeedChange(change, mn = 1150, mx = 1750):
   global motorR_backward
   motorR_backward += change
   motorR_backward = max(min(motorR_backward, mx), mn)
   print_speed()
 
-def backwardLeftSpeedChange(change, mn = 100, mx = 1400):
+def backwardLeftSpeedChange(change, mn = 1000, mx = 1500):
   global motorL_backward
   motorL_backward += change
   motorL_backward = max(min(motorL_backward, mx), mn)
   print_speed()
 
-def forwardRightSpeedChange(change, mn = 1600, mx = 2900):
+def forwardRightSpeedChange(change, mn = 1150, mx = 1750):
   global motorR_forward
   motorR_forward += change
   motorR_forward = max(min(motorR_forward, mx), mn)
   print_speed()
 
-def forwardLeftSpeedChange(change, mn = 1600, mx = 2900):
+def forwardLeftSpeedChange(change, mn = 1500, mx = 2000):
   global motorL_forward
   motorL_forward += change
   motorL_forward = max(min(motorL_forward, mx), mn)
   print_speed()
+
+
+def on():
+  RPL.servoWrite(motorR,motorR_forward)
+
+def off():
+  RPL.servoWrite(motorR,motorR_backward)
+
+def pvc():
+  RPL.servoWrite(motorR, 1250)
+
+def wood():
+  RPL.servoWrite(motorR, 1400)
 
 fd = sys.stdin.fileno() # I don't know what this does
 old_settings = termios.tcgetattr(fd) # this records the existing console settings that are later changed with the tty.setraw... line so that they can be replaced when the loop ends
@@ -138,44 +131,61 @@ while True:
     break # this ends the loop
   else:
     if ch == 'w':
+      on()
+
+    elif ch == 'a':
       forward()
-    elif ch == "a":
-      left()
-    elif ch == "s":
+
+    elif ch == 's':
+      off()
+
+    elif ch == 'd':
       reverse()
-    elif ch == "d":
-      right()
-    elif ch == "e":
-      forward_right()
-    elif ch == "q":
-      forward_left()
-    elif ch == "z":
-      backward_left()
-    elif ch == "c":
-      backward_right()
-    elif ch == "]":
-      forwardSpeedChanges(100)
+
+    elif ch == 'p':
+      pvc()
+
+    elif ch == 'o':
+      wood()
+
     elif ch == "[":
       backwardSpeedChanges(-100)
+
     elif ch == "}":
       forwardSpeedChanges(-100)
+
     elif ch == "{":
       backwardSpeedChanges(100)
-    elif ch == "1":
-      forwardLeftSpeedChange(100)
-    elif ch == "!":
-      forwardLeftSpeedChange(-100)
-    elif ch == "2":
-      forwardRightSpeedChange(100)
-    elif ch == "@":
+
+    elif ch == "6":
+      forwardLeftSpeedChange(50)
+      forward()
+
+    elif ch == "5":
+      forwardLeftSpeedChange(-50)
+      forward()
+
+    elif ch == "-":
+      forwardRightSpeedChange(200)
+
+    elif ch == "x":
       forwardRightSpeedChange(-100)
+
     elif ch == "3":
-      backwardLeftSpeedChange(-100)
-    elif ch == "#":
-      backwardLeftSpeedChange(100)
+      backwardLeftSpeedChange(-50)
+      reverse()
+
     elif ch == "4":
-      backwardRightSpeedChange(-100)
-    elif ch == "$":
-      backwardRightSpeedChange(100)
+      backwardLeftSpeedChange(50)
+      reverse()
+
+    elif ch == "1":
+      backwardRightSpeedChange(-50)
+      off()
+
+    elif ch == "2":
+      backwardRightSpeedChange(50)
+      off()
+
     else:
       stopAll()
