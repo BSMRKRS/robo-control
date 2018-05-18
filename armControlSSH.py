@@ -108,7 +108,8 @@ motor1 = ACL.Brushless_Encoded_Motor(0, 1, 26, 20, 1000, 1000, 21848.88, freq)
 
 
 ## Motor2 ##
-motor2 = ACL.Brushless_Encoded_Motor(2, 3, 19, 16, 1000, 1000, 11098.56, freq)
+motor2 = ACL.Brushless_Encoded_Motor(
+    2, 3, 19, 16, -1000, -1000, 11098.56, freq)
 
 motor3 = ACL.Continous_Rotation_Servo(4, 500)
 motor4 = ACL.Continous_Rotation_Servo(5, 500)
