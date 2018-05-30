@@ -117,4 +117,22 @@ inverse_kinimatic_instance = ACL.Inverse_Kinimatics(
     len1, len2, motor1, motor2, motor3, motor4)
 
 
-ui()
+# ui()
+
+
+def test_to_pos(pos):
+    motor1.move_to_position(pos)
+    motor2.move_to_position(pos)
+    while True:
+        if abs(motor1.encoder.Rotary_counter - pos) < 5:
+            motor1.stop()
+            continue
+        elif abs(motor2.encoder.Rotary_counter - pos) < 5:
+            motor2.stop()
+            continue
+    while abs(motor1.encoder.Rotary_counter - pos) < 5:
+        print motor1.encoder.Rotary_counter
+    while abs(motor2.encoder.Rotary_counter - pos) < 5:
+        print motor2.encoder.Rotary_counter
+    motor1.stop()
+    motor2.stop()
