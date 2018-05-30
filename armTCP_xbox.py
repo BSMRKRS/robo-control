@@ -17,8 +17,10 @@ xDeadZoneRight = 0.06
 yDeadZoneRight = 0.06
 
 # motor speeds (assumes there is the same possible speeds going in reverse)
-maxMotorL = 500
-maxMotorR = 500
+maxShoulder = 500
+maxElbow = 500
+shoulder = 0
+elbow = 0
 
 ######################
 # 0. Initialization
@@ -133,14 +135,14 @@ except:
 ######################
 ##      Main        ##
 ######################
-ui()
+
 while True:
     controllerInput()
     data = armMotors()
 
     try:
         sock.sendall(
-            str(int(KitBotSpeed(data[0]))) + ' ' + str(int(KitBotSpeed(data[1]))))
+            str(str(int(KitBotSpeed(data[0]))) + ' ' + str(int(KitBotSpeed(data[1])))))
         sleep(socketRate)
 
     except:

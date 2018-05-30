@@ -45,6 +45,7 @@ while True:
         print >>sys.stderr, 'client connected:', client_address
         while True:
             data = connection.recv(9)
+            print data
             data = data.split(' ')
             RPL.pwmWrite(0, int(data[0]), freq)
             RPL.pwmWrite(2, int(data[1]), freq)
