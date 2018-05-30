@@ -50,6 +50,9 @@ while True:
             RPL.pwmWrite(0, int(data[0]), freq)
             time.sleep(0.01)
             RPL.pwmWrite(2, int(data[1]), freq)
+            sock.sendall(
+                str(str(int(motor1.encoder.Rotary_counter)) + ' ' + str(int(motor2.encoder.Rotary_counter))))
+            sleep(socketRate)
 
     finally:
         connection.close()

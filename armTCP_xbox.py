@@ -17,8 +17,8 @@ xDeadZoneRight = 0.06
 yDeadZoneRight = 0.06
 
 # motor speeds (assumes there is the same possible speeds going in reverse)
-maxShoulder = 500
-maxElbow = 500
+maxShoulder = 1250
+maxElbow = 1250
 shoulder = 0
 elbow = 0
 
@@ -73,9 +73,9 @@ def controllerInput():
     bumperR = joystick.get_button(5)
 
     # dpad works w/ PS4 controller, but not xbox
-    #dpad = joystick.get_hat(0)
-    #dpadxaxis = dpad[0]
-    #dpadyaxis = dpad[1]
+    # dpad = joystick.get_hat(0)
+    # dpadxaxis = dpad[0]
+    # dpadyaxis = dpad[1]
 
     # if dpadxaxis > 0:
     #    dpadright = dpadxaxis
@@ -137,12 +137,14 @@ except:
 ######################
 
 while True:
+    counters = connection.recv(9)
+    counters = counters.split(' ')
+    print counters
     controllerInput()
     data = armMotors()
-
     try:
         sock.sendall(
-            str(str(int(KitBotSpeed(data[0]))) + ' ' + str(int(KitBotSpeed(data[1])))))
+            str(str(int(Speed(data[0]))) + ' ' + str(int(Speed(data[1])))))
         sleep(socketRate)
 
     except:
@@ -150,7 +152,3 @@ while True:
         exit()
 
     os.system('clear')
-    print "#" * 60
-    print "##", " " * 20, "Motor Values", " " * 20, "##"
-    print "#" * 60
-    print "motorL: ", drive[0], "motorR: ", drive[1]
