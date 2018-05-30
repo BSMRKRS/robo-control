@@ -137,9 +137,6 @@ except:
 ######################
 
 while True:
-    counters = connection.recv(9)
-    counters = counters.split(' ')
-    print counters
     controllerInput()
     data = armMotors()
     try:
