@@ -48,7 +48,7 @@ while True:
             print data
             data = data.split(' ')
             RPL.pwmWrite(0, int(data[0]), freq)
-            RPL.pwmWrite(2, int(data[1]), freq)
+            #RPL.pwmWrite(2, int(data[1]), freq)
 
     finally:
         connection.close()
