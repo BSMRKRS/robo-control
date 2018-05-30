@@ -46,14 +46,8 @@ while True:
         while True:
             data = connection.recv(9)
             data = data.split(' ')
-            print data[0]
-            if data[0] == 0:
-                motor1.stop()
-            elif data[0] == 1:
-                motor1.clockwise()
-            elif data[0] == 2:
-                motor1.counterClockwise()
-            time.sleep(0.1)
+            RPL.pwmWrite(0, int(data[0]), freq)
+            RPL.pwmWrite(2, int(data[1]), freq)
 
     finally:
         connection.close()
