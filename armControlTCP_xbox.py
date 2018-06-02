@@ -37,6 +37,18 @@ pygame.init()
 pygame.display.init()
 pygame.joystick.init()
 
+pygame.event.get()
+
+try:
+    joystick = pygame.joystick.Joystick(0)
+    print("Connected through TCP with a controller")
+except:
+    print "ERROR: Controller not found!"
+    print "#" * 60
+    print "Attempting to connect through TCP without controller"
+    import armControlTCP
+
+
 ######################
 # 2. Controller Reading
 ######################
