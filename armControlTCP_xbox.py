@@ -59,6 +59,7 @@ def controllerInput():
     except:
         print "ERROR: Controller not found!"
         print "#" * 60
+        import armControllTCP
         exit()
 
     joystick.init()
