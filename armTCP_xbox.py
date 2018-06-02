@@ -17,10 +17,18 @@ xDeadZoneRight = 0.06
 yDeadZoneRight = 0.06
 
 # motor speeds (assumes there is the same possible speeds going in reverse)
-maxShoulder = 1250
-maxElbow = 1250
-shoulder = 0
-elbow = 0
+maxmotor1 = 1250
+maxmotor2 = 1250
+maxmotor6 = 1250
+wrist_flip = 500
+maxWrist_twist = 1250
+grasper = 500
+motor1 = 0  # shoulder
+motor2 = 0  # elbow
+motor3 = 0  # left wrist
+motor4 = 0  # right wrist
+motor5 = 0  # grasper
+motor6 = 0  # turret
 
 ######################
 # 0. Initialization
@@ -90,20 +98,46 @@ def controllerInput():
 ######################
 # 3. Inturpret Joystick
 ######################
-def armMotors():
-    global shoulder, elbow
+def interp_motors():
+    global motor1, motor2, motor3, motor4, motor5, motor6
 
     if -yDeadZoneRight < yAxisRight < yDeadZoneRight:
-        shoulder = 0
+        motor1 = 0
     else:
-        shoulder = maxShoulder * -yAxisRight
+        motor1 = maxmotor1 * -yAxisRight
 
     if -yDeadZoneLeft < yAxisLeft < yDeadZoneLeft:
-        elbow = 0
+        motor2 = 0
     else:
-        elbow = maxElbow * -yAxisLeft
+        motor2 = maxmotor2 * -yAxisLeft
 
-    return shoulder, elbow
+    if -xDeadZoneRight < xAxisRight < xDeadZoneRight:
+        motor6 = 0
+    else:
+        motor6 = maxmotor6 * -xAxisRight
+
+    if -xDeadZoneLeft < xAxisLeft < xDeadZoneLeft:
+        if buttonX:
+            motor3 = wrist_flip
+            motor4 = -wrist_flip
+        elif buttonCircle:
+            motor3 = -wrist_flip
+            motor4 = wrist_flip
+        else:
+            motor3 = 0
+            motor4 = 0
+    else:
+        motor3 = maxWrist_twist * -xAxisLeft
+        motor4 = maxWrist_twist * -xAxisLeft
+
+    if buttonSquare:
+        motor5 = grasper
+    elif buttonTriangle:
+        motor5 = -grasper
+    else:
+        motor5 = 0
+
+    return motor1, motor2, motor3, motor4, motor5, motor6
 
 
 ######################
@@ -132,16 +166,23 @@ except:
     exit()
 
 
+def pack_data(data):
+    package = ""
+    for info in data:
+        package += str(int(Speed(info)))
+        package += ' '
+    return package
+
+
 ######################
 ##      Main        ##
 ######################
 
 while True:
     controllerInput()
-    data = armMotors()
+    data = interp_motors()
     try:
-        sock.sendall(
-            str(str(int(Speed(data[0]))) + ' ' + str(int(Speed(data[1])))))
+        sock.sendall(pack_data(data))
         sleep(socketRate)
 
     except:

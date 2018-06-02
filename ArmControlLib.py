@@ -52,11 +52,17 @@ class Brushless_Encoded_Motor(object):
     def stop(self):  # stops the motor
         RPL.pwmWrite(self.controlPin, 1500, self.freq)
 
+    def run(self, speed):
+        RPL.pwmWrite(self.controlPin, speed, self.freq)
+
     def clockwise(self):  # runs the motor clockwise
         RPL.pwmWrite(self.controlPin, 1500 + self.forward_speed, self.freq)
 
     def counterClockwise(self):  # runs the motor counterClockwise
         RPL.pwmWrite(self.controlPin, 1500 - self.backward_speed, self.freq)
+
+    def speed_control_run(speed):
+        RPL.pwmWrite(self.controlPin, )
 
     def current_angle(self):  # finds the current angle of the motor
         angle = self.encoder.Rotary_counter / self.cycleEvents
@@ -102,6 +108,9 @@ class Continous_Rotation_Servo(object):
 
     def counterClockwise(self):  # runs the motor counterClockwise
         RPL.servoWrite(self.controlPin, 1000)
+
+    def run(self, speed):
+        RPL.servoWrite(self.controlPin, speed)
 
     def stop(self):  # stops the motor
         RPL.servoWrite(self.controlPin, 1500)

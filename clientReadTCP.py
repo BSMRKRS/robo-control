@@ -12,12 +12,20 @@ RPL.RoboPiInit("/dev/ttyAMA0", 115200)
 
 
 freq = 3000
+
 ## Motor 1 ##
 motor1 = ACL.Brushless_Encoded_Motor(0, 1, 26, 20, 1000, 1000, 21848.88, freq)
 
 
 ## Motor2 ##
 motor2 = ACL.Brushless_Encoded_Motor(2, 3, 19, 16, 1000, 1000, 11098.56, freq)
+
+motor3 = ACL.Continous_Rotation_Servo(4, 500)
+motor4 = ACL.Continous_Rotation_Servo(5, 500)
+motor5 = ACL.Continous_Rotation_Servo(6, 500)
+motor6 = ACL.Continous_Rotation_Servo(7, 500)
+
+motors = [motor1, motor2, motor3, motor4, motor5, motor6]
 
 IKI = ACL.Inverse_Kinimatics(12.0, 12.0, motor1, motor2, 0, 0)
 
@@ -44,12 +52,13 @@ while True:
     try:
         print >>sys.stderr, 'client connected:', client_address
         while True:
-            data = connection.recv(9)
-            print data
+            data = connection.recv(30)
             data = data.split(' ')
-            RPL.pwmWrite(0, int(data[0]), freq)
-            time.sleep(0.01)
-            RPL.pwmWrite(2, int(data[1]), freq)
+            i = 0
+            for motor in motors:
+                motor.run(int(data[i]))
+                i += 1
+                time.sleep(0.01)
 
     finally:
         connection.close()
