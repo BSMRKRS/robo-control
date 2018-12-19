@@ -18,10 +18,7 @@ front = 16
 left = 17
 right = 18
 ideal = 300
-rtick  = 0
-ltick = 0
-rwall = False
-lwall = False
+tick  = 0
 def turn9l(amnt):
 	RPL.servoWrite(motorL, 2000)
         RPL.servoWrite(motorR, 2000)
@@ -34,5 +31,5 @@ def turn9r(amnt):
         time.sleep(amnt)
         RPL.servoWrite(motorL, 1500)
         RPL.servoWrite(motorR, 1500)
-RPL.servoWrite(motorL, 1500)
-RPL.servoWrite(motorR, 1500)
+
+turn9r(1.1)
